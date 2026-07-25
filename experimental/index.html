@@ -7,254 +7,93 @@
     <title>ualinuxoid – Experimental</title>
     <style>
         :root {
-            --bg: #f4f6f9;
-            --card: #ffffff;
-            --text: #1e1e2f;
-            --muted: #64748b;
-            --border: #e5e7eb;
-            --accent: #2563eb;
-            --accent-soft: #e0e7ff;
-            --warn-bg: #fef9e7;
-            --warn-border: #f59e0b;
+            --bg: #f4f6f9; --card: #ffffff; --text: #1e1e2f; --muted: #64748b;
+            --border: #e5e7eb; --accent: #2563eb; --accent-soft: #e0e7ff;
+            --warn-bg: #fef9e7; --warn-border: #f59e0b;
             --shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
         }
         body.dark {
-            --bg: #1a1b26;
-            --card: #24283b;
-            --text: #d4d4d4;
-            --muted: #a9b1d6;
-            --border: #3b4261;
-            --accent: #7aa2f7;
-            --accent-soft: #3b4261;
-            --warn-bg: #2d2a1e;
-            --warn-border: #fbbf24;
+            --bg: #1a1b26; --card: #24283b; --text: #d4d4d4; --muted: #a9b1d6;
+            --border: #3b4261; --accent: #7aa2f7; --accent-soft: #3b4261;
+            --warn-bg: #2d2a1e; --warn-border: #fbbf24;
             --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            padding: 20px;
-            transition: background 0.25s, color 0.25s;
+            background: var(--bg); color: var(--text); line-height: 1.7;
+            padding: 20px; transition: background 0.25s, color 0.25s;
         }
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--card);
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-            padding: 40px 50px;
-            transition: background 0.25s;
+            max-width: 800px; margin: 0 auto; background: var(--card);
+            border-radius: 28px; box-shadow: var(--shadow); padding: 40px 50px;
         }
-        @media (max-width: 640px) {
-            .container { padding: 24px; border-radius: 20px; }
-            body { padding: 12px; }
-        }
-
+        @media (max-width: 640px) { .container { padding: 24px; border-radius: 20px; } body { padding: 12px; } }
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 28px;
-        }
-        .nav a {
-            font-weight: 600;
-            color: var(--muted);
-            margin-right: 16px;
-            transition: color 0.2s;
-        }
+        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+        .nav a { font-weight: 600; color: var(--muted); margin-right: 16px; }
         .nav a:hover, .nav a.active { color: var(--accent); text-decoration: none; }
-
-        .header-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
+        .header-controls { display: flex; gap: 10px; align-items: center; }
+        .lang-switch { display: flex; gap: 4px; background: var(--accent-soft); border-radius: 40px; padding: 4px; }
+        .lang-btn { border: none; background: transparent; padding: 5px 13px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer; color: var(--muted); }
+        .lang-btn.active { background: var(--card); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .theme-toggle, .cat-btn {
+            background: none; border: none; font-size: 1.35rem; cursor: pointer;
+            padding: 4px 8px; border-radius: 30px; text-decoration: none;
+            display: inline-flex; align-items: center; justify-content: center;
         }
-        .lang-switch {
-            display: flex;
-            gap: 4px;
-            background: var(--accent-soft);
-            border-radius: 40px;
-            padding: 4px;
-        }
-        .lang-btn {
-            border: none;
-            background: transparent;
-            padding: 5px 13px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            color: var(--muted);
-        }
-        .lang-btn.active {
-            background: var(--card);
-            color: var(--text);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 1.35rem;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 30px;
-        }
-
         .lang-block { display: none; }
         .lang-block.active { display: block; }
-
-        .page-title {
-            font-size: 1.9rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .page-subtitle {
-            color: var(--muted);
-            font-size: 1rem;
-            margin-bottom: 22px;
-        }
-
+        .page-title { font-size: 1.9rem; font-weight: 700; margin-bottom: 4px; }
+        .page-subtitle { color: var(--muted); font-size: 1rem; margin-bottom: 22px; }
         .experimental-warning {
-            background: var(--warn-bg);
-            border-left: 6px solid var(--warn-border);
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin: 8px 0 26px;
-            font-weight: 500;
+            background: var(--warn-bg); border-left: 6px solid var(--warn-border);
+            padding: 14px 18px; border-radius: 12px; margin: 8px 0 26px; font-weight: 500;
         }
-
-        .tool-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin: 12px 0 8px;
-        }
+        .tool-list { display: flex; flex-direction: column; gap: 16px; margin: 12px 0 8px; }
         .tool-card {
             background: color-mix(in srgb, var(--bg) 65%, var(--card));
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 16px 20px;
-            transition: border-color 0.2s;
+            border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px;
         }
-        .tool-card:hover {
-            border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-        }
-        .tool-name {
-            font-size: 1.12rem;
-            font-weight: 700;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .tool-badge {
-            font-size: 0.65rem;
-            font-weight: 600;
-            background: var(--accent-soft);
-            padding: 0.12rem 0.65rem;
-            border-radius: 30px;
-            color: var(--muted);
-        }
-        .tool-desc {
-            margin-top: 6px;
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-        .tool-desc code {
-            font-size: 0.88em;
-            background: color-mix(in srgb, var(--accent-soft) 50%, transparent);
-            padding: 1px 5px;
-            border-radius: 4px;
-        }
-        .tool-links {
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 16px;
-        }
+        .tool-card:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+        .tool-name { font-size: 1.12rem; font-weight: 700; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+        .tool-badge { font-size: 0.65rem; font-weight: 600; background: var(--accent-soft); padding: 0.12rem 0.65rem; border-radius: 30px; color: var(--muted); }
+        .tool-desc { margin-top: 6px; color: var(--muted); font-size: 0.95rem; }
+        .tool-desc code { font-size: 0.88em; background: color-mix(in srgb, var(--accent-soft) 50%, transparent); padding: 1px 5px; border-radius: 4px; }
+        .tool-links { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px 16px; }
         .tool-links a { font-weight: 500; }
-
-        .donate-box {
-            background: var(--warn-bg);
-            border-left: 5px solid var(--warn-border);
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin: 24px 0 10px;
-        }
-
-        hr {
-            border: none;
-            border-top: 2px dashed var(--border);
-            margin: 24px 0 12px;
-        }
-        .footer {
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
+        .donate-box { background: var(--warn-bg); border-left: 5px solid var(--warn-border); padding: 14px 18px; border-radius: 12px; margin: 24px 0 10px; }
+        hr { border: none; border-top: 2px dashed var(--border); margin: 24px 0 12px; }
+        .footer { text-align: center; font-size: 0.85rem; color: var(--muted); }
         .footer a { color: var(--muted); }
         .footer a:hover { color: var(--accent); }
 
         #ru-block {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.72);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            backdrop-filter: blur(4px);
+            display: none; position: fixed; inset: 0; background: #0a0a0a; z-index: 9999;
+            align-items: center; justify-content: center; padding: 24px; flex-direction: column; text-align: center;
         }
         #ru-block.ru-visible { display: flex; }
         #main-content.ru-hidden { display: none !important; }
-        #ru-block .panel {
-            background: #fff;
-            color: #1e1e2f;
-            padding: 26px 28px;
-            border-radius: 14px;
-            max-width: 520px;
-            width: 100%;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
-        }
-        .ru-title { font-weight: 700; font-size: 1.35rem; margin-bottom: 0.45rem; }
-        .ru-text-danger { font-weight: 700; color: #b91c1c; margin-bottom: 0.6rem; }
-        .ru-text-muted { color: #64748b; margin-bottom: 1rem; font-size: 0.95rem; }
-        .ru-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-        .btn {
-            padding: 9px 15px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .btn.primary { background: #2563eb; color: #fff; }
-        .btn.ghost { background: transparent; border: 1px solid #e2e8f0; color: #334155; }
+        #ru-block .panel { max-width: 520px; color: #f1f5f9; }
+        .ru-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; color: #f87171; }
+        .ru-text { font-size: 1.15rem; line-height: 1.55; margin-bottom: 0.8rem; color: #e2e8f0; }
+        .ru-ship { font-size: 1.35rem; font-weight: 700; color: #fbbf24; margin: 1.4rem 0 0.6rem; }
+        .ru-arrow { font-size: 2.5rem; margin: 0.4rem 0 1rem; animation: drift 2.2s ease-in-out infinite; }
+        @keyframes drift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(18px); } }
+        .ru-sub { font-size: 0.9rem; color: #94a3b8; margin-top: 1.2rem; }
     </style>
 </head>
 <body>
     <div class="container">
-
-        <div id="ru-block" role="dialog" aria-modal="true" aria-labelledby="ru-title" aria-hidden="true">
+        <div id="ru-block" role="alertdialog" aria-modal="true" aria-labelledby="ru-title" aria-hidden="true">
             <div class="panel">
-                <div class="ru-title" id="ru-title">Доступ обмежено</div>
-                <div class="ru-text-danger">Виявлено російську мову браузера та/або часовий пояс, пов’язаний з Росією.</div>
-                <div class="ru-text-muted">Цей сайт для українсько- та англомовної аудиторії. Якщо ви не з РФ — натисніть «Продовжити».</div>
-                <div class="ru-actions">
-                    <button class="btn primary" id="ru-continue" type="button">Продовжити</button>
-                    <button class="btn ghost" id="ru-switch-en" type="button">Перемкнути на English</button>
-                </div>
+                <div class="ru-title" id="ru-title">Access denied</div>
+                <div class="ru-text">Your browser language and/or timezone indicate Russia.</div>
+                <div class="ru-text">This site is not for you.</div>
+                <div class="ru-ship">You should go in the direction of your warship.</div>
+                <div class="ru-arrow" aria-hidden="true">→ 🚢</div>
+                <div class="ru-sub">Слава Україні · Glory to Ukraine</div>
             </div>
         </div>
 
@@ -270,6 +109,7 @@
                         <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
                         <button class="lang-btn" data-lang="en" type="button">🇬🇧 Eng</button>
                     </div>
+                    <a class="cat-btn" href="/cat/" title="🐱" aria-label="Cat easter egg">🐱</a>
                     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
                 </div>
             </div>
@@ -277,87 +117,107 @@
             <div class="lang-block active" data-lang="uk">
                 <h1 class="page-title">🧪 Експериментальні проєкти</h1>
                 <div class="page-subtitle">Інструменти, які потребують обережності</div>
-
-                <div class="experimental-warning">
-                    <strong>⚠️ УВАГА!</strong> Експериментальна секція <strong>НЕ</strong> пройшла повне тестування і <strong>НЕ ПОВИННА</strong> використовуватися на критичних системах.
-                </div>
+                <div class="experimental-warning"><strong>⚠️ УВАГА!</strong> Секція <strong>НЕ</strong> пройшла повне тестування і <strong>НЕ ПОВИННА</strong> використовуватися на критичних системах. Робіть повний бекап.</div>
 
                 <div class="tool-list">
                     <div class="tool-card">
                         <div class="tool-name">🛡️ Hosts file generator <span class="tool-badge">crapblock.sh</span></div>
-                        <div class="tool-desc">Блокує найпопулярніші домени .ru та .su через <code>/etc/hosts</code>.</div>
+                        <div class="tool-desc">Генерує /etc/hosts, що блокує найпопулярніші домени .ru та .su.</div>
                         <div class="tool-links">
                             <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crapblock.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
                             <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crapblock.sh" target="_blank" rel="noopener">🐙 GitHub</a>
                         </div>
                     </div>
-
                     <div class="tool-card">
                         <div class="tool-name">🔐 GPG GUI <span class="tool-badge">crypt.sh</span></div>
-                        <div class="tool-desc">Використовує GPG, zenity та чистий bash для легкої системи шифрування на Linux.</div>
+                        <div class="tool-desc">Легка система шифрування на GPG + zenity + bash (орієнтовано на Linux Mint).</div>
                         <div class="tool-links">
                             <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crypt.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
                             <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crypt.sh" target="_blank" rel="noopener">🐙 GitHub</a>
                         </div>
                     </div>
-
                     <div class="tool-card">
                         <div class="tool-name">📧 Email alias GUI <span class="tool-badge">aliaser.sh</span></div>
-                        <div class="tool-desc">Потрібен акаунт <code>@duck.com</code>. Перед використанням: <code>sudo apt update && sudo apt install curl jq zenity xclip</code></div>
+                        <div class="tool-desc">GUI для DuckDuckGo email aliases. Потрібен акаунт <code>@duck.com</code>. Залежності: <code>curl jq zenity xclip</code>. Не єдине рішення для alias.</div>
                         <div class="tool-links">
                             <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/aliaser.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
                             <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/aliaser.sh" target="_blank" rel="noopener">🐙 GitHub</a>
                         </div>
                     </div>
+                    <div class="tool-card">
+                        <div class="tool-name">🪟 Windata <span class="tool-badge">windata.sh</span></div>
+                        <div class="tool-desc">Відновлення особистих файлів з Windows (NTFS) з live Debian-системи + опційне безпечне стирання диска. Мови: EN/UK (RU свідомо не підтримується).</div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/windata.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/windata.sh" target="_blank" rel="noopener">🐙 GitHub</a>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-name">🧩 Reed-Solomon Protector <span class="tool-badge">reed-solomon.sh</span></div>
+                        <div class="tool-desc">Захист файлів кодом Ріда–Соломона (GUI). Допомагає відновлювати дані з частково пошкоджених носіїв. Автор не Python-розробник — використовуйте на свій ризик.</div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/reed-solomon.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/reed-solomon.sh" target="_blank" rel="noopener">🐙 GitHub</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="donate-box">💙💛 <strong>Створено з гордістю в Україні 🇺🇦</strong><br />Якщо маєте змогу, будь ласка, задонатьте на <a href="https://war.ukraine.ua" target="_blank" rel="noopener">українських захисників</a>.</div>
-
+                <div class="donate-box">💙💛 <strong>Створено з гордістю в Україні 🇺🇦</strong><br />Якщо маєте змогу, задонатьте на <a href="https://war.ukraine.ua" target="_blank" rel="noopener">українських захисників</a>.</div>
                 <hr />
-                <div class="footer"><a href="/">← Повернутися на головну</a></div>
+                <div class="footer"><a href="/">← Повернутися на головну</a> · <a href="/cat/">🐱</a></div>
             </div>
 
             <div class="lang-block" data-lang="en">
                 <h1 class="page-title">🧪 Experimental projects</h1>
                 <div class="page-subtitle">Tools that need caution</div>
-
-                <div class="experimental-warning">
-                    <strong>⚠️ WARNING!</strong> Experimental section is <strong>NOT</strong> fully tested and should <strong>NOT</strong> be used on critical systems.
-                </div>
+                <div class="experimental-warning"><strong>⚠️ WARNING!</strong> This section is <strong>NOT</strong> fully tested and should <strong>NOT</strong> be used on critical systems. Make a full backup first.</div>
 
                 <div class="tool-list">
                     <div class="tool-card">
                         <div class="tool-name">🛡️ Hosts file generator <span class="tool-badge">crapblock.sh</span></div>
-                        <div class="tool-desc">Blocks the most popular .ru and .su domains via <code>/etc/hosts</code>.</div>
+                        <div class="tool-desc">Generates /etc/hosts that blocks the most popular .ru and .su domains.</div>
                         <div class="tool-links">
                             <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crapblock.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
                             <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crapblock.sh" target="_blank" rel="noopener">🐙 GitHub</a>
                         </div>
                     </div>
-
                     <div class="tool-card">
                         <div class="tool-name">🔐 GPG GUI <span class="tool-badge">crypt.sh</span></div>
-                        <div class="tool-desc">Uses GPG, zenity and pure bash to build a lightweight encryption UI for Linux.</div>
+                        <div class="tool-desc">Lightweight encryption UI built with GPG, zenity and pure bash (Linux Mint oriented).</div>
                         <div class="tool-links">
                             <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crypt.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
                             <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crypt.sh" target="_blank" rel="noopener">🐙 GitHub</a>
                         </div>
                     </div>
-
                     <div class="tool-card">
                         <div class="tool-name">📧 Email alias GUI <span class="tool-badge">aliaser.sh</span></div>
-                        <div class="tool-desc">Requires a registered <code>@duck.com</code> account. Before use: <code>sudo apt update && sudo apt install curl jq zenity xclip</code></div>
+                        <div class="tool-desc">GUI for DuckDuckGo email aliases. Needs a <code>@duck.com</code> account. Deps: <code>curl jq zenity xclip</code>. Not your only alias solution.</div>
                         <div class="tool-links">
                             <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/aliaser.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
                             <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/aliaser.sh" target="_blank" rel="noopener">🐙 GitHub</a>
                         </div>
                     </div>
+                    <div class="tool-card">
+                        <div class="tool-name">🪟 Windata <span class="tool-badge">windata.sh</span></div>
+                        <div class="tool-desc">Recover personal files from Windows (NTFS) from a live Debian system, plus optional secure disk wipe. Languages: EN/UK (RU deliberately unsupported).</div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/windata.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/windata.sh" target="_blank" rel="noopener">🐙 GitHub</a>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-name">🧩 Reed-Solomon Protector <span class="tool-badge">reed-solomon.sh</span></div>
+                        <div class="tool-desc">Protect files with Reed–Solomon codes (GUI). Helps recover data from partially faulty storage. Author is not a Python developer — use at your own risk.</div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/reed-solomon.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/reed-solomon.sh" target="_blank" rel="noopener">🐙 GitHub</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="donate-box">💙💛 <strong>Proudly created in Ukraine 🇺🇦</strong><br />If you can, please donate to <a href="https://war.ukraine.ua" target="_blank" rel="noopener">Ukrainian defenders</a>.</div>
-
                 <hr />
-                <div class="footer"><a href="/">← Back to home</a></div>
+                <div class="footer"><a href="/">← Back to home</a> · <a href="/cat/">🐱</a></div>
             </div>
         </div>
     </div>
@@ -365,77 +225,47 @@
     <script>
         (function () {
             const RU_TZ = new Set([
-                'Europe/Kaliningrad', 'Europe/Moscow', 'Europe/Samara',
-                'Asia/Yekaterinburg', 'Asia/Omsk', 'Asia/Krasnoyarsk',
-                'Asia/Novosibirsk', 'Asia/Barnaul', 'Asia/Tomsk', 'Asia/Novokuznetsk',
-                'Asia/Irkutsk', 'Asia/Chita', 'Asia/Yakutsk', 'Asia/Khandyga',
-                'Asia/Vladivostok', 'Asia/Ust-Nera', 'Asia/Magadan',
-                'Asia/Sakhalin', 'Asia/Srednekolymsk', 'Asia/Kamchatka', 'Asia/Anadyr'
+                'Europe/Kaliningrad','Europe/Moscow','Europe/Samara',
+                'Asia/Yekaterinburg','Asia/Omsk','Asia/Krasnoyarsk',
+                'Asia/Novosibirsk','Asia/Barnaul','Asia/Tomsk','Asia/Novokuznetsk',
+                'Asia/Irkutsk','Asia/Chita','Asia/Yakutsk','Asia/Khandyga',
+                'Asia/Vladivostok','Asia/Ust-Nera','Asia/Magadan',
+                'Asia/Sakhalin','Asia/Srednekolymsk','Asia/Kamchatka','Asia/Anadyr'
             ]);
-
             function isRuLanguageTag(tag) {
                 if (!tag || typeof tag !== 'string') return false;
                 return /^ru([-_]|$)/i.test(tag.trim());
             }
-
             function signalsSuggestRussian() {
                 try {
-                    const langs = Array.isArray(navigator.languages) && navigator.languages.length
-                        ? navigator.languages : [navigator.language || ''];
+                    const langs = Array.isArray(navigator.languages) && navigator.languages.length ? navigator.languages : [navigator.language || ''];
                     const primary = (langs[0] || '').trim();
                     const hasRuPrimary = isRuLanguageTag(primary);
                     const ruCount = langs.filter(isRuLanguageTag).length;
                     const strongLang = hasRuPrimary || ruCount >= 2;
-
-                    let tz = '';
-                    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (_) {}
+                    let tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (_) {}
                     const hasRuTz = RU_TZ.has(tz);
-
-                    let intlLoc = '';
-                    try { intlLoc = Intl.DateTimeFormat().resolvedOptions().locale || ''; } catch (_) {}
+                    let intlLoc = ''; try { intlLoc = Intl.DateTimeFormat().resolvedOptions().locale || ''; } catch (_) {}
                     const hasRuIntl = isRuLanguageTag(intlLoc);
-
                     return hasRuPrimary || (hasRuTz && (ruCount > 0 || hasRuIntl)) || (strongLang && hasRuIntl);
                 } catch (_) { return false; }
             }
-
-            const BYPASS_KEY = 'site_locale_notice_dismissed_v2';
             const ruBlock = document.getElementById('ru-block');
             const mainContent = document.getElementById('main-content');
-            const dismissed = sessionStorage.getItem(BYPASS_KEY) === '1';
-
-            if (!dismissed && signalsSuggestRussian()) {
+            if (signalsSuggestRussian()) {
                 ruBlock.classList.add('ru-visible');
                 ruBlock.setAttribute('aria-hidden', 'false');
                 mainContent.classList.add('ru-hidden');
+                document.body.style.overflow = 'hidden';
             }
-
-            document.getElementById('ru-continue').addEventListener('click', () => {
-                sessionStorage.setItem(BYPASS_KEY, '1');
-                ruBlock.classList.remove('ru-visible');
-                ruBlock.setAttribute('aria-hidden', 'true');
-                mainContent.classList.remove('ru-hidden');
-            });
-
-            document.getElementById('ru-switch-en').addEventListener('click', () => {
-                setLang('en');
-                sessionStorage.setItem(BYPASS_KEY, '1');
-                ruBlock.classList.remove('ru-visible');
-                ruBlock.setAttribute('aria-hidden', 'true');
-                mainContent.classList.remove('ru-hidden');
-            });
-
             const langBtns = document.querySelectorAll('.lang-btn');
             const langBlocks = document.querySelectorAll('.lang-block');
-
             function setLang(lang) {
                 langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
                 langBlocks.forEach(block => block.classList.toggle('active', block.dataset.lang === lang));
                 document.documentElement.lang = lang === 'uk' ? 'uk' : 'en';
             }
-
             langBtns.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-
             const themeToggle = document.getElementById('themeToggle');
             if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
             themeToggle.addEventListener('click', () => {
