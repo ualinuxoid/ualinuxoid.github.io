@@ -79,6 +79,53 @@
         body.dark .footer a {
             color: #565f89;
         }
+        body.dark .donate-box {
+            background: #2d2a1e;
+            border-left-color: #fbbf24;
+        }
+        body.dark .aliaser-warning {
+            background: #2d1e1e;
+            border-left-color: #f87171;
+            color: #d4d4d4;
+        }
+        body.dark .aliaser-warning strong {
+            color: #fca5a5;
+        }
+        body.dark .page-subtitle {
+            color: #b0b9d0;
+        }
+        body.dark .tool-card .tool-name .tool-badge {
+            background: #3b4261;
+            color: #c0caf5;
+        }
+        body.dark .tool-card .tool-desc .warning-inline {
+            color: #fbbf24;
+        }
+        body.dark .tool-card .tool-desc code {
+            background: #1a1b26;
+            color: #9ece6a;
+        }
+        body.dark .tool-card .tool-desc > div[style] code {
+            background: #1a1b26;
+            color: #9ece6a;
+        }
+        body.dark .experimental-warning {
+            background: #2d2a1e;
+            border-left-color: #fbbf24;
+            color: #d4d4d4;
+        }
+        body.dark .experimental-warning strong {
+            color: #fbbf24;
+        }
+        body.dark hr {
+            border-color: #3b4261;
+        }
+        body.dark #ru-block .ru-text-danger {
+            color: #ff6b6b;
+        }
+        body.dark #ru-block .ru-text-muted {
+            color: #8a94a8;
+        }
 
         /* ----- Header ----- */
         .header {
@@ -186,9 +233,6 @@
             font-size: 1rem;
             margin-bottom: 24px;
         }
-        body.dark .page-subtitle {
-            color: #b0b9d0;
-        }
 
         /* ----- Experimental warning ----- */
         .experimental-warning {
@@ -201,14 +245,6 @@
         }
         .experimental-warning strong {
             color: #b45309;
-        }
-        body.dark .experimental-warning {
-            background: #2d2a1e;
-            border-left-color: #fbbf24;
-            color: #d4d4d4;
-        }
-        body.dark .experimental-warning strong {
-            color: #fbbf24;
         }
 
         /* ----- Tool cards ----- */
@@ -228,13 +264,6 @@
         .tool-card:hover {
             border-color: #94a3b8;
         }
-        body.dark .tool-card {
-            background: #1f2335;
-            border-color: #3b4261;
-        }
-        body.dark .tool-card:hover {
-            border-color: #565f89;
-        }
 
         .tool-card .tool-name {
             font-size: 1.15rem;
@@ -245,9 +274,6 @@
             gap: 8px;
             flex-wrap: wrap;
         }
-        body.dark .tool-card .tool-name {
-            color: #7aa2f7;
-        }
         .tool-card .tool-name .tool-badge {
             font-size: 0.65rem;
             font-weight: 600;
@@ -257,24 +283,14 @@
             color: #475569;
             letter-spacing: 0.3px;
         }
-        body.dark .tool-card .tool-name .tool-badge {
-            background: #3b4261;
-            color: #c0caf5;
-        }
         .tool-card .tool-desc {
             margin-top: 6px;
             color: #334155;
             font-size: 0.95rem;
         }
-        body.dark .tool-card .tool-desc {
-            color: #c0caf5;
-        }
         .tool-card .tool-desc .warning-inline {
             font-weight: 600;
             color: #b45309;
-        }
-        body.dark .tool-card .tool-desc .warning-inline {
-            color: #fbbf24;
         }
         .tool-card .tool-links {
             margin-top: 10px;
@@ -293,15 +309,9 @@
             border-bottom: 2px solid transparent;
             transition: border-color 0.2s, color 0.2s;
         }
-        body.dark .tool-card .tool-links a {
-            color: #7aa2f7;
-        }
         .tool-card .tool-links a:hover {
             border-bottom-color: currentColor;
             color: #1d4ed8;
-        }
-        body.dark .tool-card .tool-links a:hover {
-            color: #bb9af7;
         }
 
         /* ----- Special aliaser warning ----- */
@@ -313,16 +323,8 @@
             margin: 8px 0 4px;
             font-size: 0.92rem;
         }
-        body.dark .aliaser-warning {
-            background: #2d1e1e;
-            border-left-color: #f87171;
-            color: #d4d4d4;
-        }
         .aliaser-warning strong {
             color: #b91c1c;
-        }
-        body.dark .aliaser-warning strong {
-            color: #fca5a5;
         }
 
         /* ----- Donate / footer ----- */
@@ -333,10 +335,6 @@
             border-radius: 12px;
             margin: 24px 0 10px;
         }
-        body.dark .donate-box {
-            background: #2d2a1e;
-            border-left-color: #fbbf24;
-        }
         .donate-box a {
             font-weight: 600;
         }
@@ -346,18 +344,12 @@
             border-top: 2px dashed #e2e8f0;
             margin: 30px 0 10px;
         }
-        body.dark hr {
-            border-color: #3b4261;
-        }
 
         .footer {
             margin-top: 30px;
             text-align: center;
             font-size: 0.85rem;
             color: #94a3b8;
-        }
-        body.dark .footer {
-            color: #565f89;
         }
         .footer a {
             text-decoration: none;
@@ -366,9 +358,6 @@
         }
         .footer a:hover {
             color: #2563eb;
-        }
-        body.dark .footer a:hover {
-            color: #7aa2f7;
         }
 
         /* ----- Responsive tweaks ----- */
@@ -384,262 +373,321 @@
                 padding: 12px 16px;
             }
         }
+
+        /* ----- Блок для ru-локалі ----- */
+        #ru-block {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        #ru-block.ru-visible {
+            display: block;
+        }
+        #main-content.ru-hidden {
+            display: none;
+        }
+        .ru-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+        .ru-text-danger {
+            font-weight: 700;
+            color: #e74c3c;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .ru-text-muted {
+            color: #6c7a8a;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <!-- Header -->
-        <div class="header">
-            <div class="nav">
-                <a href="/">🏠 Home</a>
-                <a href="/me">👤 About</a>
-                <a href="/experimental" class="active">🧪 Experimental</a>
-            </div>
-            <div class="header-controls">
-                <div class="lang-switch">
-                    <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
-                    <button class="lang-btn" data-lang="en">🇬🇧 Eng</button>
-                </div>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
-            </div>
+        <!-- Блок для російської локалі (показується тільки якщо є ru) -->
+        <div id="ru-block">
+            <h2 class="ru-title">🇺🇦 Glory to Ukraine! 🇺🇦</h2>
+            <div class="ru-text-danger">Russians not welcome here! Go in direction of your warship!</div>
+            <div class="ru-text-muted">We detected that your browser locale set to ru. If you are not russian, please use any other language.</div>
         </div>
 
-        <!-- ===== UKRAINIAN ===== -->
-        <div class="lang-block active" data-lang="uk">
-            <h1 class="page-title">🧪 Експериментальні проєкти</h1>
-            <div class="page-subtitle">Інструменти, які потребують обережності</div>
+        <!-- Основний контент -->
+        <div id="main-content">
 
-            <!-- Warning -->
-            <div class="experimental-warning">
-                <strong>⚠️ УВАГА!</strong> Експериментальна секція <strong>НЕ</strong> пройшла повне тестування і <strong>НЕ ПОВИННА</strong> використовуватися на критичних системах! Якщо ви зважилися їх використовувати — завжди робіть <strong>ПОВНИЙ</strong> бекуп перед запуском будь-чого з цього розділу!
+            <!-- Header -->
+            <div class="header">
+                <div class="nav">
+                    <a href="/">🏠 Home</a>
+                    <a href="/me">👤 About</a>
+                    <a href="/experimental" class="active">🧪 Experimental</a>
+                </div>
+                <div class="header-controls">
+                    <div class="lang-switch">
+                        <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
+                        <button class="lang-btn" data-lang="en">🇬🇧 Eng</button>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
+                </div>
             </div>
 
-            <!-- Tools list -->
-            <div class="tool-list">
+            <!-- ===== UKRAINIAN ===== -->
+            <div class="lang-block active" data-lang="uk">
+                <h1 class="page-title">🧪 Експериментальні проєкти</h1>
+                <div class="page-subtitle">Інструменти, які потребують обережності</div>
 
-                <!-- 1. crapblock.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        🛡️ Hosts file generator
-                        <span class="tool-badge">crapblock.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Блокує найпопулярніші домени .ru та .su через <code>/etc/hosts</code>.
-                    </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crapblock.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crapblock.sh" target="_blank">🐙 GitHub</a>
-                    </div>
+                <!-- Warning -->
+                <div class="experimental-warning">
+                    <strong>⚠️ УВАГА!</strong> Експериментальна секція <strong>НЕ</strong> пройшла повне тестування і <strong>НЕ ПОВИННА</strong> використовуватися на критичних системах! Якщо ви зважилися їх використовувати — завжди робіть <strong>ПОВНИЙ</strong> бекуп перед запуском будь-чого з цього розділу!
                 </div>
 
-                <!-- 2. crypt.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        🔐 GPG GUI
-                        <span class="tool-badge">crypt.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Використовує GPG, zenity та чистий bash для створення легкої та зручної системи шифрування для Linux Mint.
-                    </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crypt.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crypt.sh" target="_blank">🐙 GitHub</a>
-                    </div>
-                </div>
+                <!-- Tools list -->
+                <div class="tool-list">
 
-                <!-- 3. aliaser.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        📧 Email alias GUI
-                        <span class="tool-badge">aliaser.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Заснований на <code>curl</code> та <code>zenity</code>. Потрібен вже зареєстрований акаунт <code>@duck.com</code>.
-                        <div class="aliaser-warning">
-                            <strong>⚠️ УВАГА!</strong> Aliaser є експериментальним, недостатньо протестованим і написаним опівночі. <strong>НЕ</strong> повинен використовуватися як єдине рішення для аліасів. Виправлення та звіти про помилки вітаються.
+                    <!-- 1. crapblock.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            🛡️ Hosts file generator
+                            <span class="tool-badge">crapblock.sh</span>
                         </div>
-                        <div style="margin-top: 6px; font-size:0.9rem; color:#64748b;">
-                            Для використання спочатку зареєструйте <code>@duck.com</code>, потім встановіть залежності:<br />
-                            <code style="background:#eef2f6; padding:2px 8px; border-radius:6px;">sudo apt update && sudo apt install curl jq zenity xclip</code>
+                        <div class="tool-desc">
+                            Блокує найпопулярніші домени .ru та .su через <code>/etc/hosts</code>.
                         </div>
-                        <div style="margin-top: 4px; font-size:0.9rem; color:#64748b;">
-                            Логіку <code>Aliaser</code> взято з <a href="https://github.com/Lanshuns/Qwacky" target="_blank">цього</a> чудового проєкту.
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crapblock.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crapblock.sh" target="_blank">🐙 GitHub</a>
                         </div>
                     </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/aliaser.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/aliaser.sh" target="_blank">🐙 GitHub</a>
-                    </div>
-                </div>
 
-                <!-- 4. windata.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        💾 Windata
-                        <span class="tool-badge">windata.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Допомагає витягти особисті файли з Windows-машини. Розроблено для запуску з live-системи на базі Debian. <em>Експериментальний інструмент.</em>
-                    </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/windata.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/windata.sh" target="_blank">🐙 GitHub</a>
-                    </div>
-                </div>
-
-                <!-- 5. reed-solomon.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        📦 Reed–Solomon file protector
-                        <span class="tool-badge">reed-solomon.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Має на меті допомогти не втратити або не пошкодити дані на частково несправних носіях. Коротко — це спроба запобігти пошкодженню даних.
-                        <div style="margin-top:6px; font-weight:600; color:#b45309;">
-                            ⚠️ <strong>Я НЕ розробник Python!</strong> Я поважаю своїх користувачів і НЕ додам цей інструмент до основної секції, доки він не пройде чийогось рев'ю. <strong>ВИКОРИСТОВУЙТЕ НА СВІЙ РИЗИК.</strong>
+                    <!-- 2. crypt.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            🔐 GPG GUI
+                            <span class="tool-badge">crypt.sh</span>
+                        </div>
+                        <div class="tool-desc">
+                            Використовує GPG, zenity та чистий bash для створення легкої та зручної системи шифрування для Linux Mint.
+                        </div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crypt.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crypt.sh" target="_blank">🐙 GitHub</a>
                         </div>
                     </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/reed-solomon.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/reed-solomon.sh" target="_blank">🐙 GitHub</a>
+
+                    <!-- 3. aliaser.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            📧 Email alias GUI
+                            <span class="tool-badge">aliaser.sh</span>
+                        </div>
+                        <div class="tool-desc">
+                            Заснований на <code>curl</code> та <code>zenity</code>. Потрібен вже зареєстрований акаунт <code>@duck.com</code>.
+                            <div class="aliaser-warning">
+                                <strong>⚠️ УВАГА!</strong> Aliaser є експериментальним, недостатньо протестованим і написаним опівночі. <strong>НЕ</strong> повинен використовуватися як єдине рішення для аліасів. Виправлення та звіти про помилки вітаються.
+                            </div>
+                            <div style="margin-top: 6px; font-size:0.9rem; color:#64748b;">
+                                Для використання спочатку зареєструйте <code>@duck.com</code>, потім встановіть залежності:<br />
+                                <code style="background:#eef2f6; padding:2px 8px; border-radius:6px;">sudo apt update && sudo apt install curl jq zenity xclip</code>
+                            </div>
+                            <div style="margin-top: 4px; font-size:0.9rem; color:#64748b;">
+                                Логіку <code>Aliaser</code> взято з <a href="https://github.com/Lanshuns/Qwacky" target="_blank">цього</a> чудового проєкту.
+                            </div>
+                        </div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/aliaser.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/aliaser.sh" target="_blank">🐙 GitHub</a>
+                        </div>
                     </div>
+
+                    <!-- 4. windata.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            💾 Windata
+                            <span class="tool-badge">windata.sh</span>
+                        </div>
+                        <div class="tool-desc">
+                            Допомагає витягти особисті файли з Windows-машини. Розроблено для запуску з live-системи на базі Debian. <em>Експериментальний інструмент.</em>
+                        </div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/windata.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/windata.sh" target="_blank">🐙 GitHub</a>
+                        </div>
+                    </div>
+
+                    <!-- 5. reed-solomon.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            📦 Reed–Solomon file protector
+                            <span class="tool-badge">reed-solomon.sh</span>
+                        </div>
+                        <div class="tool-desc">
+                            Має на меті допомогти не втратити або не пошкодити дані на частково несправних носіях. Коротко — це спроба запобігти пошкодженню даних.
+                            <div style="margin-top:6px; font-weight:600; color:#b45309;">
+                                ⚠️ <strong>Я НЕ розробник Python!</strong> Я поважаю своїх користувачів і НЕ додам цей інструмент до основної секції, доки він не пройде чийогось рев'ю. <strong>ВИКОРИСТОВУЙТЕ НА СВІЙ РИЗИК.</strong>
+                            </div>
+                        </div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/reed-solomon.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/reed-solomon.sh" target="_blank">🐙 GitHub</a>
+                        </div>
+                    </div>
+
                 </div>
 
+                <!-- Donate / Ukraine -->
+                <div class="donate-box">
+                    💙💛 <strong>Створено з гордістю в Україні 🇺🇦</strong><br />
+                    Якщо маєте змогу, будь ласка, задонатьте на <a href="https://war.ukraine.ua" target="_blank">українських захисників</a> або через <a href="https://savelife.in.ua" target="_blank">savelife.in.ua</a>.
+                    <br /><span style="font-weight:600;">Слава Україні! Зупиніть війну!</span>
+                </div>
+
+                <hr />
+                <div class="footer">
+                    <a href="/">← Повернутися на головну</a>
+                </div>
             </div>
 
-            <!-- Donate / Ukraine -->
-            <div class="donate-box">
-                💙💛 <strong>Створено з гордістю в Україні 🇺🇦</strong><br />
-                Якщо маєте змогу, будь ласка, задонатьте на <a href="https://war.ukraine.ua" target="_blank">українських захисників</a> або через <a href="https://savelife.in.ua" target="_blank">savelife.in.ua</a>.
-                <br /><span style="font-weight:600;">Слава Україні! Зупиніть війну!</span>
-            </div>
+            <!-- ===== ENGLISH ===== -->
+            <div class="lang-block" data-lang="en">
+                <h1 class="page-title">🧪 Experimental projects</h1>
+                <div class="page-subtitle">Tools that need caution</div>
 
-            <hr />
-            <div class="footer">
-                <a href="/">← Повернутися на головну</a>
-            </div>
-        </div>
-
-        <!-- ===== ENGLISH ===== -->
-        <div class="lang-block" data-lang="en">
-            <h1 class="page-title">🧪 Experimental projects</h1>
-            <div class="page-subtitle">Tools that need caution</div>
-
-            <!-- Warning -->
-            <div class="experimental-warning">
-                <strong>⚠️ WARNING!</strong> Experimental section is <strong>NOT</strong> fully tested, and should <strong>NOT</strong> be used on critical installations! If you consider to use them, always make <strong>FULL</strong> backup before running anything from this section!
-            </div>
-
-            <!-- Tools list -->
-            <div class="tool-list">
-
-                <!-- 1. crapblock.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        🛡️ Hosts file generator
-                        <span class="tool-badge">crapblock.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Blocks most popular .ru and .su domains via <code>/etc/hosts</code>.
-                    </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crapblock.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crapblock.sh" target="_blank">🐙 GitHub</a>
-                    </div>
+                <!-- Warning -->
+                <div class="experimental-warning">
+                    <strong>⚠️ WARNING!</strong> Experimental section is <strong>NOT</strong> fully tested, and should <strong>NOT</strong> be used on critical installations! If you consider to use them, always make <strong>FULL</strong> backup before running anything from this section!
                 </div>
 
-                <!-- 2. crypt.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        🔐 GPG GUI
-                        <span class="tool-badge">crypt.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Uses GPG, zenity and pure bash to create a lightweight and easy-to-use encryption solution for Linux Mint.
-                    </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crypt.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crypt.sh" target="_blank">🐙 GitHub</a>
-                    </div>
-                </div>
+                <!-- Tools list -->
+                <div class="tool-list">
 
-                <!-- 3. aliaser.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        📧 Email alias GUI
-                        <span class="tool-badge">aliaser.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Based on <code>curl</code> and <code>zenity</code>. You need an already registered <code>@duck.com</code> account to use it.
-                        <div class="aliaser-warning">
-                            <strong>⚠️ WARNING!</strong> Aliaser is experimental, not tested carefully, and written at midnight. It should <strong>NOT</strong> be used as your only alias solution; fixes and bug reports are welcome though.
+                    <!-- 1. crapblock.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            🛡️ Hosts file generator
+                            <span class="tool-badge">crapblock.sh</span>
                         </div>
-                        <div style="margin-top: 6px; font-size:0.9rem; color:#64748b;">
-                            To use it, first register a <code>@duck.com</code> account, then install dependencies:<br />
-                            <code style="background:#eef2f6; padding:2px 8px; border-radius:6px;">sudo apt update && sudo apt install curl jq zenity xclip</code>
+                        <div class="tool-desc">
+                            Blocks most popular .ru and .su domains via <code>/etc/hosts</code>.
                         </div>
-                        <div style="margin-top: 4px; font-size:0.9rem; color:#64748b;">
-                            <code>Aliaser</code> logic was taken from <a href="https://github.com/Lanshuns/Qwacky" target="_blank">this</a> awesome project.
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crapblock.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crapblock.sh" target="_blank">🐙 GitHub</a>
                         </div>
                     </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/aliaser.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/aliaser.sh" target="_blank">🐙 GitHub</a>
-                    </div>
-                </div>
 
-                <!-- 4. windata.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        💾 Windata
-                        <span class="tool-badge">windata.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Helps you extract your personal files from a Windows machine. Designed to run from a live Debian-based Linux. <em>Experimental tool.</em>
-                    </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/windata.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/windata.sh" target="_blank">🐙 GitHub</a>
-                    </div>
-                </div>
-
-                <!-- 5. reed-solomon.sh -->
-                <div class="tool-card">
-                    <div class="tool-name">
-                        📦 Reed–Solomon file protector
-                        <span class="tool-badge">reed-solomon.sh</span>
-                    </div>
-                    <div class="tool-desc">
-                        Aims to help you not to lose or damage your data on partially faulty storage systems. In short — this will try to prevent data corruption.
-                        <div style="margin-top:6px; font-weight:600; color:#b45309;">
-                            ⚠️ <strong>I am NOT a python developer!</strong> I respect my users and will <strong>NOT</strong> put this tool in the main section until it passes someone's review. <strong>USE AT YOUR OWN RISK.</strong>
+                    <!-- 2. crypt.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            🔐 GPG GUI
+                            <span class="tool-badge">crypt.sh</span>
+                        </div>
+                        <div class="tool-desc">
+                            Uses GPG, zenity and pure bash to create a lightweight and easy-to-use encryption solution for Linux Mint.
+                        </div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crypt.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crypt.sh" target="_blank">🐙 GitHub</a>
                         </div>
                     </div>
-                    <div class="tool-links">
-                        <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/reed-solomon.sh" target="_blank">🦊 Codeberg</a>
-                        <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/reed-solomon.sh" target="_blank">🐙 GitHub</a>
+
+                    <!-- 3. aliaser.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            📧 Email alias GUI
+                            <span class="tool-badge">aliaser.sh</span>
+                        </div>
+                        <div class="tool-desc">
+                            Based on <code>curl</code> and <code>zenity</code>. You need an already registered <code>@duck.com</code> account to use it.
+                            <div class="aliaser-warning">
+                                <strong>⚠️ WARNING!</strong> Aliaser is experimental, not tested carefully, and written at midnight. It should <strong>NOT</strong> be used as your only alias solution; fixes and bug reports are welcome though.
+                            </div>
+                            <div style="margin-top: 6px; font-size:0.9rem; color:#64748b;">
+                                To use it, first register a <code>@duck.com</code> account, then install dependencies:<br />
+                                <code style="background:#eef2f6; padding:2px 8px; border-radius:6px;">sudo apt update && sudo apt install curl jq zenity xclip</code>
+                            </div>
+                            <div style="margin-top: 4px; font-size:0.9rem; color:#64748b;">
+                                <code>Aliaser</code> logic was taken from <a href="https://github.com/Lanshuns/Qwacky" target="_blank">this</a> awesome project.
+                            </div>
+                        </div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/aliaser.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/aliaser.sh" target="_blank">🐙 GitHub</a>
+                        </div>
                     </div>
+
+                    <!-- 4. windata.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            💾 Windata
+                            <span class="tool-badge">windata.sh</span>
+                        </div>
+                        <div class="tool-desc">
+                            Helps you extract your personal files from a Windows machine. Designed to run from a live Debian-based Linux. <em>Experimental tool.</em>
+                        </div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/windata.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/windata.sh" target="_blank">🐙 GitHub</a>
+                        </div>
+                    </div>
+
+                    <!-- 5. reed-solomon.sh -->
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            📦 Reed–Solomon file protector
+                            <span class="tool-badge">reed-solomon.sh</span>
+                        </div>
+                        <div class="tool-desc">
+                            Aims to help you not to lose or damage your data on partially faulty storage systems. In short — this will try to prevent data corruption.
+                            <div style="margin-top:6px; font-weight:600; color:#b45309;">
+                                ⚠️ <strong>I am NOT a python developer!</strong> I respect my users and will <strong>NOT</strong> put this tool in the main section until it passes someone's review. <strong>USE AT YOUR OWN RISK.</strong>
+                            </div>
+                        </div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/reed-solomon.sh" target="_blank">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/reed-solomon.sh" target="_blank">🐙 GitHub</a>
+                        </div>
+                    </div>
+
                 </div>
 
+                <!-- Donate / Ukraine -->
+                <div class="donate-box">
+                    💙💛 <strong>Proudly created in Ukraine 🇺🇦</strong><br />
+                    If you can, please donate to <a href="https://war.ukraine.ua" target="_blank">Ukrainian defenders</a> or via <a href="https://savelife.in.ua" target="_blank">savelife.in.ua</a>.
+                    <br /><span style="font-weight:600;">Glory to Ukraine! Stop the war!</span>
+                </div>
+
+                <hr />
+                <div class="footer">
+                    <a href="/">← Back to home</a>
+                </div>
             </div>
 
-            <!-- Donate / Ukraine -->
-            <div class="donate-box">
-                💙💛 <strong>Proudly created in Ukraine 🇺🇦</strong><br />
-                If you can, please donate to <a href="https://war.ukraine.ua" target="_blank">Ukrainian defenders</a> or via <a href="https://savelife.in.ua" target="_blank">savelife.in.ua</a>.
-                <br /><span style="font-weight:600;">Glory to Ukraine! Stop the war!</span>
-            </div>
+        </div><!-- /main-content -->
 
-            <hr />
-            <div class="footer">
-                <a href="/">← Back to home</a>
-            </div>
-        </div>
-
-    </div>
+    </div><!-- /container -->
 
     <script>
+        // ---- Перевірка локалі браузера на ru ----
+        (function() {
+            const userLang = navigator.language || navigator.languages?.[0] || '';
+            const isRu = /^ru/i.test(userLang);
+
+            const ruBlock = document.getElementById('ru-block');
+            const mainContent = document.getElementById('main-content');
+
+            if (isRu) {
+                ruBlock.classList.add('ru-visible');
+                mainContent.classList.add('ru-hidden');
+            } else {
+                ruBlock.classList.remove('ru-visible');
+                mainContent.classList.remove('ru-hidden');
+            }
+        })();
+
         // ---- Language switching ----
         const langBtns = document.querySelectorAll('.lang-btn');
         const langBlocks = document.querySelectorAll('.lang-block');
