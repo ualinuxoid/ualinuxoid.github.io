@@ -56,8 +56,66 @@
             background: #1a1b26;
             border-color: #3b4261;
         }
+        body.dark .desc {
+            background: #1f2335;
+            border-left-color: #7aa2f7;
+        }
+        body.dark .lang-switch {
+            background: #3b4261;
+        }
+        body.dark .lang-btn {
+            color: #a9b1d6;
+        }
+        body.dark .lang-btn.active {
+            background: #565f89;
+            color: #ffffff;
+        }
+        body.dark .theme-toggle:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        body.dark .script-item {
+            border-color: #3b4261;
+        }
+        body.dark .script-item:hover {
+            border-color: #7aa2f7;
+        }
+        body.dark .script-title .name {
+            background: linear-gradient(135deg, #c0caf5, #a9b1d6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        body.dark .script-desc {
+            color: #c8d0e0;
+        }
+        body.dark .sp-content {
+            background: #1f2335;
+            border-left-color: #565f89;
+        }
+        body.dark .cmd-block {
+            background: #0f111a;
+        }
+        body.dark .cmd-block .cmd-label {
+            color: #7aa2f7;
+        }
+        body.dark .note {
+            background: #2d2a1e;
+            border-left-color: #fbbf24;
+        }
+        body.dark hr {
+            border-color: #3b4261;
+        }
+        body.dark .footer {
+            color: #565f89;
+        }
+        body.dark .nav a {
+            color: #a9b1d6;
+        }
+        body.dark .nav a:hover {
+            color: #7aa2f7;
+        }
 
-        /* ----- Шапка ----- */
+        /* ----- Шапка + навігація ----- */
         .header {
             display: flex;
             flex-wrap: wrap;
@@ -65,6 +123,12 @@
             align-items: center;
             margin-bottom: 30px;
             gap: 15px;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
         .header h1 {
             font-size: 2.2rem;
@@ -74,7 +138,29 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin: 0;
         }
+        .nav a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4b5563;
+            margin-right: 18px;
+            transition: color 0.2s;
+            font-size: 1rem;
+        }
+        .nav a:last-child {
+            margin-right: 0;
+        }
+        .nav a:hover {
+            color: #2563eb;
+        }
+        .nav a.active {
+            color: #2563eb;
+        }
+        body.dark .nav a.active {
+            color: #7aa2f7;
+        }
+
         .header-controls {
             display: flex;
             gap: 12px;
@@ -88,9 +174,6 @@
             border-radius: 40px;
             padding: 4px;
         }
-        body.dark .lang-switch {
-            background: #3b4261;
-        }
         .lang-btn {
             border: none;
             background: transparent;
@@ -102,17 +185,10 @@
             transition: 0.2s;
             color: #4b5563;
         }
-        body.dark .lang-btn {
-            color: #a9b1d6;
-        }
         .lang-btn.active {
             background: #ffffff;
             color: #1e1e2f;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        body.dark .lang-btn.active {
-            background: #565f89;
-            color: #ffffff;
         }
         .theme-toggle {
             background: none;
@@ -125,9 +201,6 @@
         }
         .theme-toggle:hover {
             background: rgba(0,0,0,0.05);
-        }
-        body.dark .theme-toggle:hover {
-            background: rgba(255,255,255,0.05);
         }
 
         /* ----- Мова блоки ----- */
@@ -145,10 +218,6 @@
             border-radius: 16px;
             margin-bottom: 30px;
             border-left: 4px solid #3b82f6;
-        }
-        body.dark .desc {
-            background: #1f2335;
-            border-left-color: #7aa2f7;
         }
         .desc p {
             margin-bottom: 0.5rem;
@@ -185,14 +254,8 @@
             padding: 20px 24px;
             transition: border-color 0.2s;
         }
-        body.dark .script-item {
-            border-color: #3b4261;
-        }
         .script-item:hover {
             border-color: #94a3b8;
-        }
-        body.dark .script-item:hover {
-            border-color: #7aa2f7;
         }
 
         .script-header {
@@ -216,12 +279,6 @@
         }
         .script-title .name {
             background: linear-gradient(135deg, #1e293b, #334155);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        body.dark .script-title .name {
-            background: linear-gradient(135deg, #c0caf5, #a9b1d6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -255,9 +312,6 @@
             margin: 12px 0 6px;
             color: #475569;
         }
-        body.dark .script-desc {
-            color: #c8d0e0;
-        }
 
         .sp-content {
             max-height: 0;
@@ -269,12 +323,8 @@
             border-radius: 12px;
             border-left: 3px solid #94a3b8;
         }
-        body.dark .sp-content {
-            background: #1f2335;
-            border-left-color: #565f89;
-        }
         .sp-content.open {
-            max-height: 600px; /* достатньо для команд */
+            max-height: 600px;
             padding: 16px 20px;
             margin-top: 14px;
         }
@@ -301,12 +351,6 @@
             display: block;
             margin-bottom: 4px;
         }
-        body.dark .cmd-block {
-            background: #0f111a;
-        }
-        body.dark .cmd-block .cmd-label {
-            color: #7aa2f7;
-        }
 
         .note {
             background: #fef9e7;
@@ -316,18 +360,11 @@
             margin: 12px 0 4px;
             font-size: 0.95rem;
         }
-        body.dark .note {
-            background: #2d2a1e;
-            border-left-color: #fbbf24;
-        }
 
         hr {
             border: none;
             border-top: 2px dashed #e2e8f0;
             margin: 30px 0 10px;
-        }
-        body.dark hr {
-            border-color: #3b4261;
         }
 
         .footer {
@@ -336,17 +373,27 @@
             font-size: 0.85rem;
             color: #94a3b8;
         }
-        body.dark .footer {
-            color: #565f89;
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <!-- Шапка -->
+        <!-- Шапка з навігацією -->
         <div class="header">
-            <h1>⚡ Lintweak</h1>
+            <div class="header-left">
+                <div class="nav">
+                    <a href="/" class="active">🏠 Home</a>
+                    <a href="/me">👤 About</a>
+                </div>
+                <h1>⚡ Lintweak</h1>
+            </div>
             <div class="header-controls">
                 <div class="lang-switch">
                     <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
@@ -356,7 +403,6 @@
             </div>
         </div>
 
-        <!-- Блоки мов -->
         <!-- UKRAINIAN -->
         <div class="lang-block active" data-lang="uk">
             <div class="desc">
@@ -667,7 +713,7 @@
 
         <hr>
         <div class="footer">
-            Lintweak — простота та приватність у Linux
+            <a href="/me">👤 Про автора / About me</a> &nbsp;·&nbsp; Lintweak — простота та приватність у Linux
         </div>
     </div>
 
@@ -679,10 +725,8 @@
         langBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
-                // активна кнопка
                 langBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                // показуємо потрібний блок
                 langBlocks.forEach(block => {
                     block.classList.toggle('active', block.dataset.lang === lang);
                 });
@@ -693,7 +737,6 @@
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
 
-        // Перевіряємо збережену тему
         if (localStorage.getItem('theme') === 'dark') {
             body.classList.add('dark');
         }
@@ -712,7 +755,6 @@
             content.classList.toggle('open');
             btn.classList.toggle('open');
 
-            // Змінюємо текст кнопки залежно від мови
             const isOpen = content.classList.contains('open');
             const lang = document.querySelector('.lang-btn.active')?.dataset.lang || 'uk';
             const showText = lang === 'uk' ? 'Показати команди' : 'Show commands';
@@ -723,7 +765,6 @@
             }
         }
 
-        // Оновлюємо текст кнопок при зміні мови (якщо спойлер відкритий)
         langBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
@@ -744,4 +785,4 @@
         });
     </script>
 </body>
-                                                                                                                                  </html>
+                                                   </html>
