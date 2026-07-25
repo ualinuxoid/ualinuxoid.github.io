@@ -5,278 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ualinuxoid – About me</title>
     <style>
-        /* ----- Базові стилі (аналогічні головній) ----- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #f4f6f9;
-            color: #1e1e2f;
-            line-height: 1.7;
-            padding: 20px;
-            transition: background 0.3s, color 0.3s;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 28px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            padding: 40px 50px;
-            transition: background 0.3s;
-        }
-        @media (max-width: 640px) {
-            .container { padding: 24px; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f6f9; color: #1e1e2f; line-height: 1.7; padding: 20px; transition: background 0.3s, color 0.3s; }
+        .container { max-width: 800px; margin: 0 auto; background: #ffffff; border-radius: 28px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08); padding: 40px 50px; }
+        @media (max-width:640px) { .container { padding:24px; } }
+        body.dark { background:#1a1b26; color:#d4d4d4; }
 
-        body.dark {
-            background: #1a1b26;
-            color: #d4d4d4;
-        }
-        body.dark .container {
-            background: #24283b;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-        }
-        body.dark a { color: #7aa2f7; }
-        body.dark .badge { background: #3b4261; color: #c0caf5; }
-        body.dark .theme-toggle:hover { background: rgba(255,255,255,0.05); }
-        body.dark #ru-block .ru-text-danger { color: #ff6b6b; }
-        body.dark #ru-block .ru-text-muted { color: #8a94a8; }
+        .header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:30px; }
+        .nav a { text-decoration:none; font-weight:600; color:#4b5563; margin-right:18px; }
+        .nav a:hover { color:#2563eb; }
 
-        /* ----- Шапка ----- */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-        .nav a {
-            text-decoration: none;
-            font-weight: 600;
-            color: #4b5563;
-            margin-right: 18px;
-            transition: color 0.2s;
-        }
-        body.dark .nav a { color: #a9b1d6; }
-        .nav a:hover { color: #2563eb; }
-        body.dark .nav a:hover { color: #7aa2f7; }
-        .nav a:last-child { margin-right: 0; }
+        .profile { display:flex; align-items:center; gap:24px; margin-bottom:24px; }
+        .avatar { width:110px; height:110px; border-radius:50%; background:linear-gradient(135deg,#3b82f6,#8b5cf6); display:flex; align-items:center; justify-content:center; font-size:3rem; color:#fff; }
+        .profile h1 { font-size:2.2rem; font-weight:700; }
+        .tagline { font-size:1.1rem; color:#64748b; margin-top:4px; }
 
-        .header-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .lang-switch {
-            display: flex;
-            gap: 4px;
-            background: #eef2f6;
-            border-radius: 40px;
-            padding: 4px;
-        }
-        body.dark .lang-switch { background: #3b4261; }
-        .lang-btn {
-            border: none;
-            background: transparent;
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #4b5563;
-        }
-        body.dark .lang-btn { color: #a9b1d6; }
-        .lang-btn.active {
-            background: #ffffff;
-            color: #1e1e2f;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        body.dark .lang-btn.active {
-            background: #565f89;
-            color: #ffffff;
-        }
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 30px;
-            transition: 0.2s;
-        }
-        .theme-toggle:hover { background: rgba(0,0,0,0.05); }
+        .badge { display:inline-block; background:#e0e7ff; padding:0.2rem 0.9rem; border-radius:30px; font-size:0.75rem; font-weight:600; color:#1e3a8a; }
+        .section { margin:28px 0 10px; font-size:1.1rem; }
+        .links { display:flex; gap:12px 20px; margin:16px 0 10px; }
+        .email { background:#f1f5f9; padding:8px 16px; border-radius:40px; font-family:monospace; }
+        .donate-box { background:#fef9e7; border-left:5px solid #f59e0b; padding:14px 20px; border-radius:12px; margin:20px 0 10px; }
 
-        /* ----- Мовні блоки ----- */
-        .lang-block { display: none; }
-        .lang-block.active { display: block; }
+        /* ru overlay */
+        #ru-block { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1200; align-items:center; justify-content:center; padding:20px; }
+        #ru-block .panel { background:#fff; padding:22px; border-radius:12px; max-width:680px; }
+        #ru-block.ru-visible { display:flex; }
+        #main-content.ru-hidden { display:none; }
 
-        /* ----- Профіль ----- */
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-        .avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #fff;
-            font-weight: 700;
-            flex-shrink: 0;
-            box-shadow: 0 8px 24px rgba(59,130,246,0.3);
-        }
-        body.dark .avatar {
-            box-shadow: 0 8px 24px rgba(59,130,246,0.2);
-        }
-        .profile h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-        }
-        .profile .tagline {
-            font-size: 1.1rem;
-            color: #64748b;
-            margin-top: 4px;
-        }
-        body.dark .profile .tagline { color: #b0b9d0; }
-
-        .badge {
-            display: inline-block;
-            background: #e0e7ff;
-            padding: 0.2rem 0.9rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #1e3a8a;
-        }
-        body.dark .badge { background: #3b4261; color: #c0caf5; }
-
-        .section {
-            margin: 28px 0 10px;
-            font-size: 1.1rem;
-        }
-        .section strong {
-            color: #1e293b;
-        }
-        body.dark .section strong { color: #d4d4d4; }
-
-        .links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 20px;
-            margin: 16px 0 10px;
-        }
-        .links a {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            color: #2563eb;
-            padding: 4px 0;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.2s;
-        }
-        body.dark .links a { color: #7aa2f7; }
-        .links a:hover { border-bottom-color: currentColor; }
-
-        .email {
-            background: #f1f5f9;
-            padding: 8px 16px;
-            border-radius: 40px;
-            display: inline-block;
-            font-family: monospace;
-            font-size: 0.95rem;
-        }
-        body.dark .email { background: #1f2335; }
-
-        .donate-box {
-            background: #fef9e7;
-            border-left: 5px solid #f59e0b;
-            padding: 14px 20px;
-            border-radius: 12px;
-            margin: 20px 0 10px;
-        }
-        body.dark .donate-box {
-            background: #2d2a1e;
-            border-left-color: #fbbf24;
-        }
-        .donate-box a {
-            font-weight: 600;
-        }
-
-        hr {
-            border: none;
-            border-top: 2px dashed #e2e8f0;
-            margin: 30px 0 10px;
-        }
-        body.dark hr { border-color: #3b4261; }
-
-        .footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #94a3b8;
-        }
-        body.dark .footer { color: #565f89; }
-
-        /* ----- Блок для ru-локалі ----- */
-        #ru-block {
-            display: none;
-            text-align: center;
-            padding: 60px 20px;
-        }
-        #ru-block.ru-visible {
-            display: block;
-        }
-        #main-content.ru-hidden {
-            display: none;
-        }
-        .ru-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            letter-spacing: -0.5px;
-        }
-        .ru-text-danger {
-            font-weight: 700;
-            color: #e74c3c;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-        }
-        .ru-text-muted {
-            color: #6c7a8a;
-            font-style: italic;
-            font-size: 0.95rem;
-        }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <!-- Блок для російської локалі (показується тільки якщо є ru) -->
-        <div id="ru-block">
-            <h2 class="ru-title">🇺🇦 Glory to Ukraine! 🇺🇦</h2>
-            <div class="ru-text-danger">Russians not welcome here! Go in direction of your warship!</div>
-            <div class="ru-text-muted">We detected that your browser locale set to ru. If you are not russian, please use any other language.</div>
+        <div id="ru-block" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="panel">
+                <div style="font-weight:700; font-size:1.4rem; margin-bottom:6px;">Увага</div>
+                <div style="color:#6c7a8a; margin-bottom:8px;">Ваш браузер налаштовано на російську мову або часовий пояс вказує на регіон, який може не відповідати цій сторінці.</div>
+                <div style="display:flex; gap:10px;">
+                    <button id="ru-continue" style="padding:8px 12px; border-radius:8px; border:none; background:#2563eb; color:#fff;">Продовжити</button>
+                    <button id="ru-switch-en" style="padding:8px 12px; border-radius:8px;">Переключити англійську</button>
+                </div>
+            </div>
         </div>
 
-        <!-- Основний контент -->
         <div id="main-content">
-
-            <!-- Шапка -->
             <div class="header">
                 <div class="nav">
                     <a href="/">🏠 Home</a>
@@ -291,7 +63,6 @@
                 </div>
             </div>
 
-            <!-- UKRAINIAN -->
             <div class="lang-block active" data-lang="uk">
                 <div class="profile">
                     <div class="avatar">🖥️</div>
@@ -308,21 +79,18 @@
 
                 <div class="section">
                     <p>Я люблю писати різні скрипти та автоматизації для Linux, використовуючи <strong>bash</strong>.</p>
-                    <p>Моя основна платформа — <a href="https://codeberg.org/ualinuxoid" target="_blank">Codeberg</a>, бо я не люблю рішення Microsoft. Але я також маю <a href="https://github.com/ualinuxoid" target="_blank">GitHub</a>.</p>
+                    <p>Моя основна платформа — <a href="https://codeberg.org/ualinuxoid" target="_blank">Codeberg</a>.</p>
                 </div>
 
                 <div class="section">
                     <p><strong>Я НЕ програміст</strong>, але я добре знаю bash.</p>
-                    <p>Я вважаю, що всі користувачі повинні мати змогу знати, як створено той чи інший код, тому якщо я використовую частини з допомогою ШІ, я обов'язково додаю попередження про це.</p>
                 </div>
 
                 <div class="section">
                     <p>Для зв'язку використовуйте <span class="email">omit-divided-puppy@duck.com</span> — я не кусаюся 😁</p>
                 </div>
 
-                <div class="donate-box">
-                    💙💛 <strong>Дякую, що завітали!</strong> Якщо маєте змогу, я буду радий, якщо ви переглянете мої скрипти!
-                </div>
+                <div class="donate-box">💙💛 <strong>Дякую, що завітали!</strong> Якщо маєте змогу, я буду радий, якщо ви переглянете мої скрипти.</div>
 
                 <div class="links">
                     <a href="https://codeberg.org/ualinuxoid" target="_blank">🦊 Codeberg</a>
@@ -331,7 +99,6 @@
                 </div>
             </div>
 
-            <!-- ENGLISH -->
             <div class="lang-block" data-lang="en">
                 <div class="profile">
                     <div class="avatar">🖥️</div>
@@ -343,26 +110,18 @@
 
                 <div class="section">
                     <p><span class="badge">Hi!</span> I am <strong>ualinuxoid</strong>, and I am from Ukraine 🇺🇦</p>
-                    <p>If it is possible for you, please, donate to <a href="https://war.ukraine.ua" target="_blank">Ukrainian defenders</a>.</p>
+                    <p>If it is possible for you, please donate to <a href="https://war.ukraine.ua" target="_blank">Ukrainian defenders</a>.</p>
                 </div>
 
                 <div class="section">
                     <p>I like writing various scripts and automations for Linux, using <strong>bash</strong>.</p>
-                    <p>My main platform is <a href="https://codeberg.org/ualinuxoid" target="_blank">Codeberg</a>, because I hate Microsoft solutions. But I also have <a href="https://github.com/ualinuxoid" target="_blank">GitHub</a>.</p>
                 </div>
 
                 <div class="section">
-                    <p><strong>I am NOT a programmer</strong>, but I know bash really well.</p>
-                    <p>I believe, that all users should be able to know, how this or that code created, so if I use ai-assisted parts in my scripts, I will make sure to put a warning about that.</p>
+                    <p>To contact me, use <span class="email">omit-divided-puppy@duck.com</span>.</p>
                 </div>
 
-                <div class="section">
-                    <p>To contact me, use <span class="email">omit-divided-puppy@duck.com</span> — I will not bite you 😁</p>
-                </div>
-
-                <div class="donate-box">
-                    💙💛 <strong>Thanks for coming here!</strong> If you can, I will be pleased if you will review my scripts!
-                </div>
+                <div class="donate-box">💙💛 <strong>Thanks for coming here!</strong></div>
 
                 <div class="links">
                     <a href="https://codeberg.org/ualinuxoid" target="_blank">🦊 Codeberg</a>
@@ -372,54 +131,70 @@
             </div>
 
             <hr />
-            <div class="footer">
-                <a href="/">← Повернутися на головну / Back to home</a>
-            </div>
+            <div class="footer"><a href="/">← Повернутися на головну / Back to home</a></div>
+        </div>
 
-        </div><!-- /main-content -->
-
-    </div><!-- /container -->
+    </div>
 
     <script>
-        // ---- Перевірка локалі браузера на ru ----
         (function() {
-            const userLang = navigator.language || navigator.languages?.[0] || '';
-            const isRu = /^ru/i.test(userLang);
+            function signalsSuggestRussian() {
+                try {
+                    const langs = navigator.languages || [navigator.language];
+                    const hasRuLang = langs.some(l => !!l && /^ru/i.test(l));
+                    const navLang = navigator.language || '';
+                    const hasRuNav = /^ru/i.test(navLang);
+                    const intlLocale = (Intl?.DateTimeFormat?.().resolvedOptions?.().locale) || '';
+                    const hasRuIntl = /^ru/i.test(intlLocale);
+
+                    let tz = '';
+                    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { tz = ''; }
+                    const ruTimezones = /Moscow|Krasnoyarsk|Vladivostok|Yakutsk|Irkutsk|Omsk|Samara|Kaliningrad|Magadan/i;
+                    const hasRuTz = ruTimezones.test(tz);
+
+                    return hasRuLang || hasRuNav || hasRuIntl || hasRuTz;
+                } catch (e) { return false; }
+            }
 
             const ruBlock = document.getElementById('ru-block');
             const mainContent = document.getElementById('main-content');
+            const dismissed = sessionStorage.getItem('site_locale_notice_dismissed_v1') === '1';
 
-            if (isRu) {
+            if (!dismissed && signalsSuggestRussian()) {
                 ruBlock.classList.add('ru-visible');
+                ruBlock.setAttribute('aria-hidden', 'false');
                 mainContent.classList.add('ru-hidden');
-            } else {
-                ruBlock.classList.remove('ru-visible');
-                mainContent.classList.remove('ru-hidden');
             }
-        })();
 
-        // ---- Перемикання мови ----
-        const langBtns = document.querySelectorAll('.lang-btn');
-        const langBlocks = document.querySelectorAll('.lang-block');
-        langBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            document.getElementById('ru-continue').addEventListener('click', () => {
+                sessionStorage.setItem('site_locale_notice_dismissed_v1', '1');
+                ruBlock.classList.remove('ru-visible');
+                ruBlock.setAttribute('aria-hidden', 'true');
+                mainContent.classList.remove('ru-hidden');
+            });
+            document.getElementById('ru-switch-en').addEventListener('click', () => {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                const enBtn = document.querySelector('.lang-btn[data-lang="en"]');
+                if (enBtn) enBtn.classList.add('active');
+                document.querySelectorAll('.lang-block').forEach(block => block.classList.toggle('active', block.dataset.lang === 'en'));
+            });
+
+            const langBtns = document.querySelectorAll('.lang-btn');
+            langBtns.forEach(btn => btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
                 langBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                langBlocks.forEach(block => {
-                    block.classList.toggle('active', block.dataset.lang === lang);
-                });
-            });
-        });
+                document.querySelectorAll('.lang-block').forEach(block => block.classList.toggle('active', block.dataset.lang === lang));
+            }));
 
-        // ---- Перемикання теми ----
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        if (localStorage.getItem('theme') === 'dark') body.classList.add('dark');
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
-        });
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            if (localStorage.getItem('theme') === 'dark') body.classList.add('dark');
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+            });
+        })();
     </script>
 </body>
 </html>
