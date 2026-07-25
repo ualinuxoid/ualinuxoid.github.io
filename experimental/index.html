@@ -3,63 +3,257 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Experimental Linux tools by ualinuxoid. Use with caution." />
     <title>ualinuxoid – Experimental</title>
     <style>
-        /* ----- Base styles (same as main, trimmed) ----- */
+        :root {
+            --bg: #f4f6f9;
+            --card: #ffffff;
+            --text: #1e1e2f;
+            --muted: #64748b;
+            --border: #e5e7eb;
+            --accent: #2563eb;
+            --accent-soft: #e0e7ff;
+            --warn-bg: #fef9e7;
+            --warn-border: #f59e0b;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+        body.dark {
+            --bg: #1a1b26;
+            --card: #24283b;
+            --text: #d4d4d4;
+            --muted: #a9b1d6;
+            --border: #3b4261;
+            --accent: #7aa2f7;
+            --accent-soft: #3b4261;
+            --warn-bg: #2d2a1e;
+            --warn-border: #fbbf24;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f6f9; color: #1e1e2f; line-height: 1.7; padding: 20px; transition: background 0.3s, color 0.3s; }
-        .container { max-width: 800px; margin: 0 auto; background: #ffffff; border-radius: 28px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08); padding: 40px 50px; transition: background 0.3s; }
-        @media (max-width: 640px) { .container { padding: 24px; } }
-        body.dark { background: #1a1b26; color: #d4d4d4; }
-        body.dark .container { background: #24283b; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 20px;
+            transition: background 0.25s, color 0.25s;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            padding: 40px 50px;
+            transition: background 0.25s;
+        }
+        @media (max-width: 640px) {
+            .container { padding: 24px; border-radius: 20px; }
+            body { padding: 12px; }
+        }
 
-        /* header */
-        .header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:30px; }
-        .nav a { text-decoration:none; font-weight:600; color:#4b5563; margin-right:18px; transition:color 0.2s; }
-        .nav a.active { color:#2563eb; font-weight:700; }
-        .header-controls { display:flex; gap:10px; align-items:center; }
-        .lang-switch { display:flex; gap:4px; background:#eef2f6; border-radius:40px; padding:4px; }
-        .lang-btn { border:none; background:transparent; padding:4px 14px; border-radius:30px; font-weight:600; font-size:0.85rem; cursor:pointer; color:#4b5563; }
-        .lang-btn.active { background:#fff; color:#1e1e2f; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
-        .theme-toggle { background:none; border:none; font-size:1.4rem; cursor:pointer; padding:4px 8px; border-radius:30px; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
 
-        .page-title { font-size:2rem; font-weight:700; margin-bottom:6px; }
-        .page-subtitle { color:#64748b; font-size:1rem; margin-bottom:24px; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .nav a {
+            font-weight: 600;
+            color: var(--muted);
+            margin-right: 16px;
+            transition: color 0.2s;
+        }
+        .nav a:hover, .nav a.active { color: var(--accent); text-decoration: none; }
 
-        .experimental-warning { background:#fef9e7; border-left:6px solid #f59e0b; padding:16px 20px; border-radius:12px; margin:10px 0 28px; font-weight:500; }
-        .tool-list { display:flex; flex-direction:column; gap:20px; margin:16px 0 10px; }
-        .tool-card { background:#f8fafc; border:1px solid #e2e8f0; border-radius:16px; padding:18px 22px; }
-        .tool-name { font-size:1.15rem; font-weight:700; color:#1e293b; display:flex; gap:8px; }
-        .tool-badge { font-size:0.65rem; font-weight:600; background:#f1f5f9; padding:0.1rem 0.7rem; border-radius:30px; color:#475569; }
-        .tool-desc { margin-top:6px; color:#334155; font-size:0.95rem; }
-        .tool-links { margin-top:10px; display:flex; gap:12px 18px; }
-        .tool-links a { color:#2563eb; text-decoration:none; font-weight:500; }
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .lang-switch {
+            display: flex;
+            gap: 4px;
+            background: var(--accent-soft);
+            border-radius: 40px;
+            padding: 4px;
+        }
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 5px 13px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: var(--muted);
+        }
+        .lang-btn.active {
+            background: var(--card);
+            color: var(--text);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.35rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 30px;
+        }
 
-        .donate-box { background:#fef9e7; border-left:5px solid #f59e0b; padding:14px 20px; border-radius:12px; margin:24px 0 10px; }
-        .footer { margin-top:30px; text-align:center; font-size:0.85rem; color:#94a3b8; }
+        .lang-block { display: none; }
+        .lang-block.active { display: block; }
 
-        /* ru overlay */
-        #ru-block { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1200; align-items:center; justify-content:center; padding:20px; }
-        #ru-block .panel { background:#fff; padding:22px; border-radius:12px; max-width:680px; }
-        #ru-block.ru-visible { display:flex; }
-        #main-content.ru-hidden { display:none; }
-        .ru-title { font-size:1.4rem; font-weight:700; margin-bottom:0.6rem; }
-        .ru-text-muted { color:#6c7a8a; }
-        .ru-actions { display:flex; gap:10px; margin-top:10px; }
-        .btn { padding:8px 12px; border-radius:8px; border:none; cursor:pointer; }
-        .btn.primary { background:#2563eb; color:#fff; }
+        .page-title {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .page-subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 22px;
+        }
 
+        .experimental-warning {
+            background: var(--warn-bg);
+            border-left: 6px solid var(--warn-border);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin: 8px 0 26px;
+            font-weight: 500;
+        }
+
+        .tool-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 12px 0 8px;
+        }
+        .tool-card {
+            background: color-mix(in srgb, var(--bg) 65%, var(--card));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px 20px;
+            transition: border-color 0.2s;
+        }
+        .tool-card:hover {
+            border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+        }
+        .tool-name {
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tool-badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: var(--accent-soft);
+            padding: 0.12rem 0.65rem;
+            border-radius: 30px;
+            color: var(--muted);
+        }
+        .tool-desc {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+        .tool-desc code {
+            font-size: 0.88em;
+            background: color-mix(in srgb, var(--accent-soft) 50%, transparent);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+        .tool-links {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+        }
+        .tool-links a { font-weight: 500; }
+
+        .donate-box {
+            background: var(--warn-bg);
+            border-left: 5px solid var(--warn-border);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin: 24px 0 10px;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px dashed var(--border);
+            margin: 24px 0 12px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        .footer a { color: var(--muted); }
+        .footer a:hover { color: var(--accent); }
+
+        #ru-block {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.72);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+        #ru-block.ru-visible { display: flex; }
+        #main-content.ru-hidden { display: none !important; }
+        #ru-block .panel {
+            background: #fff;
+            color: #1e1e2f;
+            padding: 26px 28px;
+            border-radius: 14px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+        }
+        .ru-title { font-weight: 700; font-size: 1.35rem; margin-bottom: 0.45rem; }
+        .ru-text-danger { font-weight: 700; color: #b91c1c; margin-bottom: 0.6rem; }
+        .ru-text-muted { color: #64748b; margin-bottom: 1rem; font-size: 0.95rem; }
+        .ru-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        .btn {
+            padding: 9px 15px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .btn.primary { background: #2563eb; color: #fff; }
+        .btn.ghost { background: transparent; border: 1px solid #e2e8f0; color: #334155; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="ru-block" role="dialog" aria-modal="true" aria-hidden="true">
+
+        <div id="ru-block" role="dialog" aria-modal="true" aria-labelledby="ru-title" aria-hidden="true">
             <div class="panel">
-                <div class="ru-title">Увага</div>
-                <div class="ru-text-muted">Ваш браузер налаштовано на російську мову або часовий пояс виглядає як російський. Сайт орієнтований на українську та англійську аудиторії.</div>
+                <div class="ru-title" id="ru-title">Доступ обмежено</div>
+                <div class="ru-text-danger">Виявлено російську мову браузера та/або часовий пояс, пов’язаний з Росією.</div>
+                <div class="ru-text-muted">Цей сайт для українсько- та англомовної аудиторії. Якщо ви не з РФ — натисніть «Продовжити».</div>
                 <div class="ru-actions">
-                    <button class="btn primary" id="ru-continue">Продовжити</button>
-                    <button class="btn" id="ru-switch-en">Переключити англійську</button>
+                    <button class="btn primary" id="ru-continue" type="button">Продовжити</button>
+                    <button class="btn ghost" id="ru-switch-en" type="button">Перемкнути на English</button>
                 </div>
             </div>
         </div>
@@ -72,11 +266,11 @@
                     <a href="/experimental" class="active">🧪 Experimental</a>
                 </div>
                 <div class="header-controls">
-                    <div class="lang-switch">
-                        <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
-                        <button class="lang-btn" data-lang="en">🇬🇧 Eng</button>
+                    <div class="lang-switch" role="group" aria-label="Language">
+                        <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
+                        <button class="lang-btn" data-lang="en" type="button">🇬🇧 Eng</button>
                     </div>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
+                    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
                 </div>
             </div>
 
@@ -93,34 +287,31 @@
                         <div class="tool-name">🛡️ Hosts file generator <span class="tool-badge">crapblock.sh</span></div>
                         <div class="tool-desc">Блокує найпопулярніші домени .ru та .su через <code>/etc/hosts</code>.</div>
                         <div class="tool-links">
-                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crapblock.sh" target="_blank">🦊 Codeberg</a>
-                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crapblock.sh" target="_blank">🐙 GitHub</a>
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crapblock.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crapblock.sh" target="_blank" rel="noopener">🐙 GitHub</a>
                         </div>
                     </div>
 
                     <div class="tool-card">
                         <div class="tool-name">🔐 GPG GUI <span class="tool-badge">crypt.sh</span></div>
-                        <div class="tool-desc">Використовує GPG, zenity та чистий bash для створення легкої та зручної системи шифрування для Linux.</div>
+                        <div class="tool-desc">Використовує GPG, zenity та чистий bash для легкої системи шифрування на Linux.</div>
                         <div class="tool-links">
-                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crypt.sh" target="_blank">🦊 Codeberg</a>
-                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crypt.sh" target="_blank">🐙 GitHub</a>
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crypt.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crypt.sh" target="_blank" rel="noopener">🐙 GitHub</a>
                         </div>
                     </div>
 
                     <div class="tool-card">
                         <div class="tool-name">📧 Email alias GUI <span class="tool-badge">aliaser.sh</span></div>
-                        <div class="tool-desc">Потрібен зареєстрований акаунт <code>@duck.com</code>. Перш ніж використовувати, встановіть залежності: <code>sudo apt update && sudo apt install curl jq zenity xclip</code></div>
+                        <div class="tool-desc">Потрібен акаунт <code>@duck.com</code>. Перед використанням: <code>sudo apt update && sudo apt install curl jq zenity xclip</code></div>
                         <div class="tool-links">
-                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/aliaser.sh" target="_blank">🦊 Codeberg</a>
-                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/aliaser.sh" target="_blank">🐙 GitHub</a>
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/aliaser.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/aliaser.sh" target="_blank" rel="noopener">🐙 GitHub</a>
                         </div>
                     </div>
-
-                    <!-- other tool cards kept -->
-
                 </div>
 
-                <div class="donate-box">💙💛 <strong>Створено з гордістю в Україні 🇺🇦</strong><br />Якщо маєте змогу, будь ласка, задонатьте на <a href="https://war.ukraine.ua" target="_blank">українських захисників</a>.</div>
+                <div class="donate-box">💙💛 <strong>Створено з гордістю в Україні 🇺🇦</strong><br />Якщо маєте змогу, будь ласка, задонатьте на <a href="https://war.ukraine.ua" target="_blank" rel="noopener">українських захисників</a>.</div>
 
                 <hr />
                 <div class="footer"><a href="/">← Повернутися на головну</a></div>
@@ -130,41 +321,88 @@
                 <h1 class="page-title">🧪 Experimental projects</h1>
                 <div class="page-subtitle">Tools that need caution</div>
 
-                <div class="experimental-warning"><strong>⚠️ WARNING!</strong> Experimental section is <strong>NOT</strong> fully tested and should <strong>NOT</strong> be used on critical systems.</div>
+                <div class="experimental-warning">
+                    <strong>⚠️ WARNING!</strong> Experimental section is <strong>NOT</strong> fully tested and should <strong>NOT</strong> be used on critical systems.
+                </div>
 
-                <!-- ... English tool cards ... -->
+                <div class="tool-list">
+                    <div class="tool-card">
+                        <div class="tool-name">🛡️ Hosts file generator <span class="tool-badge">crapblock.sh</span></div>
+                        <div class="tool-desc">Blocks the most popular .ru and .su domains via <code>/etc/hosts</code>.</div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crapblock.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crapblock.sh" target="_blank" rel="noopener">🐙 GitHub</a>
+                        </div>
+                    </div>
 
-                <div class="donate-box">💙💛 <strong>Proudly created in Ukraine 🇺🇦</strong><br />If you can, please donate to <a href="https://war.ukraine.ua" target="_blank">Ukrainian defenders</a>.</div>
+                    <div class="tool-card">
+                        <div class="tool-name">🔐 GPG GUI <span class="tool-badge">crypt.sh</span></div>
+                        <div class="tool-desc">Uses GPG, zenity and pure bash to build a lightweight encryption UI for Linux.</div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/crypt.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/crypt.sh" target="_blank" rel="noopener">🐙 GitHub</a>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-name">📧 Email alias GUI <span class="tool-badge">aliaser.sh</span></div>
+                        <div class="tool-desc">Requires a registered <code>@duck.com</code> account. Before use: <code>sudo apt update && sudo apt install curl jq zenity xclip</code></div>
+                        <div class="tool-links">
+                            <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/aliaser.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+                            <a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/aliaser.sh" target="_blank" rel="noopener">🐙 GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="donate-box">💙💛 <strong>Proudly created in Ukraine 🇺🇦</strong><br />If you can, please donate to <a href="https://war.ukraine.ua" target="_blank" rel="noopener">Ukrainian defenders</a>.</div>
+
                 <hr />
                 <div class="footer"><a href="/">← Back to home</a></div>
             </div>
-
         </div>
     </div>
 
     <script>
-        (function() {
-            function signalsSuggestRussian() {
-                try {
-                    const langs = navigator.languages || [navigator.language];
-                    const hasRuLang = langs.some(l => !!l && /^ru/i.test(l));
-                    const navLang = navigator.language || '';
-                    const hasRuNav = /^ru/i.test(navLang);
-                    const intlLocale = (Intl?.DateTimeFormat?.().resolvedOptions?.().locale) || '';
-                    const hasRuIntl = /^ru/i.test(intlLocale);
+        (function () {
+            const RU_TZ = new Set([
+                'Europe/Kaliningrad', 'Europe/Moscow', 'Europe/Samara',
+                'Asia/Yekaterinburg', 'Asia/Omsk', 'Asia/Krasnoyarsk',
+                'Asia/Novosibirsk', 'Asia/Barnaul', 'Asia/Tomsk', 'Asia/Novokuznetsk',
+                'Asia/Irkutsk', 'Asia/Chita', 'Asia/Yakutsk', 'Asia/Khandyga',
+                'Asia/Vladivostok', 'Asia/Ust-Nera', 'Asia/Magadan',
+                'Asia/Sakhalin', 'Asia/Srednekolymsk', 'Asia/Kamchatka', 'Asia/Anadyr'
+            ]);
 
-                    let tz = '';
-                    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { tz = ''; }
-                    const ruTimezones = /Moscow|Krasnoyarsk|Vladivostok|Yakutsk|Irkutsk|Omsk|Samara|Kaliningrad|Magadan/i;
-                    const hasRuTz = ruTimezones.test(tz);
-
-                    return hasRuLang || hasRuNav || hasRuIntl || hasRuTz;
-                } catch (e) { return false; }
+            function isRuLanguageTag(tag) {
+                if (!tag || typeof tag !== 'string') return false;
+                return /^ru([-_]|$)/i.test(tag.trim());
             }
 
+            function signalsSuggestRussian() {
+                try {
+                    const langs = Array.isArray(navigator.languages) && navigator.languages.length
+                        ? navigator.languages : [navigator.language || ''];
+                    const primary = (langs[0] || '').trim();
+                    const hasRuPrimary = isRuLanguageTag(primary);
+                    const ruCount = langs.filter(isRuLanguageTag).length;
+                    const strongLang = hasRuPrimary || ruCount >= 2;
+
+                    let tz = '';
+                    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (_) {}
+                    const hasRuTz = RU_TZ.has(tz);
+
+                    let intlLoc = '';
+                    try { intlLoc = Intl.DateTimeFormat().resolvedOptions().locale || ''; } catch (_) {}
+                    const hasRuIntl = isRuLanguageTag(intlLoc);
+
+                    return hasRuPrimary || (hasRuTz && (ruCount > 0 || hasRuIntl)) || (strongLang && hasRuIntl);
+                } catch (_) { return false; }
+            }
+
+            const BYPASS_KEY = 'site_locale_notice_dismissed_v2';
             const ruBlock = document.getElementById('ru-block');
             const mainContent = document.getElementById('main-content');
-            const dismissed = sessionStorage.getItem('site_locale_notice_dismissed_v1') === '1';
+            const dismissed = sessionStorage.getItem(BYPASS_KEY) === '1';
 
             if (!dismissed && signalsSuggestRussian()) {
                 ruBlock.classList.add('ru-visible');
@@ -173,33 +411,36 @@
             }
 
             document.getElementById('ru-continue').addEventListener('click', () => {
-                sessionStorage.setItem('site_locale_notice_dismissed_v1', '1');
+                sessionStorage.setItem(BYPASS_KEY, '1');
                 ruBlock.classList.remove('ru-visible');
                 ruBlock.setAttribute('aria-hidden', 'true');
                 mainContent.classList.remove('ru-hidden');
             });
+
             document.getElementById('ru-switch-en').addEventListener('click', () => {
-                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-                const enBtn = document.querySelector('.lang-btn[data-lang="en"]');
-                if (enBtn) enBtn.classList.add('active');
-                document.querySelectorAll('.lang-block').forEach(block => block.classList.toggle('active', block.dataset.lang === 'en'));
+                setLang('en');
+                sessionStorage.setItem(BYPASS_KEY, '1');
+                ruBlock.classList.remove('ru-visible');
+                ruBlock.setAttribute('aria-hidden', 'true');
+                mainContent.classList.remove('ru-hidden');
             });
 
-            // language switch and theme (same small helpers as main)
             const langBtns = document.querySelectorAll('.lang-btn');
-            langBtns.forEach(btn => btn.addEventListener('click', () => {
-                const lang = btn.dataset.lang;
-                langBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                document.querySelectorAll('.lang-block').forEach(block => block.classList.toggle('active', block.dataset.lang === lang));
-            }));
+            const langBlocks = document.querySelectorAll('.lang-block');
+
+            function setLang(lang) {
+                langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+                langBlocks.forEach(block => block.classList.toggle('active', block.dataset.lang === lang));
+                document.documentElement.lang = lang === 'uk' ? 'uk' : 'en';
+            }
+
+            langBtns.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
 
             const themeToggle = document.getElementById('themeToggle');
-            const body = document.body;
-            if (localStorage.getItem('theme') === 'dark') body.classList.add('dark');
+            if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
             themeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark');
-                localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+                document.body.classList.toggle('dark');
+                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
             });
         })();
     </script>
