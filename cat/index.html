@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🐱</title>
+    <meta name="robots" content="noindex, follow" />
+    <title>🐱 Слава Україні</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+        html, body { width: 100%; height: 100%; overflow: hidden; }
         body {
-            /* Ukrainian flag diagonal stripe pattern */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background:
                 repeating-linear-gradient(
                     -45deg,
@@ -24,43 +20,118 @@
                 );
             cursor: none;
         }
-        #stage {
-            position: relative;
+        #stage { position: relative; width: 100%; height: 100%; }
+
+        .edge-cat {
+            position: fixed;
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        .edge-cat img {
             width: 100%;
             height: 100%;
+            object-fit: contain;
+            display: block;
         }
+
         .cat {
             position: absolute;
-            font-size: 64px;
-            line-height: 1;
-            user-select: none;
-            pointer-events: none;
-            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
-            transition: transform 0.05s linear;
+            width: 56px;
+            height: 56px;
+            z-index: 5;
+            cursor: pointer;
+            pointer-events: auto;
             will-change: transform, left, top;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.28));
+            transition: filter 0.15s;
         }
+        .cat:hover { filter: drop-shadow(0 6px 14px rgba(0,0,0,0.4)) brightness(1.05); }
+        .cat img, .cat svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .trail {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(0, 40, 100, 0.35);
+            pointer-events: none;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+        }
+
+        .bubble {
+            position: absolute;
+            z-index: 20;
+            max-width: 220px;
+            padding: 10px 14px;
+            background: #fff;
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 0.92rem;
+            line-height: 1.35;
+            border-radius: 18px 18px 18px 4px;
+            box-shadow:
+                0 8px 28px rgba(0,0,0,0.22),
+                0 0 0 3px rgba(0, 87, 183, 0.15);
+            pointer-events: none;
+            animation: bubbleIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: normal;
+            text-align: center;
+        }
+        .bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 16px;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            transform: rotate(45deg);
+            border-radius: 2px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
+        @keyframes bubbleIn {
+            from { opacity: 0; transform: scale(0.4) translateY(12px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .bubble.out {
+            animation: bubbleOut 0.35s ease forwards;
+        }
+        @keyframes bubbleOut {
+            to { opacity: 0; transform: scale(0.6) translateY(-20px); }
+        }
+
         .hint {
             position: fixed;
-            bottom: 24px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0,0,0,0.55);
             color: #fff;
             padding: 10px 18px;
             border-radius: 999px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
             backdrop-filter: blur(6px);
-            z-index: 10;
+            z-index: 30;
             pointer-events: none;
-            opacity: 0.9;
+            text-align: center;
+            max-width: 90vw;
         }
         .back {
             position: fixed;
-            top: 18px;
-            left: 18px;
-            z-index: 10;
-            background: rgba(255,255,255,0.9);
+            top: 16px;
+            left: 16px;
+            z-index: 30;
+            background: rgba(255,255,255,0.92);
             color: #1e293b;
             text-decoration: none;
             font-weight: 700;
@@ -73,75 +144,256 @@
         .back:hover { background: #fff; }
         .cursor-dot {
             position: fixed;
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: #fff;
             border: 2px solid #0057b7;
             pointer-events: none;
             z-index: 100;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 8px rgba(0,0,0,0.3);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
     <a class="back" href="/">← Home</a>
-    <div class="hint">🐱 Рухай мишкою — котик біжить за тобою · Click for more cats</div>
+    <div class="hint">🐱 Клікай котика — він скаже правду · Рухай мишкою · Click = more cats</div>
     <div class="cursor-dot" id="dot"></div>
+    <div id="edges"></div>
     <div id="stage"></div>
+
+    <!-- Local SVG silhouettes (small, clean) + remote decorative sources -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+        <symbol id="cat-a" viewBox="0 0 64 64">
+            <path fill="#1a1a1a" d="M12 28c0-10 8-18 20-18s20 8 20 18c2 2 6 6 6 12 0 10-10 18-26 18S6 50 6 40c0-6 4-10 6-12z"/>
+            <path fill="#1a1a1a" d="M18 12l-4-8 10 6M46 12l4-8-10 6"/>
+            <circle fill="#ffd700" cx="26" cy="30" r="2.5"/><circle fill="#ffd700" cx="38" cy="30" r="2.5"/>
+            <path fill="none" stroke="#ffd700" stroke-width="1.5" d="M30 36c1 2 3 2 4 0"/>
+            <path fill="#1a1a1a" d="M48 36c8 2 12 10 10 16-4 2-10 0-14-4"/>
+        </symbol>
+        <symbol id="cat-b" viewBox="0 0 64 64">
+            <ellipse fill="#222" cx="32" cy="38" rx="22" ry="18"/>
+            <circle fill="#222" cx="32" cy="22" r="14"/>
+            <path fill="#222" d="M20 12l-6-10 12 8M44 12l6-10-12 8"/>
+            <circle fill="#0057b7" cx="26" cy="22" r="2.2"/><circle fill="#0057b7" cx="38" cy="22" r="2.2"/>
+            <ellipse fill="#f4a" cx="32" cy="28" rx="3" ry="2"/>
+            <path fill="#222" d="M50 40c10 4 14 14 8 18-6 0-12-6-14-12"/>
+        </symbol>
+        <symbol id="cat-c" viewBox="0 0 64 64">
+            <path fill="#111" d="M10 36c2-14 12-24 22-24s20 10 22 24c4 4 8 10 4 18-6 8-18 10-26 10s-20-2-26-10c-4-8 0-14 4-18z"/>
+            <path fill="#111" d="M22 14l-8-12 14 8M42 14l8-12-14 8"/>
+            <circle fill="#ffd700" cx="26" cy="32" r="2.5"/><circle fill="#ffd700" cx="38" cy="32" r="2.5"/>
+            <path stroke="#ffd700" stroke-width="1.2" fill="none" d="M28 38h8M24 40l-8 2M40 40l8 2M24 42l-6 4M40 42l6 4"/>
+        </symbol>
+        <symbol id="cat-d" viewBox="0 0 64 64">
+            <ellipse fill="#2a2a2a" cx="30" cy="40" rx="20" ry="16"/>
+            <circle fill="#2a2a2a" cx="34" cy="24" r="13"/>
+            <path fill="#2a2a2a" d="M24 14l-5-11 11 7M44 14l7-10-12 8"/>
+            <circle fill="#fff" cx="30" cy="24" r="2.5"/><circle fill="#fff" cx="40" cy="24" r="2.5"/>
+            <circle fill="#0057b7" cx="30" cy="24" r="1.2"/><circle fill="#0057b7" cx="40" cy="24" r="1.2"/>
+            <path fill="#2a2a2a" d="M48 36c10 0 16 12 10 18s-14-2-16-8"/>
+        </symbol>
+    </svg>
 
     <script>
         (function () {
+            const PHRASES = [
+                'Слава Україні!',
+                'Героям слава!',
+                'Слава нації!',
+                'Смерть ворогам!',
+                'Україна понад усе!',
+                'Все буде Україна!',
+                'Герої не вмирають!',
+                'Батько наш — Бандера, Україна — мати.',
+                'Хай живе вільна Україна!',
+                'Воля або смерть.'
+            ];
+
+            // Interactive cat sprites: local symbols + optional remote SVGs
+            const CAT_SRCS = [
+                { type: 'symbol', id: 'cat-a' },
+                { type: 'symbol', id: 'cat-b' },
+                { type: 'symbol', id: 'cat-c' },
+                { type: 'symbol', id: 'cat-d' },
+                { type: 'img', url: 'https://worldofprintables.com/wp-content/uploads/2024/01/Cute-Cat-Free-SVG.svg' },
+                { type: 'img', url: 'https://worldofprintables.com/wp-content/uploads/2024/01/Cat-Free-SVG-Black-Cat.svg' },
+                { type: 'img', url: 'https://worldofprintables.com/wp-content/uploads/2024/01/Cat-SVG-4.svg' },
+                { type: 'img', url: 'https://worldofprintables.com/wp-content/uploads/2024/01/Cat-SVG-5.svg' }
+            ];
+
+            const EDGE_URLS = [
+                'https://worldofprintables.com/wp-content/uploads/2024/01/Black-and-White-Cat-SVG-Free.svg',
+                'https://worldofprintables.com/wp-content/uploads/2024/01/Tabby-Cat-SVG.svg',
+                'https://worldofprintables.com/wp-content/uploads/2024/01/Cat-SVG-16.svg'
+            ];
+
             const stage = document.getElementById('stage');
+            const edges = document.getElementById('edges');
             const dot = document.getElementById('dot');
-            const CATS = ['🐱', '🐈', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾', '🐈‍⬛'];
 
             let mx = window.innerWidth / 2;
             let my = window.innerHeight / 2;
+            const trails = [];
+
+            // Pick random cat look for this page load
+            const pageCat = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
+
+            function makeCatEl(src) {
+                const el = document.createElement('div');
+                el.className = 'cat';
+                if (src.type === 'symbol') {
+                    el.innerHTML = '<svg viewBox="0 0 64 64"><use href="#' + src.id + '"/></svg>';
+                } else {
+                    const img = document.createElement('img');
+                    img.src = src.url;
+                    img.alt = 'cat';
+                    img.draggable = false;
+                    img.onerror = function () {
+                        el.innerHTML = '<svg viewBox="0 0 64 64"><use href="#cat-a"/></svg>';
+                    };
+                    el.appendChild(img);
+                }
+                return el;
+            }
+
+            // Edge decorations — partially off-screen along borders
+            function placeEdgeCats() {
+                const W = window.innerWidth;
+                const H = window.innerHeight;
+                const placements = [
+                    { left: -40, top: H * 0.15, w: 90, rot: 25 },
+                    { left: W - 50, top: H * 0.25, w: 80, rot: -30 },
+                    { left: W * 0.2, top: -35, w: 100, rot: 10 },
+                    { left: W * 0.65, top: H - 45, w: 85, rot: -8 },
+                    { left: -30, top: H * 0.7, w: 70, rot: 40 },
+                    { left: W - 40, top: H * 0.75, w: 75, rot: -20 }
+                ];
+                placements.forEach((p, i) => {
+                    const wrap = document.createElement('div');
+                    wrap.className = 'edge-cat';
+                    wrap.style.left = p.left + 'px';
+                    wrap.style.top = p.top + 'px';
+                    wrap.style.width = p.w + 'px';
+                    wrap.style.height = p.w + 'px';
+                    wrap.style.transform = 'rotate(' + p.rot + 'deg)';
+                    const img = document.createElement('img');
+                    img.src = EDGE_URLS[i % EDGE_URLS.length];
+                    img.alt = '';
+                    img.onerror = function () {
+                        wrap.innerHTML = '<svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#cat-' + ['a','b','c','d'][i % 4] + '"/></svg>';
+                    };
+                    wrap.appendChild(img);
+                    edges.appendChild(wrap);
+                });
+            }
+            placeEdgeCats();
 
             class Cat {
-                constructor(x, y) {
-                    this.el = document.createElement('div');
-                    this.el.className = 'cat';
-                    this.el.textContent = CATS[Math.floor(Math.random() * CATS.length)];
+                constructor(x, y, src) {
+                    this.el = makeCatEl(src || pageCat);
                     this.x = x ?? Math.random() * window.innerWidth;
                     this.y = y ?? Math.random() * window.innerHeight;
                     this.vx = 0;
                     this.vy = 0;
-                    this.speed = 0.04 + Math.random() * 0.06;
-                    this.wobble = Math.random() * Math.PI * 2;
-                    this.size = 48 + Math.random() * 36;
-                    this.el.style.fontSize = this.size + 'px';
+                    this.ax = 0;
+                    this.ay = 0;
+                    // Spring + damping — different per cat
+                    this.stiffness = 0.08 + Math.random() * 0.06;
+                    this.damping = 0.78 + Math.random() * 0.1;
+                    this.maxSpeed = 14 + Math.random() * 8;
+                    this.size = 48 + Math.random() * 20;
+                    this.el.style.width = this.size + 'px';
+                    this.el.style.height = this.size + 'px';
+                    this.trailTimer = 0;
+                    this.facing = 1;
                     stage.appendChild(this.el);
+                    this.el.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.speak();
+                    });
                     this.render();
                 }
+
+                speak() {
+                    const phrase = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+                    const b = document.createElement('div');
+                    b.className = 'bubble';
+                    b.textContent = phrase;
+                    // Position above cat
+                    const left = Math.max(8, Math.min(window.innerWidth - 230, this.x - 40));
+                    const top = Math.max(8, this.y - this.size - 50);
+                    b.style.left = left + 'px';
+                    b.style.top = top + 'px';
+                    document.body.appendChild(b);
+                    setTimeout(() => {
+                        b.classList.add('out');
+                        setTimeout(() => b.remove(), 360);
+                    }, 2200);
+                }
+
                 update() {
                     const dx = mx - this.x;
                     const dy = my - this.y;
                     const dist = Math.hypot(dx, dy) || 1;
-                    // spring toward cursor with lag
-                    this.vx += (dx / dist) * this.speed * Math.min(dist, 200) * 0.02;
-                    this.vy += (dy / dist) * this.speed * Math.min(dist, 200) * 0.02;
-                    this.vx *= 0.92;
-                    this.vy *= 0.92;
+
+                    // Spring force toward cursor (stronger when farther, capped)
+                    const pull = Math.min(dist, 280) / 280;
+                    this.ax = (dx / dist) * this.stiffness * pull * 18;
+                    this.ay = (dy / dist) * this.stiffness * pull * 18;
+
+                    this.vx += this.ax;
+                    this.vy += this.ay;
+                    this.vx *= this.damping;
+                    this.vy *= this.damping;
+
+                    const sp = Math.hypot(this.vx, this.vy);
+                    if (sp > this.maxSpeed) {
+                        this.vx = (this.vx / sp) * this.maxSpeed;
+                        this.vy = (this.vy / sp) * this.maxSpeed;
+                    }
+
                     this.x += this.vx;
                     this.y += this.vy;
-                    this.wobble += 0.12;
-                    const angle = Math.atan2(this.vy, this.vx);
-                    const bounce = Math.sin(this.wobble) * 6;
-                    this.el.style.left = this.x + 'px';
-                    this.el.style.top = (this.y + bounce) + 'px';
-                    this.el.style.transform = `translate(-50%, -50%) rotate(${angle * 20}deg) scaleX(${this.vx < -0.5 ? -1 : 1})`;
+
+                    // Soft screen bounds
+                    const m = this.size / 2;
+                    if (this.x < m) { this.x = m; this.vx *= -0.4; }
+                    if (this.x > window.innerWidth - m) { this.x = window.innerWidth - m; this.vx *= -0.4; }
+                    if (this.y < m) { this.y = m; this.vy *= -0.4; }
+                    if (this.y > window.innerHeight - m) { this.y = window.innerHeight - m; this.vy *= -0.4; }
+
+                    if (Math.abs(this.vx) > 0.3) this.facing = this.vx < 0 ? -1 : 1;
+
+                    // Trails when moving fast
+                    this.trailTimer++;
+                    if (sp > 3 && this.trailTimer % 3 === 0) {
+                        const t = document.createElement('div');
+                        t.className = 'trail';
+                        t.style.left = this.x + 'px';
+                        t.style.top = (this.y + this.size * 0.3) + 'px';
+                        t.style.opacity = '0.5';
+                        stage.appendChild(t);
+                        trails.push({ el: t, life: 1 });
+                    }
+
+                    this.render();
                 }
+
                 render() {
+                    const angle = Math.atan2(this.vy, this.vx) * (180 / Math.PI) * 0.15;
                     this.el.style.left = this.x + 'px';
                     this.el.style.top = this.y + 'px';
-                    this.el.style.transform = 'translate(-50%, -50%)';
+                    this.el.style.transform =
+                        'translate(-50%, -50%) scaleX(' + this.facing + ') rotate(' + angle + 'deg)';
                 }
             }
 
-            const cats = [new Cat(), new Cat(), new Cat()];
+            const cats = [
+                new Cat(window.innerWidth * 0.3, window.innerHeight * 0.4),
+                new Cat(window.innerWidth * 0.6, window.innerHeight * 0.5)
+            ];
 
             window.addEventListener('mousemove', (e) => {
                 mx = e.clientX;
@@ -151,9 +403,10 @@
             });
 
             window.addEventListener('click', (e) => {
-                if (e.target.closest('a')) return;
-                cats.push(new Cat(e.clientX, e.clientY));
-                if (cats.length > 24) {
+                if (e.target.closest('a') || e.target.closest('.cat')) return;
+                const src = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
+                cats.push(new Cat(e.clientX, e.clientY, src));
+                if (cats.length > 18) {
                     const old = cats.shift();
                     old.el.remove();
                 }
@@ -170,6 +423,16 @@
 
             function loop() {
                 for (const c of cats) c.update();
+                for (let i = trails.length - 1; i >= 0; i--) {
+                    const t = trails[i];
+                    t.life -= 0.04;
+                    t.el.style.opacity = String(Math.max(0, t.life * 0.5));
+                    t.el.style.transform = 'translate(-50%, -50%) scale(' + t.life + ')';
+                    if (t.life <= 0) {
+                        t.el.remove();
+                        trails.splice(i, 1);
+                    }
+                }
                 requestAnimationFrame(loop);
             }
             loop();
