@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lintweak – Linux tweaks</title>
+    <style>
+        /* ----- Скидання та база ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f4f6f9;
+            color: #1e1e2f;
+            line-height: 1.6;
+            padding: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            padding: 40px 50px;
+            transition: background 0.3s;
+        }
+        @media (max-width: 640px) {
+            .container { padding: 20px; }
+        }
+
+        /* ----- Темна тема ----- */
+        body.dark {
+            background: #1a1b26;
+            color: #d4d4d4;
+        }
+        body.dark .container {
+            background: #24283b;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+        body.dark a { color: #7aa2f7; }
+        body.dark .badge { background: #3b4261; color: #c0caf5; }
+        body.dark .cmd-block { background: #1a1b26; }
+        body.dark .cmd-block code { color: #9ece6a; }
+        body.dark .sp-btn {
+            background: #3b4261;
+            color: #c0caf5;
+        }
+        body.dark .sp-btn:hover {
+            background: #565f89;
+        }
+        body.dark .sp-content {
+            background: #1a1b26;
+            border-color: #3b4261;
+        }
+
+        /* ----- Шапка ----- */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header-controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .lang-switch {
+            display: flex;
+            gap: 6px;
+            background: #eef2f6;
+            border-radius: 40px;
+            padding: 4px;
+        }
+        body.dark .lang-switch {
+            background: #3b4261;
+        }
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #4b5563;
+        }
+        body.dark .lang-btn {
+            color: #a9b1d6;
+        }
+        .lang-btn.active {
+            background: #ffffff;
+            color: #1e1e2f;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        body.dark .lang-btn.active {
+            background: #565f89;
+            color: #ffffff;
+        }
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+        .theme-toggle:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        body.dark .theme-toggle:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* ----- Мова блоки ----- */
+        .lang-block {
+            display: none;
+        }
+        .lang-block.active {
+            display: block;
+        }
+
+        /* ----- Опис ----- */
+        .desc {
+            background: #f8fafc;
+            padding: 18px 22px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3b82f6;
+        }
+        body.dark .desc {
+            background: #1f2335;
+            border-left-color: #7aa2f7;
+        }
+        .desc p {
+            margin-bottom: 0.5rem;
+        }
+        .desc a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .desc a:hover {
+            text-decoration: underline;
+        }
+        .badge {
+            display: inline-block;
+            background: #e0e7ff;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-right: 6px;
+        }
+
+        /* ----- Список скриптів ----- */
+        .scripts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .script-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 20px 24px;
+            transition: border-color 0.2s;
+        }
+        body.dark .script-item {
+            border-color: #3b4261;
+        }
+        .script-item:hover {
+            border-color: #94a3b8;
+        }
+        body.dark .script-item:hover {
+            border-color: #7aa2f7;
+        }
+
+        .script-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .script-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .script-title .icon {
+            font-size: 1.6rem;
+        }
+        .script-title .name {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        body.dark .script-title .name {
+            background: linear-gradient(135deg, #c0caf5, #a9b1d6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .sp-btn {
+            background: #eef2f6;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1e293b;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sp-btn:hover {
+            background: #d1d9e6;
+        }
+        .sp-btn .arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .sp-btn.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .script-desc {
+            margin: 12px 0 6px;
+            color: #475569;
+        }
+        body.dark .script-desc {
+            color: #c8d0e0;
+        }
+
+        .sp-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease, margin 0.3s ease;
+            padding: 0 4px;
+            margin: 0;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 3px solid #94a3b8;
+        }
+        body.dark .sp-content {
+            background: #1f2335;
+            border-left-color: #565f89;
+        }
+        .sp-content.open {
+            max-height: 600px; /* достатньо для команд */
+            padding: 16px 20px;
+            margin-top: 14px;
+        }
+
+        .cmd-block {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        .cmd-block code {
+            color: #a6e22e;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .cmd-block .cmd-label {
+            color: #94a3b8;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        body.dark .cmd-block {
+            background: #0f111a;
+        }
+        body.dark .cmd-block .cmd-label {
+            color: #7aa2f7;
+        }
+
+        .note {
+            background: #fef9e7;
+            border-left: 4px solid #f59e0b;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin: 12px 0 4px;
+            font-size: 0.95rem;
+        }
+        body.dark .note {
+            background: #2d2a1e;
+            border-left-color: #fbbf24;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px dashed #e2e8f0;
+            margin: 30px 0 10px;
+        }
+        body.dark hr {
+            border-color: #3b4261;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+        body.dark .footer {
+            color: #565f89;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Шапка -->
+        <div class="header">
+            <h1>⚡ Lintweak</h1>
+            <div class="header-controls">
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
+                    <button class="lang-btn" data-lang="en">🇬🇧 Eng</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
+            </div>
+        </div>
+
+        <!-- Блоки мов -->
+        <!-- UKRAINIAN -->
+        <div class="lang-block active" data-lang="uk">
+            <div class="desc">
+                <p><span class="badge">🇺🇦</span> Прості Linux-твіки, переважно написані на чистому bash.</p>
+                <p><strong>Увага:</strong> <a href="https://github.com/ualinuxoid/lintweak">GitHub</a> використовується лише як дзеркало. Будь ласка, використовуйте <a href="https://codeberg.org/ualinuxoid/lintweak">Codeberg</a> для будь-яких питань або внесків.</p>
+            </div>
+
+            <div class="scripts-list">
+                <!-- Tor -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🧅</span>
+                            <span class="name">Tor installer</span>
+                        </div>
+                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Встановлює Tor як «VPN» (весь системний трафік через Tor) для обходу цензури чи блокувань. Усі залежності та GUI керування встановлюються автоматично. Дружній до новачків.
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/tor.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (дзеркало)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/tor.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WGuard -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🛡️</span>
+                            <span class="name">WGuard installer</span>
+                        </div>
+                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Встановлює твіки для приховування особи в бездротових та дротових мережах: випадкова MAC-адреса, підробка OUI (виробника), фейковий hostname тощо. Має графічний інтерфейс, безпечний для новачків.
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/wguard.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (дзеркало)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/wguard.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NoRU -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🚫</span>
+                            <span class="name">Advanced ru network blocker</span>
+                        </div>
+                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Блокує якомога більше «рунету». Підтримує три режими: normal (до <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/misc/rublock.txt">вмісту hosts</a>), aggressive (боротьба з ru-доменами) та extreme (IP-банліст, не рекомендується).
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/noru.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (дзеркало)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/noru.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy hardener -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🔒</span>
+                            <span class="name">Privacy hardener</span>
+                        </div>
+                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Покращує приватність за допомогою різноманітних косметичних твіків: рандомізація MAC, налаштування NTS, DoT тощо.
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Privacy.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (дзеркало)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Privacy.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAT2 -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🗑️</span>
+                            <span class="name">MAT2</span>
+                        </div>
+                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Встановлює <a href="https://github.com/jvoisin/mat2">MAT2</a> та додає зручну дію Nemo для видалення метаданих через контекстне меню (правий клік на файлі).
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Mat2.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (дзеркало)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Mat2.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shrink -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">📦</span>
+                            <span class="name">Shrink (Compress)</span>
+                        </div>
+                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Встановлює утиліту стиснення медіа на основі ffmpeg як дію Nemo для швидкого стиснення файлів через правий клік.
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Compress.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (дзеркало)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Compress.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENGLISH -->
+        <div class="lang-block" data-lang="en">
+            <div class="desc">
+                <p><span class="badge">🇬🇧</span> Simple Linux tweaks mainly written in pure bash.</p>
+                <p><strong>Note:</strong> <a href="https://github.com/ualinuxoid/lintweak">GitHub</a> is used only as mirror. Please use <a href="https://codeberg.org/ualinuxoid/lintweak">Codeberg</a> if you need to submit anything.</p>
+            </div>
+
+            <div class="scripts-list">
+                <!-- Tor -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🧅</span>
+                            <span class="name">Tor installer</span>
+                        </div>
+                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Installs Tor as a "VPN" (full system traffic passes through Tor) to bypass censorship or network restrictions. All dependencies and GUI control are managed automatically. Beginner-friendly.
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/tor.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (mirror)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/tor.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WGuard -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🛡️</span>
+                            <span class="name">WGuard installer</span>
+                        </div>
+                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Installs tweaks to hide your identity in wireless and wired networks, including (but not limited to) random MAC, fake OUI (manufacturer spoof), fake hostname, etc. Comes with a GUI, safe for beginners.
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/wguard.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (mirror)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/wguard.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NoRU -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🚫</span>
+                            <span class="name">Advanced ru network blocker</span>
+                        </div>
+                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Tries to block as much "runet" as possible. Supports three modes: normal (to <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/misc/rublock.txt">hosts</a> content), aggressive (fights ru TLDs) and extreme (uses IP banlist, not recommended).
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/noru.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (mirror)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/noru.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy hardener -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🔒</span>
+                            <span class="name">Privacy hardener</span>
+                        </div>
+                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Enhances your privacy by applying multiple cosmetic tweaks, such as MAC randomization, NTS setup, DoT setup, etc.
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Privacy.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (mirror)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Privacy.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAT2 -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">🗑️</span>
+                            <span class="name">MAT2</span>
+                        </div>
+                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Installs <a href="https://github.com/jvoisin/mat2">MAT2</a> and adds a convenient Nemo action to remove metadata with a right-click on a file.
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Mat2.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (mirror)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Mat2.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shrink -->
+                <div class="script-item">
+                    <div class="script-header" onclick="toggleSpoiler(this)">
+                        <div class="script-title">
+                            <span class="icon">📦</span>
+                            <span class="name">Shrink (Compress)</span>
+                        </div>
+                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                    </div>
+                    <div class="script-desc">
+                        Installs an ffmpeg-based media compression utility as a Nemo action for quick compression via right-click.
+                    </div>
+                    <div class="sp-content">
+                        <div class="cmd-block">
+                            <span class="cmd-label">Codeberg</span>
+                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Compress.sh | bash</code>
+                        </div>
+                        <div class="cmd-block">
+                            <span class="cmd-label">GitHub (mirror)</span>
+                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Compress.sh | bash</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div class="footer">
+            Lintweak — простота та приватність у Linux
+        </div>
+    </div>
+
+    <script>
+        // ---- Перемикання мови ----
+        const langBtns = document.querySelectorAll('.lang-btn');
+        const langBlocks = document.querySelectorAll('.lang-block');
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                // активна кнопка
+                langBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // показуємо потрібний блок
+                langBlocks.forEach(block => {
+                    block.classList.toggle('active', block.dataset.lang === lang);
+                });
+            });
+        });
+
+        // ---- Перемикання теми ----
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Перевіряємо збережену тему
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // ---- Спойлери ----
+        function toggleSpoiler(headerEl) {
+            const item = headerEl.closest('.script-item');
+            const content = item.querySelector('.sp-content');
+            const btn = item.querySelector('.sp-btn');
+
+            content.classList.toggle('open');
+            btn.classList.toggle('open');
+
+            // Змінюємо текст кнопки залежно від мови
+            const isOpen = content.classList.contains('open');
+            const lang = document.querySelector('.lang-btn.active')?.dataset.lang || 'uk';
+            const showText = lang === 'uk' ? 'Показати команди' : 'Show commands';
+            const hideText = lang === 'uk' ? 'Сховати команди' : 'Hide commands';
+            const span = btn.querySelector('span:first-child');
+            if (span) {
+                span.textContent = isOpen ? hideText : showText;
+            }
+        }
+
+        // Оновлюємо текст кнопок при зміні мови (якщо спойлер відкритий)
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                document.querySelectorAll('.script-item').forEach(item => {
+                    const content = item.querySelector('.sp-content');
+                    const btnSp = item.querySelector('.sp-btn');
+                    if (content && btnSp) {
+                        const isOpen = content.classList.contains('open');
+                        const showText = lang === 'uk' ? 'Показати команди' : 'Show commands';
+                        const hideText = lang === 'uk' ? 'Сховати команди' : 'Hide commands';
+                        const span = btnSp.querySelector('span:first-child');
+                        if (span) {
+                            span.textContent = isOpen ? hideText : showText;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+                                                                                                                                  </html>
