@@ -1,1 +1,1 @@
-Nothing interesting here, just one-page website for my projects :)
+Nothing interesting here, just simple website for my projects :)
