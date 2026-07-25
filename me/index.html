@@ -43,6 +43,8 @@
         body.dark a { color: #7aa2f7; }
         body.dark .badge { background: #3b4261; color: #c0caf5; }
         body.dark .theme-toggle:hover { background: rgba(255,255,255,0.05); }
+        body.dark #ru-block .ru-text-danger { color: #ff6b6b; }
+        body.dark #ru-block .ru-text-muted { color: #8a94a8; }
 
         /* ----- Шапка ----- */
         .header {
@@ -229,113 +231,173 @@
             color: #94a3b8;
         }
         body.dark .footer { color: #565f89; }
+
+        /* ----- Блок для ru-локалі ----- */
+        #ru-block {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        #ru-block.ru-visible {
+            display: block;
+        }
+        #main-content.ru-hidden {
+            display: none;
+        }
+        .ru-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+        .ru-text-danger {
+            font-weight: 700;
+            color: #e74c3c;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .ru-text-muted {
+            color: #6c7a8a;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <!-- Шапка -->
-        <div class="header">
-            <div class="nav">
-                <a href="/">🏠 Home</a>
-                <a href="/me" style="color:#2563eb; font-weight:700;">👤 About</a>
-            </div>
-            <div class="header-controls">
-                <div class="lang-switch">
-                    <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
-                    <button class="lang-btn" data-lang="en">🇬🇧 Eng</button>
-                </div>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
-            </div>
+        <!-- Блок для російської локалі (показується тільки якщо є ru) -->
+        <div id="ru-block">
+            <h2 class="ru-title">🇺🇦 Glory to Ukraine! 🇺🇦</h2>
+            <div class="ru-text-danger">Russians not welcome here! Go in direction of your warship!</div>
+            <div class="ru-text-muted">We detected that your browser locale set to ru. If you are not russian, please use any other language.</div>
         </div>
 
-        <!-- UKRAINIAN -->
-        <div class="lang-block active" data-lang="uk">
-            <div class="profile">
-                <div class="avatar">🖥️</div>
-                <div>
-                    <h1>ualinuxoid</h1>
-                    <div class="tagline">🇺🇦 з України</div>
+        <!-- Основний контент -->
+        <div id="main-content">
+
+            <!-- Шапка -->
+            <div class="header">
+                <div class="nav">
+                    <a href="/">🏠 Home</a>
+                    <a href="/me" style="color:#2563eb; font-weight:700;">👤 About</a>
                 </div>
-            </div>
-
-            <div class="section">
-                <p><span class="badge">Привіт!</span> Я <strong>ualinuxoid</strong>, і я з України 🇺🇦</p>
-                <p>Якщо у вас є можливість, будь ласка, задонатьте на <a href="https://war.ukraine.ua" target="_blank">українських захисників</a>.</p>
-            </div>
-
-            <div class="section">
-                <p>Я люблю писати різні скрипти та автоматизації для Linux, використовуючи <strong>bash</strong>.</p>
-                <p>Моя основна платформа — <a href="https://codeberg.org/ualinuxoid" target="_blank">Codeberg</a>, бо я не люблю рішення Microsoft. Але я також маю <a href="https://github.com/ualinuxoid" target="_blank">GitHub</a>.</p>
-            </div>
-
-            <div class="section">
-                <p><strong>Я НЕ програміст</strong>, але я добре знаю bash.</p>
-                <p>Я вважаю, що всі користувачі повинні мати змогу знати, як створено той чи інший код, тому якщо я використовую частини з допомогою ШІ, я обов'язково додаю попередження про це.</p>
-            </div>
-
-            <div class="section">
-                <p>Для зв'язку використовуйте <span class="email">omit-divided-puppy@duck.com</span> — я не кусаюся 😁</p>
-            </div>
-
-            <div class="donate-box">
-                💙💛 <strong>Дякую, що завітали!</strong> Якщо маєте змогу, я буду радий, якщо ви переглянете мої скрипти!
-            </div>
-
-            <div class="links">
-                <a href="https://codeberg.org/ualinuxoid" target="_blank">🦊 Codeberg</a>
-                <a href="https://github.com/ualinuxoid" target="_blank">🐙 GitHub</a>
-                <a href="https://war.ukraine.ua" target="_blank">🇺🇦 Підтримати Україну</a>
-            </div>
-        </div>
-
-        <!-- ENGLISH -->
-        <div class="lang-block" data-lang="en">
-            <div class="profile">
-                <div class="avatar">🖥️</div>
-                <div>
-                    <h1>ualinuxoid</h1>
-                    <div class="tagline">🇺🇦 from Ukraine</div>
+                <div class="header-controls">
+                    <div class="lang-switch">
+                        <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
+                        <button class="lang-btn" data-lang="en">🇬🇧 Eng</button>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
                 </div>
             </div>
 
-            <div class="section">
-                <p><span class="badge">Hi!</span> I am <strong>ualinuxoid</strong>, and I am from Ukraine 🇺🇦</p>
-                <p>If it is possible for you, please, donate to <a href="https://war.ukraine.ua" target="_blank">Ukrainian defenders</a>.</p>
+            <!-- UKRAINIAN -->
+            <div class="lang-block active" data-lang="uk">
+                <div class="profile">
+                    <div class="avatar">🖥️</div>
+                    <div>
+                        <h1>ualinuxoid</h1>
+                        <div class="tagline">🇺🇦 з України</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <p><span class="badge">Привіт!</span> Я <strong>ualinuxoid</strong>, і я з України 🇺🇦</p>
+                    <p>Якщо у вас є можливість, будь ласка, задонатьте на <a href="https://war.ukraine.ua" target="_blank">українських захисників</a>.</p>
+                </div>
+
+                <div class="section">
+                    <p>Я люблю писати різні скрипти та автоматизації для Linux, використовуючи <strong>bash</strong>.</p>
+                    <p>Моя основна платформа — <a href="https://codeberg.org/ualinuxoid" target="_blank">Codeberg</a>, бо я не люблю рішення Microsoft. Але я також маю <a href="https://github.com/ualinuxoid" target="_blank">GitHub</a>.</p>
+                </div>
+
+                <div class="section">
+                    <p><strong>Я НЕ програміст</strong>, але я добре знаю bash.</p>
+                    <p>Я вважаю, що всі користувачі повинні мати змогу знати, як створено той чи інший код, тому якщо я використовую частини з допомогою ШІ, я обов'язково додаю попередження про це.</p>
+                </div>
+
+                <div class="section">
+                    <p>Для зв'язку використовуйте <span class="email">omit-divided-puppy@duck.com</span> — я не кусаюся 😁</p>
+                </div>
+
+                <div class="donate-box">
+                    💙💛 <strong>Дякую, що завітали!</strong> Якщо маєте змогу, я буду радий, якщо ви переглянете мої скрипти!
+                </div>
+
+                <div class="links">
+                    <a href="https://codeberg.org/ualinuxoid" target="_blank">🦊 Codeberg</a>
+                    <a href="https://github.com/ualinuxoid" target="_blank">🐙 GitHub</a>
+                    <a href="https://war.ukraine.ua" target="_blank">🇺🇦 Підтримати Україну</a>
+                </div>
             </div>
 
-            <div class="section">
-                <p>I like writing various scripts and automations for Linux, using <strong>bash</strong>.</p>
-                <p>My main platform is <a href="https://codeberg.org/ualinuxoid" target="_blank">Codeberg</a>, because I hate Microsoft solutions. But I also have <a href="https://github.com/ualinuxoid" target="_blank">GitHub</a>.</p>
+            <!-- ENGLISH -->
+            <div class="lang-block" data-lang="en">
+                <div class="profile">
+                    <div class="avatar">🖥️</div>
+                    <div>
+                        <h1>ualinuxoid</h1>
+                        <div class="tagline">🇺🇦 from Ukraine</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <p><span class="badge">Hi!</span> I am <strong>ualinuxoid</strong>, and I am from Ukraine 🇺🇦</p>
+                    <p>If it is possible for you, please, donate to <a href="https://war.ukraine.ua" target="_blank">Ukrainian defenders</a>.</p>
+                </div>
+
+                <div class="section">
+                    <p>I like writing various scripts and automations for Linux, using <strong>bash</strong>.</p>
+                    <p>My main platform is <a href="https://codeberg.org/ualinuxoid" target="_blank">Codeberg</a>, because I hate Microsoft solutions. But I also have <a href="https://github.com/ualinuxoid" target="_blank">GitHub</a>.</p>
+                </div>
+
+                <div class="section">
+                    <p><strong>I am NOT a programmer</strong>, but I know bash really well.</p>
+                    <p>I believe, that all users should be able to know, how this or that code created, so if I use ai-assisted parts in my scripts, I will make sure to put a warning about that.</p>
+                </div>
+
+                <div class="section">
+                    <p>To contact me, use <span class="email">omit-divided-puppy@duck.com</span> — I will not bite you 😁</p>
+                </div>
+
+                <div class="donate-box">
+                    💙💛 <strong>Thanks for coming here!</strong> If you can, I will be pleased if you will review my scripts!
+                </div>
+
+                <div class="links">
+                    <a href="https://codeberg.org/ualinuxoid" target="_blank">🦊 Codeberg</a>
+                    <a href="https://github.com/ualinuxoid" target="_blank">🐙 GitHub</a>
+                    <a href="https://war.ukraine.ua" target="_blank">🇺🇦 Support Ukraine</a>
+                </div>
             </div>
 
-            <div class="section">
-                <p><strong>I am NOT a programmer</strong>, but I know bash really well.</p>
-                <p>I believe, that all users should be able to know, how this or that code created, so if I use ai-assisted parts in my scripts, I will make sure to put a warning about that.</p>
+            <hr />
+            <div class="footer">
+                <a href="/">← Повернутися на головну / Back to home</a>
             </div>
 
-            <div class="section">
-                <p>To contact me, use <span class="email">omit-divided-puppy@duck.com</span> — I will not bite you 😁</p>
-            </div>
+        </div><!-- /main-content -->
 
-            <div class="donate-box">
-                💙💛 <strong>Thanks for coming here!</strong> If you can, I will be pleased if you will review my scripts!
-            </div>
-
-            <div class="links">
-                <a href="https://codeberg.org/ualinuxoid" target="_blank">🦊 Codeberg</a>
-                <a href="https://github.com/ualinuxoid" target="_blank">🐙 GitHub</a>
-                <a href="https://war.ukraine.ua" target="_blank">🇺🇦 Support Ukraine</a>
-            </div>
-        </div>
-
-        <hr />
-        <div class="footer">
-            <a href="/">← Повернутися на головну / Back to home</a>
-        </div>
-    </div>
+    </div><!-- /container -->
 
     <script>
+        // ---- Перевірка локалі браузера на ru ----
+        (function() {
+            const userLang = navigator.language || navigator.languages?.[0] || '';
+            const isRu = /^ru/i.test(userLang);
+
+            const ruBlock = document.getElementById('ru-block');
+            const mainContent = document.getElementById('main-content');
+
+            if (isRu) {
+                ruBlock.classList.add('ru-visible');
+                mainContent.classList.add('ru-hidden');
+            } else {
+                ruBlock.classList.remove('ru-visible');
+                mainContent.classList.remove('ru-hidden');
+            }
+        })();
+
         // ---- Перемикання мови ----
         const langBtns = document.querySelectorAll('.lang-btn');
         const langBlocks = document.querySelectorAll('.lang-block');
