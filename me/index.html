@@ -3,47 +3,242 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ualinuxoid – About me. Linux bash scripts from Ukraine." />
     <title>ualinuxoid – About me</title>
     <style>
+        :root {
+            --bg: #f4f6f9;
+            --card: #ffffff;
+            --text: #1e1e2f;
+            --muted: #64748b;
+            --border: #e5e7eb;
+            --accent: #2563eb;
+            --accent-soft: #e0e7ff;
+            --warn-bg: #fef9e7;
+            --warn-border: #f59e0b;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+        body.dark {
+            --bg: #1a1b26;
+            --card: #24283b;
+            --text: #d4d4d4;
+            --muted: #a9b1d6;
+            --border: #3b4261;
+            --accent: #7aa2f7;
+            --accent-soft: #3b4261;
+            --warn-bg: #2d2a1e;
+            --warn-border: #fbbf24;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f6f9; color: #1e1e2f; line-height: 1.7; padding: 20px; transition: background 0.3s, color 0.3s; }
-        .container { max-width: 800px; margin: 0 auto; background: #ffffff; border-radius: 28px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08); padding: 40px 50px; }
-        @media (max-width:640px) { .container { padding:24px; } }
-        body.dark { background:#1a1b26; color:#d4d4d4; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 20px;
+            transition: background 0.25s, color 0.25s;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            padding: 40px 50px;
+            transition: background 0.25s;
+        }
+        @media (max-width: 640px) {
+            .container { padding: 24px; border-radius: 20px; }
+            body { padding: 12px; }
+        }
 
-        .header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:30px; }
-        .nav a { text-decoration:none; font-weight:600; color:#4b5563; margin-right:18px; }
-        .nav a:hover { color:#2563eb; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
 
-        .profile { display:flex; align-items:center; gap:24px; margin-bottom:24px; }
-        .avatar { width:110px; height:110px; border-radius:50%; background:linear-gradient(135deg,#3b82f6,#8b5cf6); display:flex; align-items:center; justify-content:center; font-size:3rem; color:#fff; }
-        .profile h1 { font-size:2.2rem; font-weight:700; }
-        .tagline { font-size:1.1rem; color:#64748b; margin-top:4px; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .nav a {
+            font-weight: 600;
+            color: var(--muted);
+            margin-right: 16px;
+            transition: color 0.2s;
+        }
+        .nav a:hover, .nav a.active { color: var(--accent); text-decoration: none; }
 
-        .badge { display:inline-block; background:#e0e7ff; padding:0.2rem 0.9rem; border-radius:30px; font-size:0.75rem; font-weight:600; color:#1e3a8a; }
-        .section { margin:28px 0 10px; font-size:1.1rem; }
-        .links { display:flex; gap:12px 20px; margin:16px 0 10px; }
-        .email { background:#f1f5f9; padding:8px 16px; border-radius:40px; font-family:monospace; }
-        .donate-box { background:#fef9e7; border-left:5px solid #f59e0b; padding:14px 20px; border-radius:12px; margin:20px 0 10px; }
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .lang-switch {
+            display: flex;
+            gap: 4px;
+            background: var(--accent-soft);
+            border-radius: 40px;
+            padding: 4px;
+        }
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 5px 13px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: var(--muted);
+        }
+        .lang-btn.active {
+            background: var(--card);
+            color: var(--text);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.35rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 30px;
+        }
 
-        /* ru overlay */
-        #ru-block { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1200; align-items:center; justify-content:center; padding:20px; }
-        #ru-block .panel { background:#fff; padding:22px; border-radius:12px; max-width:680px; }
-        #ru-block.ru-visible { display:flex; }
-        #main-content.ru-hidden { display:none; }
+        .lang-block { display: none; }
+        .lang-block.active { display: block; }
 
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            margin-bottom: 22px;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .profile h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .tagline {
+            font-size: 1.05rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-soft);
+            padding: 0.15rem 0.85rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .section { margin: 22px 0 8px; }
+        .section p { margin-bottom: 0.5rem; }
+
+        .email {
+            background: color-mix(in srgb, var(--accent-soft) 60%, transparent);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-family: ui-monospace, monospace;
+            font-size: 0.92rem;
+        }
+
+        .donate-box {
+            background: var(--warn-bg);
+            border-left: 5px solid var(--warn-border);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin: 22px 0 12px;
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            margin: 14px 0 8px;
+        }
+        .links a { font-weight: 500; }
+
+        hr {
+            border: none;
+            border-top: 2px dashed var(--border);
+            margin: 24px 0 12px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        .footer a { color: var(--muted); }
+        .footer a:hover { color: var(--accent); }
+
+        #ru-block {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.72);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+        #ru-block.ru-visible { display: flex; }
+        #main-content.ru-hidden { display: none !important; }
+        #ru-block .panel {
+            background: #fff;
+            color: #1e1e2f;
+            padding: 26px 28px;
+            border-radius: 14px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+        }
+        .ru-title { font-weight: 700; font-size: 1.35rem; margin-bottom: 0.45rem; }
+        .ru-text-danger { font-weight: 700; color: #b91c1c; margin-bottom: 0.6rem; }
+        .ru-text-muted { color: #64748b; margin-bottom: 1rem; font-size: 0.95rem; }
+        .ru-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        .btn {
+            padding: 9px 15px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .btn.primary { background: #2563eb; color: #fff; }
+        .btn.ghost { background: transparent; border: 1px solid #e2e8f0; color: #334155; }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <div id="ru-block" role="dialog" aria-modal="true" aria-hidden="true">
+        <div id="ru-block" role="dialog" aria-modal="true" aria-labelledby="ru-title" aria-hidden="true">
             <div class="panel">
-                <div style="font-weight:700; font-size:1.4rem; margin-bottom:6px;">Увага</div>
-                <div style="color:#6c7a8a; margin-bottom:8px;">Ваш браузер налаштовано на російську мову або часовий пояс вказує на регіон, який може не відповідати цій сторінці.</div>
-                <div style="display:flex; gap:10px;">
-                    <button id="ru-continue" style="padding:8px 12px; border-radius:8px; border:none; background:#2563eb; color:#fff;">Продовжити</button>
-                    <button id="ru-switch-en" style="padding:8px 12px; border-radius:8px;">Переключити англійську</button>
+                <div class="ru-title" id="ru-title">Доступ обмежено</div>
+                <div class="ru-text-danger">Виявлено російську мову браузера та/або часовий пояс, пов’язаний з Росією.</div>
+                <div class="ru-text-muted">Цей сайт для українсько- та англомовної аудиторії. Якщо ви не з РФ — натисніть «Продовжити».</div>
+                <div class="ru-actions">
+                    <button class="btn primary" id="ru-continue" type="button">Продовжити</button>
+                    <button class="btn ghost" id="ru-switch-en" type="button">Перемкнути на English</button>
                 </div>
             </div>
         </div>
@@ -52,20 +247,21 @@
             <div class="header">
                 <div class="nav">
                     <a href="/">🏠 Home</a>
-                    <a href="/me" style="color:#2563eb; font-weight:700;">👤 About</a>
+                    <a href="/me" class="active">👤 About</a>
+                    <a href="/experimental">🧪 Experimental</a>
                 </div>
                 <div class="header-controls">
-                    <div class="lang-switch">
-                        <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
-                        <button class="lang-btn" data-lang="en">🇬🇧 Eng</button>
+                    <div class="lang-switch" role="group" aria-label="Language">
+                        <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
+                        <button class="lang-btn" data-lang="en" type="button">🇬🇧 Eng</button>
                     </div>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
+                    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
                 </div>
             </div>
 
             <div class="lang-block active" data-lang="uk">
                 <div class="profile">
-                    <div class="avatar">🖥️</div>
+                    <div class="avatar" aria-hidden="true">🖥️</div>
                     <div>
                         <h1>ualinuxoid</h1>
                         <div class="tagline">🇺🇦 з України</div>
@@ -74,12 +270,12 @@
 
                 <div class="section">
                     <p><span class="badge">Привіт!</span> Я <strong>ualinuxoid</strong>, і я з України 🇺🇦</p>
-                    <p>Якщо у вас є можливість, будь ласка, задонатьте на <a href="https://war.ukraine.ua" target="_blank">українських захисників</a>.</p>
+                    <p>Якщо у вас є можливість, будь ласка, задонатьте на <a href="https://war.ukraine.ua" target="_blank" rel="noopener">українських захисників</a>.</p>
                 </div>
 
                 <div class="section">
                     <p>Я люблю писати різні скрипти та автоматизації для Linux, використовуючи <strong>bash</strong>.</p>
-                    <p>Моя основна платформа — <a href="https://codeberg.org/ualinuxoid" target="_blank">Codeberg</a>.</p>
+                    <p>Моя основна платформа — <a href="https://codeberg.org/ualinuxoid" target="_blank" rel="noopener">Codeberg</a>.</p>
                 </div>
 
                 <div class="section">
@@ -87,21 +283,21 @@
                 </div>
 
                 <div class="section">
-                    <p>Для зв'язку використовуйте <span class="email">omit-divided-puppy@duck.com</span> — я не кусаюся 😁</p>
+                    <p>Для зв’язку використовуйте <span class="email">omit-divided-puppy@duck.com</span> — я не кусаюся 😁</p>
                 </div>
 
-                <div class="donate-box">💙💛 <strong>Дякую, що завітали!</strong> Якщо маєте змогу, я буду радий, якщо ви переглянете мої скрипти.</div>
+                <div class="donate-box">💙💛 <strong>Дякую, що завітали!</strong> Якщо маєте змогу, буду радий, якщо ви переглянете мої скрипти.</div>
 
                 <div class="links">
-                    <a href="https://codeberg.org/ualinuxoid" target="_blank">🦊 Codeberg</a>
-                    <a href="https://github.com/ualinuxoid" target="_blank">🐙 GitHub</a>
-                    <a href="https://war.ukraine.ua" target="_blank">🇺🇦 Підтримати Україну</a>
+                    <a href="https://codeberg.org/ualinuxoid" target="_blank" rel="noopener">🦊 Codeberg</a>
+                    <a href="https://github.com/ualinuxoid" target="_blank" rel="noopener">🐙 GitHub</a>
+                    <a href="https://war.ukraine.ua" target="_blank" rel="noopener">🇺🇦 Підтримати Україну</a>
                 </div>
             </div>
 
             <div class="lang-block" data-lang="en">
                 <div class="profile">
-                    <div class="avatar">🖥️</div>
+                    <div class="avatar" aria-hidden="true">🖥️</div>
                     <div>
                         <h1>ualinuxoid</h1>
                         <div class="tagline">🇺🇦 from Ukraine</div>
@@ -110,55 +306,77 @@
 
                 <div class="section">
                     <p><span class="badge">Hi!</span> I am <strong>ualinuxoid</strong>, and I am from Ukraine 🇺🇦</p>
-                    <p>If it is possible for you, please donate to <a href="https://war.ukraine.ua" target="_blank">Ukrainian defenders</a>.</p>
+                    <p>If possible, please donate to <a href="https://war.ukraine.ua" target="_blank" rel="noopener">Ukrainian defenders</a>.</p>
                 </div>
 
                 <div class="section">
                     <p>I like writing various scripts and automations for Linux, using <strong>bash</strong>.</p>
+                    <p>My main platform is <a href="https://codeberg.org/ualinuxoid" target="_blank" rel="noopener">Codeberg</a>.</p>
                 </div>
 
                 <div class="section">
-                    <p>To contact me, use <span class="email">omit-divided-puppy@duck.com</span>.</p>
+                    <p><strong>I am NOT a programmer</strong>, but I know bash well.</p>
                 </div>
 
-                <div class="donate-box">💙💛 <strong>Thanks for coming here!</strong></div>
+                <div class="section">
+                    <p>To contact me, use <span class="email">omit-divided-puppy@duck.com</span> — I don’t bite 😁</p>
+                </div>
+
+                <div class="donate-box">💙💛 <strong>Thanks for coming here!</strong> If you can, I’d be glad if you check out my scripts.</div>
 
                 <div class="links">
-                    <a href="https://codeberg.org/ualinuxoid" target="_blank">🦊 Codeberg</a>
-                    <a href="https://github.com/ualinuxoid" target="_blank">🐙 GitHub</a>
-                    <a href="https://war.ukraine.ua" target="_blank">🇺🇦 Support Ukraine</a>
+                    <a href="https://codeberg.org/ualinuxoid" target="_blank" rel="noopener">🦊 Codeberg</a>
+                    <a href="https://github.com/ualinuxoid" target="_blank" rel="noopener">🐙 GitHub</a>
+                    <a href="https://war.ukraine.ua" target="_blank" rel="noopener">🇺🇦 Support Ukraine</a>
                 </div>
             </div>
 
             <hr />
             <div class="footer"><a href="/">← Повернутися на головну / Back to home</a></div>
         </div>
-
     </div>
 
     <script>
-        (function() {
-            function signalsSuggestRussian() {
-                try {
-                    const langs = navigator.languages || [navigator.language];
-                    const hasRuLang = langs.some(l => !!l && /^ru/i.test(l));
-                    const navLang = navigator.language || '';
-                    const hasRuNav = /^ru/i.test(navLang);
-                    const intlLocale = (Intl?.DateTimeFormat?.().resolvedOptions?.().locale) || '';
-                    const hasRuIntl = /^ru/i.test(intlLocale);
+        (function () {
+            const RU_TZ = new Set([
+                'Europe/Kaliningrad', 'Europe/Moscow', 'Europe/Samara',
+                'Asia/Yekaterinburg', 'Asia/Omsk', 'Asia/Krasnoyarsk',
+                'Asia/Novosibirsk', 'Asia/Barnaul', 'Asia/Tomsk', 'Asia/Novokuznetsk',
+                'Asia/Irkutsk', 'Asia/Chita', 'Asia/Yakutsk', 'Asia/Khandyga',
+                'Asia/Vladivostok', 'Asia/Ust-Nera', 'Asia/Magadan',
+                'Asia/Sakhalin', 'Asia/Srednekolymsk', 'Asia/Kamchatka', 'Asia/Anadyr'
+            ]);
 
-                    let tz = '';
-                    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { tz = ''; }
-                    const ruTimezones = /Moscow|Krasnoyarsk|Vladivostok|Yakutsk|Irkutsk|Omsk|Samara|Kaliningrad|Magadan/i;
-                    const hasRuTz = ruTimezones.test(tz);
-
-                    return hasRuLang || hasRuNav || hasRuIntl || hasRuTz;
-                } catch (e) { return false; }
+            function isRuLanguageTag(tag) {
+                if (!tag || typeof tag !== 'string') return false;
+                return /^ru([-_]|$)/i.test(tag.trim());
             }
 
+            function signalsSuggestRussian() {
+                try {
+                    const langs = Array.isArray(navigator.languages) && navigator.languages.length
+                        ? navigator.languages : [navigator.language || ''];
+                    const primary = (langs[0] || '').trim();
+                    const hasRuPrimary = isRuLanguageTag(primary);
+                    const ruCount = langs.filter(isRuLanguageTag).length;
+                    const strongLang = hasRuPrimary || ruCount >= 2;
+
+                    let tz = '';
+                    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (_) {}
+                    const hasRuTz = RU_TZ.has(tz);
+
+                    let intlLoc = '';
+                    try { intlLoc = Intl.DateTimeFormat().resolvedOptions().locale || ''; } catch (_) {}
+                    const hasRuIntl = isRuLanguageTag(intlLoc);
+
+                    return hasRuPrimary || (hasRuTz && (ruCount > 0 || hasRuIntl)) || (strongLang && hasRuIntl);
+                } catch (_) { return false; }
+            }
+
+            const BYPASS_KEY = 'site_locale_notice_dismissed_v2';
             const ruBlock = document.getElementById('ru-block');
             const mainContent = document.getElementById('main-content');
-            const dismissed = sessionStorage.getItem('site_locale_notice_dismissed_v1') === '1';
+            const dismissed = sessionStorage.getItem(BYPASS_KEY) === '1';
 
             if (!dismissed && signalsSuggestRussian()) {
                 ruBlock.classList.add('ru-visible');
@@ -167,32 +385,36 @@
             }
 
             document.getElementById('ru-continue').addEventListener('click', () => {
-                sessionStorage.setItem('site_locale_notice_dismissed_v1', '1');
+                sessionStorage.setItem(BYPASS_KEY, '1');
                 ruBlock.classList.remove('ru-visible');
                 ruBlock.setAttribute('aria-hidden', 'true');
                 mainContent.classList.remove('ru-hidden');
             });
+
             document.getElementById('ru-switch-en').addEventListener('click', () => {
-                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-                const enBtn = document.querySelector('.lang-btn[data-lang="en"]');
-                if (enBtn) enBtn.classList.add('active');
-                document.querySelectorAll('.lang-block').forEach(block => block.classList.toggle('active', block.dataset.lang === 'en'));
+                setLang('en');
+                sessionStorage.setItem(BYPASS_KEY, '1');
+                ruBlock.classList.remove('ru-visible');
+                ruBlock.setAttribute('aria-hidden', 'true');
+                mainContent.classList.remove('ru-hidden');
             });
 
             const langBtns = document.querySelectorAll('.lang-btn');
-            langBtns.forEach(btn => btn.addEventListener('click', () => {
-                const lang = btn.dataset.lang;
-                langBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                document.querySelectorAll('.lang-block').forEach(block => block.classList.toggle('active', block.dataset.lang === lang));
-            }));
+            const langBlocks = document.querySelectorAll('.lang-block');
+
+            function setLang(lang) {
+                langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+                langBlocks.forEach(block => block.classList.toggle('active', block.dataset.lang === lang));
+                document.documentElement.lang = lang === 'uk' ? 'uk' : 'en';
+            }
+
+            langBtns.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
 
             const themeToggle = document.getElementById('themeToggle');
-            const body = document.body;
-            if (localStorage.getItem('theme') === 'dark') body.classList.add('dark');
+            if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
             themeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark');
-                localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+                document.body.classList.toggle('dark');
+                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
             });
         })();
     </script>
