@@ -671,25 +671,14 @@
     </div><!-- /container -->
 
     <script>
-        <script>
-    // ---- ПЕРЕВІРКА ЛОКАЛІ НА ru ----
-    (function() {
-        // Збираємо всі можливі джерела мови
-        const langSet = new Set();
-        if (navigator.language) langSet.add(navigator.language);
-        if (navigator.languages) {
-            navigator.languages.forEach(l => langSet.add(l));
-        }
-        if (navigator.userLanguage) langSet.add(navigator.userLanguage);
-        if (navigator.browserLanguage) langSet.add(navigator.browserLanguage);
+        // ---- Перевірка локалі браузера на ru ----
+        (function() {
+            const userLang = navigator.language || navigator.languages?.[0] || '';
+            const isRu = /^ru/i.test(userLang);
 
-        // Перевіряємо, чи є хоч одна мова, що починається з 'ru' (нечутливо до регістру)
-        const isRu = Array.from(langSet).some(lang => /^ru/i.test(lang));
+            const ruBlock = document.getElementById('ru-block');
+            const mainContent = document.getElementById('main-content');
 
-        const ruBlock = document.getElementById('ru-block');
-        const mainContent = document.getElementById('main-content');
-
-        if (ruBlock && mainContent) {
             if (isRu) {
                 ruBlock.classList.add('ru-visible');
                 mainContent.classList.add('ru-hidden');
@@ -697,10 +686,7 @@
                 ruBlock.classList.remove('ru-visible');
                 mainContent.classList.remove('ru-hidden');
             }
-        }
-    })();
-
-</script>
+        })();
 
         // ---- Language switching ----
         const langBtns = document.querySelectorAll('.lang-btn');
