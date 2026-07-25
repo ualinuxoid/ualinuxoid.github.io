@@ -117,6 +117,12 @@
         body.dark .nav a.active {
             color: #7aa2f7;
         }
+        body.dark #ru-block .ru-text-danger {
+            color: #ff6b6b;
+        }
+        body.dark #ru-block .ru-text-muted {
+            color: #8a94a8;
+        }
 
         /* ----- Шапка + навігація ----- */
         .header {
@@ -383,347 +389,456 @@
         .footer a:hover {
             text-decoration: underline;
         }
+
+        /* ----- Блок для ru-локалі ----- */
+        #ru-block {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        #ru-block.ru-visible {
+            display: block;
+        }
+        #main-content.ru-hidden {
+            display: none;
+        }
+
+        .ru-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+        .ru-text-danger {
+            font-weight: 700;
+            color: #e74c3c;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .ru-text-muted {
+            color: #6c7a8a;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        body.dark .ru-text-muted {
+            color: #8a94a8;
+        }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <!-- Шапка з навігацією -->
-        <div class="header">
-            <div class="header-left">
-                <div class="nav">
-                    <a href="/" class="active">🏠 Home</a>
-                    <a href="/experimental">🧪 Experimental</a>
-                    <a href="/me">👤 About</a>
-                </div>
-                <h1>⚡ Lintweak</h1>
-            </div>
-            <div class="header-controls">
-                <div class="lang-switch">
-                    <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
-                    <button class="lang-btn" data-lang="en">🇬🇧 Eng</button>
-                </div>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
-            </div>
+        <!-- Блок для російської локалі (показується тільки якщо є ru) -->
+        <div id="ru-block">
+            <h2 class="ru-title">🇺🇦 Glory to Ukraine! 🇺🇦</h2>
+            <div class="ru-text-danger">Russians not welcome here! Go in direction of your warship!</div>
+            <div class="ru-text-muted">We detected that your browser locale set to ru. If you are not russian, please use any other language.</div>
         </div>
 
-        <!-- UKRAINIAN -->
-        <div class="lang-block active" data-lang="uk">
-            <div class="desc">
-                <p><span class="badge">🇺🇦</span> Прості Linux-твіки, переважно написані на чистому bash.</p>
-                <p><strong>Увага:</strong> <a href="https://github.com/ualinuxoid/lintweak">GitHub</a> використовується лише як дзеркало. Будь ласка, використовуйте <a href="https://codeberg.org/ualinuxoid/lintweak">Codeberg</a> для будь-яких питань або внесків.</p>
-            </div>
-
-            <div class="scripts-list">
-                <!-- Tor -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🧅</span>
-                            <span class="name">Tor installer</span>
-                        </div>
-                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+        <!-- Основний контент -->
+        <div id="main-content">
+            <!-- Шапка з навігацією -->
+            <div class="header">
+                <div class="header-left">
+                    <div class="nav">
+                        <a href="/" class="active">🏠 Home</a>
+                        <a href="/experimental">🧪 Experimental</a>
+                        <a href="/me">👤 About</a>
                     </div>
-                    <div class="script-desc">
-                        Встановлює Tor як «VPN» (весь системний трафік через Tor) для обходу цензури чи блокувань. Усі залежності та GUI керування встановлюються автоматично. Дружній до новачків.
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/tor.sh | bash</code>
-                        </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (дзеркало)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/tor.sh | bash</code>
-                        </div>
-                    </div>
+                    <h1>⚡ Lintweak</h1>
                 </div>
-
-                <!-- WGuard -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🛡️</span>
-                            <span class="name">WGuard installer</span>
-                        </div>
-                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+                <div class="header-controls">
+                    <div class="lang-switch">
+                        <button class="lang-btn active" data-lang="uk">🇺🇦 Укр</button>
+                        <button class="lang-btn" data-lang="en">🇬🇧 Eng</button>
                     </div>
-                    <div class="script-desc">
-                        Встановлює твіки для приховування особи в бездротових та дротових мережах: випадкова MAC-адреса, підробка OUI (виробника), фейковий hostname тощо. Має графічний інтерфейс, безпечний для новачків.
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/wguard.sh | bash</code>
-                        </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (дзеркало)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/wguard.sh | bash</code>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NoRU -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🚫</span>
-                            <span class="name">Advanced ru network blocker</span>
-                        </div>
-                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Блокує якомога більше «рунету». Підтримує три режими: normal (до <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/misc/rublock.txt">вмісту hosts</a>), aggressive (боротьба з ru-доменами) та extreme (IP-банліст, не рекомендується).
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/noru.sh | bash</code>
-                        </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (дзеркало)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/noru.sh | bash</code>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Privacy hardener -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🔒</span>
-                            <span class="name">Privacy hardener</span>
-                        </div>
-                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Покращує приватність за допомогою різноманітних косметичних твіків: рандомізація MAC, налаштування NTS, DoT тощо.
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Privacy.sh | bash</code>
-                        </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (дзеркало)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Privacy.sh | bash</code>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MAT2 -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🗑️</span>
-                            <span class="name">MAT2</span>
-                        </div>
-                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Встановлює <a href="https://github.com/jvoisin/mat2">MAT2</a> та додає зручну дію Nemo для видалення метаданих через контекстне меню (правий клік на файлі).
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Mat2.sh | bash</code>
-                        </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (дзеркало)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Mat2.sh | bash</code>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Shrink -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">📦</span>
-                            <span class="name">Shrink (Compress)</span>
-                        </div>
-                        <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Встановлює утиліту стиснення медіа на основі ffmpeg як дію Nemo для швидкого стиснення файлів через правий клік.
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Compress.sh | bash</code>
-                        </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (дзеркало)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Compress.sh | bash</code>
-                        </div>
-                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
                 </div>
             </div>
-        </div>
 
-        <!-- ENGLISH -->
-        <div class="lang-block" data-lang="en">
-            <div class="desc">
-                <p><span class="badge">🇬🇧</span> Simple Linux tweaks mainly written in pure bash.</p>
-                <p><strong>Note:</strong> <a href="https://github.com/ualinuxoid/lintweak">GitHub</a> is used only as mirror. Please use <a href="https://codeberg.org/ualinuxoid/lintweak">Codeberg</a> if you need to submit anything.</p>
-            </div>
-
-            <div class="scripts-list">
-                <!-- Tor -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🧅</span>
-                            <span class="name">Tor installer</span>
-                        </div>
-                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Installs Tor as a "VPN" (full system traffic passes through Tor) to bypass censorship or network restrictions. All dependencies and GUI control are managed automatically. Beginner-friendly.
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/tor.sh | bash</code>
-                        </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (mirror)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/tor.sh | bash</code>
-                        </div>
-                    </div>
+            <!-- UKRAINIAN -->
+            <div class="lang-block active" data-lang="uk">
+                <div class="desc">
+                    <p><span class="badge">🇺🇦</span> Прості Linux-твіки, переважно написані на чистому bash.</p>
+                    <p><strong>Увага:</strong> <a href="https://github.com/ualinuxoid/lintweak">GitHub</a> використовується лише як дзеркало. Будь ласка, використовуйте <a href="https://codeberg.org/ualinuxoid/lintweak">Codeberg</a> для будь-яких питань або внесків.</p>
                 </div>
 
-                <!-- WGuard -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🛡️</span>
-                            <span class="name">WGuard installer</span>
+                <div class="scripts-list">
+                    <!-- Tor -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🧅</span>
+                                <span class="name">Tor installer</span>
+                            </div>
+                            <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
                         </div>
-                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Installs tweaks to hide your identity in wireless and wired networks, including (but not limited to) random MAC, fake OUI (manufacturer spoof), fake hostname, etc. Comes with a GUI, safe for beginners.
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/wguard.sh | bash</code>
+                        <div class="script-desc">
+                            Встановлює Tor як «VPN» (весь системний трафік через Tor) для обходу цензури чи блокувань. Усі залежності та GUI керування встановлюються автоматично. Дружній до новачків.
                         </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (mirror)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/wguard.sh | bash</code>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/tor.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (дзеркало)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/tor.sh | bash</code>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- NoRU -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🚫</span>
-                            <span class="name">Advanced ru network blocker</span>
+                    <!-- WGuard -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🛡️</span>
+                                <span class="name">WGuard installer</span>
+                            </div>
+                            <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
                         </div>
-                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Tries to block as much "runet" as possible. Supports three modes: normal (to <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/misc/rublock.txt">hosts</a> content), aggressive (fights ru TLDs) and extreme (uses IP banlist, not recommended).
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/noru.sh | bash</code>
+                        <div class="script-desc">
+                            Встановлює твіки для приховування особи в бездротових та дротових мережах: випадкова MAC-адреса, підробка OUI (виробника), фейковий hostname тощо. Має графічний інтерфейс, безпечний для новачків.
                         </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (mirror)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/noru.sh | bash</code>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/wguard.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (дзеркало)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/wguard.sh | bash</code>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Privacy hardener -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🔒</span>
-                            <span class="name">Privacy hardener</span>
+                    <!-- NoRU -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🚫</span>
+                                <span class="name">Advanced ru network blocker</span>
+                            </div>
+                            <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
                         </div>
-                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Enhances your privacy by applying multiple cosmetic tweaks, such as MAC randomization, NTS setup, DoT setup, etc.
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Privacy.sh | bash</code>
+                        <div class="script-desc">
+                            Блокує якомога більше «рунету». Підтримує три режими: normal (до <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/misc/rublock.txt">вмісту hosts</a>), aggressive (боротьба з ru-доменами) та extreme (IP-банліст, не рекомендується).
                         </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (mirror)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Privacy.sh | bash</code>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/noru.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (дзеркало)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/noru.sh | bash</code>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- MAT2 -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">🗑️</span>
-                            <span class="name">MAT2</span>
+                    <!-- Privacy hardener -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🔒</span>
+                                <span class="name">Privacy hardener</span>
+                            </div>
+                            <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
                         </div>
-                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Installs <a href="https://github.com/jvoisin/mat2">MAT2</a> and adds a convenient Nemo action to remove metadata with a right-click on a file.
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Mat2.sh | bash</code>
+                        <div class="script-desc">
+                            Покращує приватність за допомогою різноманітних косметичних твіків: рандомізація MAC, налаштування NTS, DoT тощо.
                         </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (mirror)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Mat2.sh | bash</code>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Privacy.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (дзеркало)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Privacy.sh | bash</code>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Shrink -->
-                <div class="script-item">
-                    <div class="script-header" onclick="toggleSpoiler(this)">
-                        <div class="script-title">
-                            <span class="icon">📦</span>
-                            <span class="name">Shrink (Compress)</span>
+                    <!-- SSDShield -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">💾</span>
+                                <span class="name">SSDShield installer</span>
+                            </div>
+                            <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
                         </div>
-                        <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
-                    </div>
-                    <div class="script-desc">
-                        Installs an ffmpeg-based media compression utility as a Nemo action for quick compression via right-click.
-                    </div>
-                    <div class="sp-content">
-                        <div class="cmd-block">
-                            <span class="cmd-label">Codeberg</span>
-                            <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Compress.sh | bash</code>
+                        <div class="script-desc">
+                            Цей скрипт покликаний максимально продовжити термін служби вашого SSD. Дружній до новачків!
                         </div>
-                        <div class="cmd-block">
-                            <span class="cmd-label">GitHub (mirror)</span>
-                            <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Compress.sh | bash</code>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/ssdshield.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (дзеркало)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/ssdshield.sh | bash</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAT2 -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🗑️</span>
+                                <span class="name">MAT2</span>
+                            </div>
+                            <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+                        </div>
+                        <div class="script-desc">
+                            Встановлює <a href="https://github.com/jvoisin/mat2">MAT2</a> та додає зручну дію Nemo для видалення метаданих через контекстне меню (правий клік на файлі).
+                        </div>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Mat2.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (дзеркало)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Mat2.sh | bash</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shrink -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">📦</span>
+                                <span class="name">Shrink (Compress)</span>
+                            </div>
+                            <button class="sp-btn"><span>Показати команди</span> <span class="arrow">▼</span></button>
+                        </div>
+                        <div class="script-desc">
+                            Встановлює утиліту стиснення медіа на основі ffmpeg як дію Nemo для швидкого стиснення файлів через правий клік.
+                        </div>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Compress.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (дзеркало)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Compress.sh | bash</code>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <hr>
-        <div class="footer">
-            <a href="/me">👤 Про автора / About me</a> &nbsp;·&nbsp;
-            <a href="/experimental">🧪 Експерименти / Experiments</a> &nbsp;·&nbsp;
-            Lintweak — простота та приватність у Linux
-        </div>
-    </div>
+            <!-- ENGLISH -->
+            <div class="lang-block" data-lang="en">
+                <div class="desc">
+                    <p><span class="badge">🇬🇧</span> Simple Linux tweaks mainly written in pure bash.</p>
+                    <p><strong>Note:</strong> <a href="https://github.com/ualinuxoid/lintweak">GitHub</a> is used only as mirror. Please use <a href="https://codeberg.org/ualinuxoid/lintweak">Codeberg</a> if you need to submit anything.</p>
+                </div>
+
+                <div class="scripts-list">
+                    <!-- Tor -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🧅</span>
+                                <span class="name">Tor installer</span>
+                            </div>
+                            <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                        </div>
+                        <div class="script-desc">
+                            Installs Tor as a "VPN" (full system traffic passes through Tor) to bypass censorship or network restrictions. All dependencies and GUI control are managed automatically. Beginner-friendly.
+                        </div>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/tor.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (mirror)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/tor.sh | bash</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WGuard -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🛡️</span>
+                                <span class="name">WGuard installer</span>
+                            </div>
+                            <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                        </div>
+                        <div class="script-desc">
+                            Installs tweaks to hide your identity in wireless and wired networks, including (but not limited to) random MAC, fake OUI (manufacturer spoof), fake hostname, etc. Comes with a GUI, safe for beginners.
+                        </div>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/wguard.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (mirror)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/wguard.sh | bash</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NoRU -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🚫</span>
+                                <span class="name">Advanced ru network blocker</span>
+                            </div>
+                            <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                        </div>
+                        <div class="script-desc">
+                            Tries to block as much "runet" as possible. Supports three modes: normal (to <a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/misc/rublock.txt">hosts</a> content), aggressive (fights ru TLDs) and extreme (uses IP banlist, not recommended).
+                        </div>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/noru.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (mirror)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/noru.sh | bash</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy hardener -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🔒</span>
+                                <span class="name">Privacy hardener</span>
+                            </div>
+                            <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                        </div>
+                        <div class="script-desc">
+                            Enhances your privacy by applying multiple cosmetic tweaks, such as MAC randomization, NTS setup, DoT setup, etc.
+                        </div>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Privacy.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (mirror)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Privacy.sh | bash</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SSDShield -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">💾</span>
+                                <span class="name">SSDShield installer</span>
+                            </div>
+                            <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                        </div>
+                        <div class="script-desc">
+                            This script aims to prolong the life of your SSD as much as possible. Beginner friendly!
+                        </div>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/ssdshield.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (mirror)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/ssdshield.sh | bash</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAT2 -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">🗑️</span>
+                                <span class="name">MAT2</span>
+                            </div>
+                            <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                        </div>
+                        <div class="script-desc">
+                            Installs <a href="https://github.com/jvoisin/mat2">MAT2</a> and adds a convenient Nemo action to remove metadata with a right-click on a file.
+                        </div>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Mat2.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (mirror)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Mat2.sh | bash</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shrink -->
+                    <div class="script-item">
+                        <div class="script-header" onclick="toggleSpoiler(this)">
+                            <div class="script-title">
+                                <span class="icon">📦</span>
+                                <span class="name">Shrink (Compress)</span>
+                            </div>
+                            <button class="sp-btn"><span>Show commands</span> <span class="arrow">▼</span></button>
+                        </div>
+                        <div class="script-desc">
+                            Installs an ffmpeg-based media compression utility as a Nemo action for quick compression via right-click.
+                        </div>
+                        <div class="sp-content">
+                            <div class="cmd-block">
+                                <span class="cmd-label">Codeberg</span>
+                                <code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Compress.sh | bash</code>
+                            </div>
+                            <div class="cmd-block">
+                                <span class="cmd-label">GitHub (mirror)</span>
+                                <code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Compress.sh | bash</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer">
+                <a href="/me">👤 Про автора / About me</a> &nbsp;·&nbsp;
+                <a href="/experimental">🧪 Експерименти / Experiments</a> &nbsp;·&nbsp;
+                Lintweak — простота та приватність у Linux
+            </div>
+        </div><!-- /main-content -->
+    </div><!-- /container -->
 
     <script>
+        // ---- Перевірка локалі браузера на ru ----
+        (function() {
+            const userLang = navigator.language || navigator.languages?.[0] || '';
+            const isRu = /^ru/i.test(userLang);
+
+            const ruBlock = document.getElementById('ru-block');
+            const mainContent = document.getElementById('main-content');
+
+            if (isRu) {
+                ruBlock.classList.add('ru-visible');
+                mainContent.classList.add('ru-hidden');
+            } else {
+                ruBlock.classList.remove('ru-visible');
+                mainContent.classList.remove('ru-hidden');
+            }
+        })();
+
         // ---- Перемикання мови ----
         const langBtns = document.querySelectorAll('.lang-btn');
         const langBlocks = document.querySelectorAll('.lang-block');
@@ -791,4 +906,4 @@
         });
     </script>
 </body>
-</html>
+                                    </html>
