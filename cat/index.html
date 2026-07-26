@@ -7,7 +7,7 @@
     <title>🐱 Слава Україні</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; height: 100%; overflow: hidden; }
@@ -116,24 +116,61 @@
             to { opacity: 0; transform: scale(0.6) translateY(-20px); }
         }
 
-        .hint {
+        .hint-btn {
             position: fixed;
             bottom: max(16px, env(safe-area-inset-bottom));
+            right: max(16px, env(safe-area-inset-right));
+            z-index: 31;
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.92);
+            color: #1e293b;
+            font-size: 1.25rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+            font-family: system-ui, sans-serif;
+            line-height: 1;
+            padding: 0;
+        }
+        .hint-btn:hover { background: #fff; transform: scale(1.08); }
+        .hint-btn:active { transform: scale(0.92); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .hint-btn.open { background: #0057b7; color: #fff; }
+
+        .hint {
+            position: fixed;
+            bottom: max(68px, calc(env(safe-area-inset-bottom) + 58px));
             left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.55);
+            transform: translateX(-50%) translateY(8px);
+            background: rgba(0,0,0,0.6);
             color: #fff;
-            padding: 10px 18px;
-            border-radius: 999px;
-            font-size: 0.85rem;
+            padding: 12px 20px;
+            border-radius: 16px;
+            font-size: 1.2rem;
             font-weight: 600;
+            font-family: "Caveat", cursive;
+            letter-spacing: 0.02em;
             backdrop-filter: blur(6px);
             z-index: 30;
-            pointer-events: none;
             text-align: center;
             max-width: 92vw;
-            line-height: 1.35;
+            line-height: 1.4;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
         }
+        .hint.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
         .back {
             position: fixed;
             top: max(12px, env(safe-area-inset-top));
@@ -166,7 +203,8 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
         @media (max-width: 640px) {
-            .hint { font-size: 0.78rem; padding: 8px 14px; }
+            .hint { font-size: 1.05rem; padding: 10px 16px; }
+            .hint-btn { width: 38px; height: 38px; font-size: 1.1rem; }
             .back { font-size: 0.82rem; padding: 7px 13px; }
             .cursor-dot { display: none; }
             body { cursor: auto; }
@@ -175,7 +213,8 @@
 </head>
 <body>
     <a class="back" href="/">← Home</a>
-    <div class="hint">🐱 Клікай котика — він скаже правду · Рухай мишкою · Click = more cats</div>
+    <div class="hint" id="hint">🐱 Клікай котика — він скаже правду · Рухай мишкою · Click = more cats</div>
+    <button type="button" class="hint-btn" id="hintBtn" aria-label="Показати підказку" title="Підказка">❓</button>
     <div class="cursor-dot" id="dot"></div>
     <div id="edges"></div>
     <div id="stage"></div>
@@ -269,6 +308,15 @@
             const stage = document.getElementById('stage');
             const edges = document.getElementById('edges');
             const dot = document.getElementById('dot');
+            const hint = document.getElementById('hint');
+            const hintBtn = document.getElementById('hintBtn');
+
+            hintBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const open = hint.classList.toggle('visible');
+                hintBtn.classList.toggle('open', open);
+                hintBtn.setAttribute('aria-label', open ? 'Сховати підказку' : 'Показати підказку');
+            });
 
             let mx = window.innerWidth / 2;
             let my = window.innerHeight / 2;
@@ -464,7 +512,7 @@
             });
 
             window.addEventListener('click', (e) => {
-                if (e.target.closest('a') || e.target.closest('.cat')) return;
+                if (e.target.closest('a') || e.target.closest('.cat') || e.target.closest('.hint-btn')) return;
                 const src = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
                 cats.push(new Cat(e.clientX, e.clientY, src));
                 if (cats.length > 18) {
@@ -481,7 +529,7 @@
             }, { passive: true });
 
             window.addEventListener('touchstart', (e) => {
-                if (e.touches[0] && !e.target.closest('a') && !e.target.closest('.cat')) {
+                if (e.touches[0] && !e.target.closest('a') && !e.target.closest('.cat') && !e.target.closest('.hint-btn')) {
                     const t = e.touches[0];
                     mx = t.clientX;
                     my = t.clientY;
