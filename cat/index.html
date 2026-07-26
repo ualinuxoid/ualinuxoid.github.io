@@ -235,10 +235,10 @@
                 <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
                 <button class="lang-btn" data-lang="en" type="button">🇬🇧 Eng</button>
             </div>
-            <button class="ctrl-btn" id="footerToggle" type="button" data-i18n="hide-footer">Сховати підказку</button>
+            <button class="ctrl-btn" id="footerToggle" type="button">❓️</button>
         </div>
     </div>
-    <div class="hint" id="hint" data-i18n="hint">🐱 Клікай котика — він скаже правду · Рухай мишкою · Click = more cats</div>
+    <div class="hint hidden" id="hint" data-i18n="hint">🐱 Клікай котика — він скаже правду · Рухай мишкою · Click = more cats</div>
     <div class="cursor-dot" id="dot"></div>
     <div id="blotches"></div>
     <div id="edges"></div>
@@ -314,13 +314,6 @@
                 });
                 document.documentElement.lang = lang;
                 langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-                updateFooterBtn();
-            }
-
-            function updateFooterBtn() {
-                const t = I18N[lang] || I18N.uk;
-                const hidden = hintEl.classList.contains('hidden');
-                footerToggle.textContent = hidden ? t['show-footer'] : t['hide-footer'];
             }
 
             langBtns.forEach(btn => {
@@ -331,13 +324,18 @@
                 });
             });
 
-            if (localStorage.getItem('cat_hint_hidden') === '1') {
-                hintEl.classList.add('hidden');
-            }
+            let hintTimer = null;
             footerToggle.addEventListener('click', () => {
-                hintEl.classList.toggle('hidden');
-                localStorage.setItem('cat_hint_hidden', hintEl.classList.contains('hidden') ? '1' : '0');
-                updateFooterBtn();
+                if (hintEl.classList.contains('hidden')) {
+                    hintEl.classList.remove('hidden');
+                    clearTimeout(hintTimer);
+                    hintTimer = setTimeout(() => {
+                        hintEl.classList.add('hidden');
+                    }, 4000);
+                } else {
+                    hintEl.classList.add('hidden');
+                    clearTimeout(hintTimer);
+                }
             });
 
             /* ========== КЛЯКСИ ========== */
