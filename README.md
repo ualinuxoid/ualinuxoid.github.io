@@ -8,7 +8,7 @@ Personal site for **[Lintweak](https://codeberg.org/ualinuxoid/lintweak)** — s
 
 - Website containing one-liner installers for my scripts
 - Experimental tools
-- 🐱 Easter egg at [/cat/](https://ualinuxoid.github.io/cat/)
+- [🐱](https://ualinuxoid.github.io/cat/)
 
 ## Source of scripts
 
