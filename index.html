@@ -126,6 +126,8 @@
         .footer { margin-top: 36px; text-align: center; font-size: 0.84rem; color: var(--muted); }
         .footer a { color: var(--muted); }
         .footer a:hover { color: var(--accent); }
+
+        /* RU block */
         #ru-block {
             display: none; position: fixed; inset: 0; background: #0a0a0a; z-index: 9999;
             align-items: center; justify-content: center; padding: 24px; flex-direction: column; text-align: center;
@@ -135,10 +137,73 @@
         #ru-block .panel { max-width: 520px; color: #f1f5f9; }
         .ru-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; color: #f87171; }
         .ru-text { font-size: 1.15rem; line-height: 1.55; margin-bottom: 0.8rem; color: #e2e8f0; }
-        .ru-ship { font-size: 1.35rem; font-weight: 700; color: #fbbf24; margin: 1.4rem 0 0.6rem; }
-        .ru-arrow { font-size: 2.5rem; margin: 0.4rem 0 1rem; animation: drift 2.2s ease-in-out infinite; }
+        .ru-ship { font-size: 1.35rem; font-weight: 700; color: #fbbf24; margin: 1.4rem 0 0.6rem; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .ru-ship img { width: 42px; height: 42px; }
+        .ru-arrow { font-size: 2rem; margin: 0.3rem 0 0.8rem; animation: drift 2.2s ease-in-out infinite; }
         @keyframes drift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(18px); } }
-        .ru-sub { font-size: 0.9rem; color: #94a3b8; margin-top: 1.2rem; }
+        .ru-phrase {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            opacity: 0.45;
+            margin: 0.8rem auto 1rem;
+            max-width: 90%;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+        .ru-sub { font-size: 0.9rem; color: #94a3b8; margin-top: 1rem; }
+
+        .ru-unlock { margin-top: 1.6rem; }
+        .ru-btn {
+            background: linear-gradient(135deg, #334155, #1e293b);
+            color: #e2e8f0;
+            border: 1px solid #475569;
+            padding: 12px 22px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .ru-btn:hover { background: linear-gradient(135deg, #475569, #334155); border-color: #64748b; transform: translateY(-1px); }
+        .ru-prove { display: none; margin-top: 1.2rem; }
+        .ru-prove.visible { display: block; }
+        .ru-prove-title { font-size: 1.25rem; font-weight: 700; color: #fbbf24; margin-bottom: 0.8rem; }
+        .ru-input {
+            width: 100%;
+            max-width: 280px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: #f1f5f9;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .ru-input:focus { outline: none; border-color: #7aa2f7; box-shadow: 0 0 0 3px rgba(122,162,247,0.25); }
+        .ru-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+        .ru-hint-btn {
+            background: transparent;
+            border: 1px dashed #64748b;
+            color: #94a3b8;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .ru-hint-btn:hover { border-color: #94a3b8; color: #e2e8f0; }
+        .ru-hint-text {
+            display: none;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            background: #1e293b;
+            padding: 10px 14px;
+            border-radius: 8px;
+        }
+        .ru-hint-text.visible { display: block; }
+        .ru-error { color: #f87171; font-size: 0.9rem; margin-top: 8px; display: none; }
+        .ru-error.visible { display: block; }
     </style>
 </head>
 <body>
@@ -148,9 +213,24 @@
 <div class="ru-title" id="ru-title">Access denied</div>
 <div class="ru-text">Your browser language and/or timezone indicate Russia.</div>
 <div class="ru-text">This site is not for you.</div>
-<div class="ru-ship">You should go in the direction of your warship.</div>
-<div class="ru-arrow" aria-hidden="true">→ 🚢</div>
+<div class="ru-ship">You should go in the direction of your warship <img src="/assets/sinking-boat.svg" alt="sinking warship" width="42" height="42"></div>
+<div class="ru-arrow" aria-hidden="true">→</div>
+<div class="ru-phrase" id="ru-phrase"></div>
 <div class="ru-sub">Слава Україні · Glory to Ukraine</div>
+
+<div class="ru-unlock">
+<button type="button" class="ru-btn" id="not-ru-btn">I am not russian</button>
+<div class="ru-prove" id="ru-prove">
+<div class="ru-prove-title">Prove it 😈</div>
+<input type="text" class="ru-input" id="ru-input" placeholder="Type here..." autocomplete="off" spellcheck="false">
+<div class="ru-actions">
+<button type="button" class="ru-btn" id="ru-submit">Submit</button>
+<button type="button" class="ru-hint-btn" id="ru-hint-btn">підказка / hint</button>
+</div>
+<div class="ru-hint-text" id="ru-hint-text">Введи «Слава Україні» або «Glory to Ukraine»</div>
+<div class="ru-error" id="ru-error">Nope. Try again.</div>
+</div>
+</div>
 </div>
 </div>
 <div id="main-content">
@@ -202,7 +282,7 @@
 <div class="script-item"><div class="script-header" onclick="toggleSpoiler(this)"><div class="script-title"><span class="icon">🚫</span><span class="name">NoRU (ru network blocker)</span></div><button class="sp-btn" type="button"><span>Show commands</span> <span class="arrow">▼</span></button></div><div class="script-desc">Blocks as much of the "runet" as possible. Modes: <strong>normal</strong> (hosts from rublock), <strong>aggressive</strong> (fights .ru/.su TLDs), <strong>extreme</strong> (IP banlists — not recommended).</div><div class="sp-content"><div class="cmd-block"><span class="cmd-label">Codeberg</span><code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/noru.sh | bash</code></div><div class="cmd-block"><span class="cmd-label">GitHub (mirror)</span><code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/noru.sh | bash</code></div></div></div>
 <div class="script-item"><div class="script-header" onclick="toggleSpoiler(this)"><div class="script-title"><span class="icon">🔒</span><span class="name">Privacy hardener</span></div><button class="sp-btn" type="button"><span>Show commands</span> <span class="arrow">▼</span></button></div><div class="script-desc">Cosmetic privacy tweaks: MAC randomization, NTS, DNS-over-TLS and other small improvements.</div><div class="sp-content"><div class="cmd-block"><span class="cmd-label">Codeberg</span><code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Privacy.sh | bash</code></div><div class="cmd-block"><span class="cmd-label">GitHub (mirror)</span><code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Privacy.sh | bash</code></div></div></div>
 <div class="script-item"><div class="script-header" onclick="toggleSpoiler(this)"><div class="script-title"><span class="icon">🧱</span><span class="name">Adblock (hosts)</span></div><button class="sp-btn" type="button"><span>Show commands</span> <span class="arrow">▼</span></button></div><div class="script-desc">Hosts-based ad blocker (StevenBlack lists). Optional: fake news, gambling, porn, social, Russian propaganda. Sets up a systemd timer for auto-updates.</div><div class="sp-content"><div class="cmd-block"><span class="cmd-label">Codeberg</span><code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/adblock.sh | bash</code></div><div class="cmd-block"><span class="cmd-label">GitHub (mirror)</span><code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/adblock.sh | bash</code></div></div></div>
-<div class="script-item"><div class="script-header" onclick="toggleSpoiler(this)"><div class="script-title"><span class="icon">💾</span><span class="name">SSDShield</span></div><button class="sp-btn" type="button"><span>Show commands</span> <span class="arrow">▼</span></button></div><div class="script-desc">Maximizes SSD lifespan (trim, scheduler, mount options, etc.). Beginner-friendly.</div><div class="sp-content"><div class="cmd-block"><span class="cmd-label">Codeberg</span><code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/ssdshield.sh | bash</code></div><div class="cmd-block"><span class="cmd-label">GitHub (mirror)</span><code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/ssdshield.sh | bash</code></div></div></div>
+<div class="script-item"><div class="script-header" onclick="toggleSpoiler(this)"><div class="script-title"><span class="icon">💾</span><span class="name">SSDShield</span></div><button class="sp-btn" type="button"><span>Show commands</span> <span class="arrow">▼</span></button></div><div class="script-desc">Maximizes SSD lifespan (trim, scheduler, mount options, etc.). Beginner-friendly.</div><div class="sp-content"><div class="cmd-block"><span class="cmd-label">Codeberg</span><code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/refs/heads/main/scripts/ssdshield.sh | bash</code></div><div class="cmd-block"><span class="cmd-label">GitHub (mirror)</span><code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/ssdshield.sh | bash</code></div></div></div>
 <div class="script-item"><div class="script-header" onclick="toggleSpoiler(this)"><div class="script-title"><span class="icon">🗑️</span><span class="name">MAT2</span></div><button class="sp-btn" type="button"><span>Show commands</span> <span class="arrow">▼</span></button></div><div class="script-desc">Installs <a href="https://github.com/jvoisin/mat2" target="_blank" rel="noopener">MAT2</a> and a Nemo action to strip metadata via right-click.</div><div class="sp-content"><div class="cmd-block"><span class="cmd-label">Codeberg</span><code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Mat2.sh | bash</code></div><div class="cmd-block"><span class="cmd-label">GitHub (mirror)</span><code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Mat2.sh | bash</code></div></div></div>
 <div class="script-item"><div class="script-header" onclick="toggleSpoiler(this)"><div class="script-title"><span class="icon">📦</span><span class="name">Shrink (Compress)</span></div><button class="sp-btn" type="button"><span>Show commands</span> <span class="arrow">▼</span></button></div><div class="script-desc">ffmpeg-based media compression as a Nemo right-click action.</div><div class="sp-content"><div class="cmd-block"><span class="cmd-label">Codeberg</span><code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/Compress.sh | bash</code></div><div class="cmd-block"><span class="cmd-label">GitHub (mirror)</span><code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/Compress.sh | bash</code></div></div></div>
 <div class="script-item"><div class="script-header" onclick="toggleSpoiler(this)"><div class="script-title"><span class="icon">📥</span><span class="name">yt-dlp GUI</span></div><button class="sp-btn" type="button"><span>Show commands</span> <span class="arrow">▼</span></button></div><div class="script-desc">Installs yt-dlp plus a tiny zenity GUI (video/audio, folder pick). Desktop shortcut and menu entry. Debian/Ubuntu/Mint.</div><div class="sp-content"><div class="cmd-block"><span class="cmd-label">Codeberg</span><code>sudo curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/yt-dlp.sh | bash</code></div><div class="cmd-block"><span class="cmd-label">GitHub (mirror)</span><code>sudo curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/yt-dlp.sh | bash</code></div></div></div>
@@ -218,12 +298,72 @@
 </div>
 <script>
 (function(){
+const PHRASES = [
+    'I lost count how many times your oil infrastructure was on fire',
+    'Your warship drowned, so be you',
+    'Who gave you access to VPN?',
+    'Did you know, that internet was invented in USA? Why are you using western technology?!',
+    'What are you doing here? All vodka jars are empty?',
+    'You should get a new "skrepi". Wait a second... Wildberries on fire!'
+];
 const RU_TZ=new Set(['Europe/Kaliningrad','Europe/Moscow','Europe/Samara','Asia/Yekaterinburg','Asia/Omsk','Asia/Krasnoyarsk','Asia/Novosibirsk','Asia/Barnaul','Asia/Tomsk','Asia/Novokuznetsk','Asia/Irkutsk','Asia/Chita','Asia/Yakutsk','Asia/Khandyga','Asia/Vladivostok','Asia/Ust-Nera','Asia/Magadan','Asia/Sakhalin','Asia/Srednekolymsk','Asia/Kamchatka','Asia/Anadyr']);
 function isRuLanguageTag(tag){if(!tag||typeof tag!=='string')return false;return /^ru([-_]|$)/i.test(tag.trim());}
 function signalsSuggestRussian(){try{const langs=Array.isArray(navigator.languages)&&navigator.languages.length?navigator.languages:[navigator.language||''];const primary=(langs[0]||'').trim();const hasRuPrimary=isRuLanguageTag(primary);const ruCount=langs.filter(isRuLanguageTag).length;const strongLang=hasRuPrimary||ruCount>=2;let tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';}catch(_){}const hasRuTz=RU_TZ.has(tz);let intlLoc='';try{intlLoc=Intl.DateTimeFormat().resolvedOptions().locale||'';}catch(_){}const hasRuIntl=isRuLanguageTag(intlLoc);return hasRuPrimary||(hasRuTz&&(ruCount>0||hasRuIntl))||(strongLang&&hasRuIntl);}catch(_){return false;}}
-const ruBlock=document.getElementById('ru-block');const mainContent=document.getElementById('main-content');
-if(signalsSuggestRussian()){ruBlock.classList.add('ru-visible');ruBlock.setAttribute('aria-hidden','false');mainContent.classList.add('ru-hidden');document.body.style.overflow='hidden';}
-const langBtns=document.querySelectorAll('.lang-btn');const langBlocks=document.querySelectorAll('.lang-block');
+
+const ruBlock=document.getElementById('ru-block');
+const mainContent=document.getElementById('main-content');
+const phraseEl=document.getElementById('ru-phrase');
+if(phraseEl) phraseEl.textContent = PHRASES[Math.floor(Math.random()*PHRASES.length)];
+
+const unlocked = localStorage.getItem('ua_unlocked') === '1';
+if(signalsSuggestRussian() && !unlocked){
+    ruBlock.classList.add('ru-visible');
+    ruBlock.setAttribute('aria-hidden','false');
+    mainContent.classList.add('ru-hidden');
+    document.body.style.overflow='hidden';
+}
+
+const notRuBtn = document.getElementById('not-ru-btn');
+const proveBox = document.getElementById('ru-prove');
+const input = document.getElementById('ru-input');
+const submit = document.getElementById('ru-submit');
+const hintBtn = document.getElementById('ru-hint-btn');
+const hintText = document.getElementById('ru-hint-text');
+const errorEl = document.getElementById('ru-error');
+
+function unlock(){
+    localStorage.setItem('ua_unlocked','1');
+    ruBlock.classList.remove('ru-visible');
+    ruBlock.setAttribute('aria-hidden','true');
+    mainContent.classList.remove('ru-hidden');
+    document.body.style.overflow='';
+}
+if(notRuBtn){
+    notRuBtn.addEventListener('click',()=>{
+        notRuBtn.style.display='none';
+        proveBox.classList.add('visible');
+        input.focus();
+    });
+}
+if(hintBtn){
+    hintBtn.addEventListener('click',()=> hintText.classList.toggle('visible'));
+}
+function checkAnswer(){
+    const val = (input.value||'').trim().toLowerCase();
+    const ok = val === 'слава україні' || val === 'glory to ukraine';
+    if(ok){ unlock(); }
+    else {
+        errorEl.classList.add('visible');
+        input.value='';
+        input.focus();
+        setTimeout(()=>errorEl.classList.remove('visible'),2000);
+    }
+}
+if(submit) submit.addEventListener('click', checkAnswer);
+if(input) input.addEventListener('keydown', e => { if(e.key==='Enter') checkAnswer(); });
+
+const langBtns=document.querySelectorAll('.lang-btn');
+const langBlocks=document.querySelectorAll('.lang-block');
 function setLang(lang){langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));langBlocks.forEach(block=>block.classList.toggle('active',block.dataset.lang===lang));document.documentElement.lang=lang==='uk'?'uk':'en';updateSpoilerLabels(lang);}
 langBtns.forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.lang)));
 const themeToggle=document.getElementById('themeToggle');
