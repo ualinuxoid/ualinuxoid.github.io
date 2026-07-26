@@ -507,7 +507,6 @@
                             }
                         }, 1500);
                     } catch (_) {
-                        // fallback
                         const ta = document.createElement('textarea');
                         ta.value = EMAIL;
                         ta.style.position = 'fixed';
@@ -525,14 +524,13 @@
                             }
                         }, 1500);
                     }
-                    // keep revealed while interacting
                     revealEmail(emailEl, copyBtn);
                 });
             });
 
             /* ========== Avatar decorations (Discord-style) ========== */
             const DECO_TOP = ['✨️','⭐️','🌟','❄️','⚡️','🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘','🌙','🏔','⛰️','🌋','🗻','🌐','♨️','⏳️','🎊','🎀','🪄'];
-            const DECO_BOTTOM = ['🧳','🍔','🍟','🍕','🌭','🥪','🌮','🌯','🥙','🥘','🥗','🍿','🍧','🍬','🧃','🧋','🥤','☕️','🥇','🏅','🐈','⬛‍⬛','🔍','🔎','🛡','📡','🔭','🔬'];
+            const DECO_BOTTOM = ['🧳','🍔','🍟','🍕','🌭','🥪','🌮','🌯','🥙','🥘','🥗','🍿','🍧','🍬','🧃','🧋','🥤','☕️','🥇','🏅','🐈','🐈‍⬛','🔍','🔎','🛡','📡','🔭','🔬'];
 
             const decoEls = document.querySelectorAll('.avatar-deco');
 
@@ -547,7 +545,6 @@
 
                 decoEls.forEach(el => {
                     el.classList.remove('visible', 'leaving', 'pos-top', 'pos-bottom');
-                    // force reflow so transition restarts
                     void el.offsetWidth;
                     el.textContent = symbol;
                     el.classList.add(posClass);
@@ -556,18 +553,17 @@
                     });
                 });
 
-                const visibleMs = 2800 + Math.random() * 2200; // how long it stays
+                const visibleMs = 2800 + Math.random() * 2200;
                 setTimeout(() => {
                     decoEls.forEach(el => {
                         el.classList.add('leaving');
                         el.classList.remove('visible');
                     });
-                    const gap = 3000 + Math.random() * 4000; // 3–7 s until next
+                    const gap = 3000 + Math.random() * 4000;
                     setTimeout(showDeco, gap + 350);
                 }, visibleMs);
             }
 
-            // first appearance after short delay
             setTimeout(showDeco, 800 + Math.random() * 1200);
         })();
     </script>
