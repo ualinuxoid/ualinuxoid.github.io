@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Experimental Linux tools by ualinuxoid. Use with caution." />
     <title>ualinuxoid – Experimental</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <style>
         :root {
             --bg: #f4f6f9; --card: #ffffff; --text: #1e1e2f; --muted: #64748b;
             --border: #e5e7eb; --accent: #2563eb; --accent-soft: #e0e7ff;
             --warn-bg: #fef9e7; --warn-border: #f59e0b;
             --shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+            --font: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
             --code-bg: #1e293b; --code-fg: #a6e22e;
         }
         body.dark {
@@ -21,10 +24,6 @@
             --warn-bg: #2d2a1e; --warn-border: #fbbf24;
             --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
             --code-bg: #0f111a; --code-fg: #9ece6a;
-        }
-        body.fancy {
-            --font: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -38,10 +37,16 @@
             max-width: 800px; margin: 0 auto; background: var(--card);
             border-radius: 28px; box-shadow: var(--shadow); padding: 36px 50px 40px;
         }
-        @media (max-width: 640px) { .container { padding: 24px; border-radius: 20px; } body { padding: 12px; } }
+        @media (max-width: 640px) {
+            .container { padding: 18px 16px; border-radius: 18px; }
+            body { padding: 10px; }
+            .header h1 { font-size: 1.55rem; }
+            .header-bar { gap: 10px; }
+            .nav a { font-size: 0.88rem; }
+            .tool-card { padding: 14px 16px; }
+        }
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
-
         .header { display: flex; flex-direction: column; align-items: center; margin-bottom: 28px; gap: 16px; }
         .header h1 { font-size: 1.9rem; font-weight: 750; letter-spacing: -0.3px; margin: 0; text-align: center; }
         .header-bar {
@@ -56,18 +61,19 @@
         .lang-btn {
             border: none; background: transparent; padding: 5px 13px; border-radius: 30px;
             font-weight: 600; font-size: 0.85rem; cursor: pointer; color: var(--muted); font-family: var(--font);
+            transition: transform 0.12s, background 0.15s, box-shadow 0.15s;
         }
+        .lang-btn:active { transform: scale(0.94); }
         .lang-btn.active { background: var(--card); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .icon-btn {
             background: none; border: none; font-size: 1.25rem; cursor: pointer;
             padding: 4px 8px; border-radius: 30px; text-decoration: none;
             display: inline-flex; align-items: center; justify-content: center;
-            transition: transform 0.15s, background 0.15s;
+            transition: transform 0.12s, background 0.15s;
         }
         .icon-btn:hover { background: rgba(0,0,0,0.06); transform: scale(1.08); }
+        .icon-btn:active { transform: scale(0.9); }
         body.dark .icon-btn:hover { background: rgba(255,255,255,0.08); }
-        .icon-btn.active-fancy { background: color-mix(in srgb, var(--accent) 18%, transparent); }
-
         .lang-block { display: none; }
         .lang-block.active { display: block; }
         .page-subtitle { color: var(--muted); font-size: 1rem; margin-bottom: 18px; text-align: center; }
@@ -87,22 +93,25 @@
         .tool-desc code { font-size: 0.88em; background: color-mix(in srgb, var(--accent-soft) 50%, transparent); padding: 1px 5px; border-radius: 4px; }
         .tool-links { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
         .tool-links a { font-weight: 500; }
-
         .bash-wrap { margin-top: 10px; }
         .bash-confirm-btn {
             background: color-mix(in srgb, #f59e0b 18%, transparent);
             border: 1px solid color-mix(in srgb, #f59e0b 45%, var(--border));
             color: var(--text); padding: 6px 12px; border-radius: 20px;
             font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: var(--font);
+            transition: transform 0.12s, filter 0.15s;
         }
         .bash-confirm-btn:hover { filter: brightness(0.97); }
+        .bash-confirm-btn:active { transform: scale(0.96); }
         .bash-panel { display: none; margin-top: 10px; padding: 12px 14px; border-radius: 12px; background: color-mix(in srgb, #f59e0b 10%, var(--bg)); border: 1px dashed #f59e0b; }
         .bash-panel.visible { display: block; }
         .bash-warn { font-size: 0.88rem; color: var(--muted); margin-bottom: 10px; }
         .bash-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
         .bash-yes, .bash-no {
             border: none; padding: 7px 14px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: var(--font);
+            transition: transform 0.12s;
         }
+        .bash-yes:active, .bash-no:active { transform: scale(0.96); }
         .bash-yes { background: #f59e0b; color: #1e1e2f; }
         .bash-no { background: var(--accent-soft); color: var(--text); }
         .bash-cmds { display: none; }
@@ -113,14 +122,12 @@
         }
         .cmd-block code { color: var(--code-fg); white-space: pre-wrap; word-break: break-all; }
         .cmd-block .cmd-label { color: #94a3b8; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 3px; font-weight: 600; }
-
         .donate-box { background: var(--warn-bg); border-left: 5px solid var(--warn-border); padding: 14px 18px; border-radius: 12px; margin: 24px 0 10px; }
         hr { border: none; border-top: 2px dashed var(--border); margin: 24px 0 16px; }
         .footer { text-align: center; font-size: 0.85rem; color: var(--muted); }
         .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; }
         .footer-links a { color: var(--muted); font-weight: 500; }
         .footer-links a:hover { color: var(--accent); }
-
         #ru-block {
             display: none; position: fixed; inset: 0; background: #0a0a0a; z-index: 9999;
             align-items: center; justify-content: center; padding: 24px; flex-direction: column; text-align: center;
@@ -143,6 +150,7 @@
             transition: all 0.2s; font-family: var(--font);
         }
         .ru-btn:hover { background: linear-gradient(135deg, #475569, #334155); border-color: #64748b; transform: translateY(-1px); }
+        .ru-btn:active { transform: scale(0.96); }
         .ru-prove { display: none; margin-top: 1.2rem; }
         .ru-prove.visible { display: block; }
         .ru-prove-title { font-size: 1.25rem; font-weight: 700; color: #fbbf24; margin-bottom: 0.8rem; }
@@ -205,7 +213,6 @@
                 <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
                 <button class="lang-btn" data-lang="en" type="button">🇬🇧 Eng</button>
             </div>
-            <button class="icon-btn" id="fancyToggle" type="button" title="Fancy fonts" aria-label="Toggle fancy fonts">⭐</button>
             <a class="icon-btn" href="/cat/" title="🐱" aria-label="Cat easter egg">🐱</a>
             <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
         </div>
@@ -504,13 +511,6 @@ function checkAnswer(){ const val=(input.value||'').trim().toLowerCase(); if(val
 if(submit) submit.addEventListener('click', checkAnswer);
 if(input) input.addEventListener('keydown', e=>{ if(e.key==='Enter') checkAnswer(); });
 
-// Fancy
-const fancyBtn=document.getElementById('fancyToggle');
-function loadFancyFonts(){ if(document.getElementById('fancy-fonts')) return; const l=document.createElement('link'); l.id='fancy-fonts'; l.rel='stylesheet'; l.href='https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap'; document.head.appendChild(l); }
-if(localStorage.getItem('fancy')==='1'){ loadFancyFonts(); document.body.classList.add('fancy'); if(fancyBtn){ fancyBtn.textContent='🌟'; fancyBtn.classList.add('active-fancy'); } }
-if(fancyBtn) fancyBtn.addEventListener('click',()=>{ const on=document.body.classList.toggle('fancy'); localStorage.setItem('fancy', on?'1':'0'); fancyBtn.textContent=on?'🌟':'⭐'; fancyBtn.classList.toggle('active-fancy', on); if(on) loadFancyFonts(); });
-
-// | bash confirm
 document.querySelectorAll('[data-bash-open]').forEach(btn=>{
   btn.addEventListener('click',()=>{
     const wrap=btn.closest('.bash-wrap');
@@ -539,7 +539,6 @@ document.querySelectorAll('[data-bash-no]').forEach(btn=>{
   });
 });
 
-// Lang
 const langBtns=document.querySelectorAll('.lang-btn');
 const langBlocks=document.querySelectorAll('.lang-block');
 function applyI18n(lang){
