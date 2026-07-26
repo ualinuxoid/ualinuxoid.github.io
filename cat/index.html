@@ -9,8 +9,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; height: 100%; overflow: hidden; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #f5f0e6; /* very light beige */
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f5f0e6;
             cursor: none;
         }
         #stage { position: relative; width: 100%; height: 100%; }
@@ -47,11 +47,16 @@
             z-index: 5;
             cursor: pointer;
             pointer-events: auto;
-            will-change: transform, left, top;
+            will-change: transform, left, top, opacity;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.28));
-            transition: filter 0.15s;
+            transition: filter 0.15s, opacity 0.9s ease;
+            opacity: 1;
         }
         .cat:hover { filter: drop-shadow(0 6px 14px rgba(0,0,0,0.4)) brightness(1.05); }
+        .cat.fading {
+            opacity: 0;
+            pointer-events: none;
+        }
         .cat img, .cat svg {
             width: 100%;
             height: 100%;
@@ -71,148 +76,79 @@
             transform: translate(-50%, -50%);
         }
 
-        /* Bubble type 1 – classic speech */
         .bubble.b1 {
-            position: absolute;
-            z-index: 20;
-            max-width: 220px;
-            padding: 10px 16px;
-            background: #fff;
-            color: #1e293b;
-            font-weight: 700;
-            font-size: 0.92rem;
-            line-height: 1.35;
-            border-radius: 18px 18px 18px 4px;
+            position: absolute; z-index: 20; max-width: 220px; padding: 10px 16px;
+            background: #fff; color: #1e293b; font-weight: 700; font-size: 0.92rem;
+            line-height: 1.35; border-radius: 18px 18px 18px 4px;
             box-shadow: 0 8px 28px rgba(0,0,0,0.22), 0 0 0 3px rgba(0, 87, 183, 0.12);
             pointer-events: none;
             animation: bubbleIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-align: center;
         }
         .bubble.b1::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 18px;
-            width: 14px;
-            height: 14px;
-            background: #fff;
-            transform: rotate(45deg);
-            border-radius: 2px;
+            content: ''; position: absolute; bottom: -8px; left: 18px;
+            width: 14px; height: 14px; background: #fff;
+            transform: rotate(45deg); border-radius: 2px;
             box-shadow: 2px 2px 3px rgba(0,0,0,0.06);
         }
-
-        /* Bubble type 2 – rounded cloud */
         .bubble.b2 {
-            position: absolute;
-            z-index: 20;
-            max-width: 230px;
-            padding: 12px 18px;
-            background: #fff;
-            color: #1e293b;
-            font-weight: 700;
-            font-size: 0.92rem;
-            line-height: 1.35;
-            border-radius: 50% / 40%;
+            position: absolute; z-index: 20; max-width: 230px; padding: 12px 18px;
+            background: #fff; color: #1e293b; font-weight: 700; font-size: 0.92rem;
+            line-height: 1.35; border-radius: 50% / 40%;
             box-shadow: 0 8px 28px rgba(0,0,0,0.2);
             pointer-events: none;
             animation: bubbleIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-align: center;
         }
         .bubble.b2::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 22px;
-            width: 18px;
-            height: 12px;
-            background: #fff;
-            border-radius: 50%;
+            content: ''; position: absolute; bottom: -6px; left: 22px;
+            width: 18px; height: 12px; background: #fff; border-radius: 50%;
             box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
         }
-
-        /* Bubble type 3 – rectangular with pointed tail */
         .bubble.b3 {
-            position: absolute;
-            z-index: 20;
-            max-width: 210px;
-            padding: 10px 14px;
-            background: #fff;
-            color: #1e293b;
-            font-weight: 700;
-            font-size: 0.92rem;
-            line-height: 1.35;
-            border-radius: 12px;
+            position: absolute; z-index: 20; max-width: 210px; padding: 10px 14px;
+            background: #fff; color: #1e293b; font-weight: 700; font-size: 0.92rem;
+            line-height: 1.35; border-radius: 12px;
             box-shadow: 0 8px 28px rgba(0,0,0,0.22);
             pointer-events: none;
             animation: bubbleIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-align: center;
         }
         .bubble.b3::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 20px;
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
+            content: ''; position: absolute; bottom: -10px; left: 20px;
+            width: 0; height: 0;
+            border-left: 10px solid transparent; border-right: 10px solid transparent;
             border-top: 12px solid #fff;
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.08));
         }
-
         @keyframes bubbleIn {
             from { opacity: 0; transform: scale(0.4) translateY(12px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .bubble.out {
-            animation: bubbleOut 0.35s ease forwards;
-        }
+        .bubble.out { animation: bubbleOut 0.35s ease forwards; }
         @keyframes bubbleOut {
             to { opacity: 0; transform: scale(0.6) translateY(-20px); }
         }
 
         .hint {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.55);
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 999px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            backdrop-filter: blur(6px);
-            z-index: 30;
-            pointer-events: none;
-            text-align: center;
-            max-width: 90vw;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.55); color: #fff; padding: 10px 18px;
+            border-radius: 999px; font-size: 0.88rem; font-weight: 600;
+            backdrop-filter: blur(6px); z-index: 30; pointer-events: none;
+            text-align: center; max-width: 90vw;
         }
         .back {
-            position: fixed;
-            top: 16px;
-            left: 16px;
-            z-index: 30;
-            background: rgba(255,255,255,0.92);
-            color: #1e293b;
-            text-decoration: none;
-            font-weight: 700;
-            padding: 8px 16px;
-            border-radius: 999px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-            font-size: 0.9rem;
-            cursor: pointer;
+            position: fixed; top: 16px; left: 16px; z-index: 30;
+            background: rgba(255,255,255,0.92); color: #1e293b;
+            text-decoration: none; font-weight: 700; padding: 8px 16px;
+            border-radius: 999px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            font-size: 0.9rem; cursor: pointer;
         }
         .back:hover { background: #fff; }
         .cursor-dot {
-            position: fixed;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #fff;
-            border: 2px solid #0057b7;
-            pointer-events: none;
-            z-index: 100;
+            position: fixed; width: 14px; height: 14px; border-radius: 50%;
+            background: #fff; border: 2px solid #0057b7;
+            pointer-events: none; z-index: 100;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
@@ -227,33 +163,56 @@
     <div id="stage"></div>
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+        <!-- cat-a: green eyes with pupil -->
         <symbol id="cat-a" viewBox="0 0 64 64">
             <path fill="#1a1a1a" d="M12 28c0-10 8-18 20-18s20 8 20 18c2 2 6 6 6 12 0 10-10 18-26 18S6 50 6 40c0-6 4-10 6-12z"/>
             <path fill="#1a1a1a" d="M18 12l-4-8 10 6M46 12l4-8-10 6"/>
-            <circle fill="#ffd700" cx="26" cy="30" r="2.5"/><circle fill="#ffd700" cx="38" cy="30" r="2.5"/>
-            <path fill="none" stroke="#ffd700" stroke-width="1.5" d="M30 36c1 2 3 2 4 0"/>
+            <ellipse fill="#5a9e3a" cx="26" cy="30" rx="3.2" ry="3.5"/>
+            <ellipse fill="#5a9e3a" cx="38" cy="30" rx="3.2" ry="3.5"/>
+            <ellipse fill="#1a1a1a" cx="26" cy="30" rx="1.1" ry="2.2"/>
+            <ellipse fill="#1a1a1a" cx="38" cy="30" rx="1.1" ry="2.2"/>
+            <circle fill="#fff" cx="25.2" cy="28.8" r="0.7" opacity="0.85"/>
+            <circle fill="#fff" cx="37.2" cy="28.8" r="0.7" opacity="0.85"/>
+            <path fill="none" stroke="#c9a227" stroke-width="1.4" d="M30 36c1 2 3 2 4 0"/>
             <path fill="#1a1a1a" d="M48 36c8 2 12 10 10 16-4 2-10 0-14-4"/>
         </symbol>
+        <!-- cat-b: amber eyes -->
         <symbol id="cat-b" viewBox="0 0 64 64">
             <ellipse fill="#222" cx="32" cy="38" rx="22" ry="18"/>
             <circle fill="#222" cx="32" cy="22" r="14"/>
             <path fill="#222" d="M20 12l-6-10 12 8M44 12l6-10-12 8"/>
-            <circle fill="#0057b7" cx="26" cy="22" r="2.2"/><circle fill="#0057b7" cx="38" cy="22" r="2.2"/>
+            <ellipse fill="#c9a227" cx="26" cy="22" rx="2.8" ry="3"/>
+            <ellipse fill="#c9a227" cx="38" cy="22" rx="2.8" ry="3"/>
+            <ellipse fill="#1a1a1a" cx="26" cy="22" rx="1" ry="1.9"/>
+            <ellipse fill="#1a1a1a" cx="38" cy="22" rx="1" ry="1.9"/>
+            <circle fill="#fff" cx="25.3" cy="20.9" r="0.6" opacity="0.9"/>
+            <circle fill="#fff" cx="37.3" cy="20.9" r="0.6" opacity="0.9"/>
             <ellipse fill="#f4a" cx="32" cy="28" rx="3" ry="2"/>
             <path fill="#222" d="M50 40c10 4 14 14 8 18-6 0-12-6-14-12"/>
         </symbol>
+        <!-- cat-c: hazel/green eyes -->
         <symbol id="cat-c" viewBox="0 0 64 64">
             <path fill="#111" d="M10 36c2-14 12-24 22-24s20 10 22 24c4 4 8 10 4 18-6 8-18 10-26 10s-20-2-26-10c-4-8 0-14 4-18z"/>
             <path fill="#111" d="M22 14l-8-12 14 8M42 14l8-12-14 8"/>
-            <circle fill="#ffd700" cx="26" cy="32" r="2.5"/><circle fill="#ffd700" cx="38" cy="32" r="2.5"/>
-            <path stroke="#ffd700" stroke-width="1.2" fill="none" d="M28 38h8M24 40l-8 2M40 40l8 2M24 42l-6 4M40 42l6 4"/>
+            <ellipse fill="#6b8e3a" cx="26" cy="32" rx="3" ry="3.3"/>
+            <ellipse fill="#6b8e3a" cx="38" cy="32" rx="3" ry="3.3"/>
+            <ellipse fill="#111" cx="26" cy="32" rx="1.05" ry="2.1"/>
+            <ellipse fill="#111" cx="38" cy="32" rx="1.05" ry="2.1"/>
+            <circle fill="#fff" cx="25.2" cy="30.7" r="0.65" opacity="0.85"/>
+            <circle fill="#fff" cx="37.2" cy="30.7" r="0.65" opacity="0.85"/>
+            <path stroke="#c9a227" stroke-width="1.2" fill="none" d="M28 38h8M24 40l-8 2M40 40l8 2M24 42l-6 4M40 42l6 4"/>
         </symbol>
+        <!-- cat-d: blue-grey eyes (already somewhat realistic) -->
         <symbol id="cat-d" viewBox="0 0 64 64">
             <ellipse fill="#2a2a2a" cx="30" cy="40" rx="20" ry="16"/>
             <circle fill="#2a2a2a" cx="34" cy="24" r="13"/>
             <path fill="#2a2a2a" d="M24 14l-5-11 11 7M44 14l7-10-12 8"/>
-            <circle fill="#fff" cx="30" cy="24" r="2.5"/><circle fill="#fff" cx="40" cy="24" r="2.5"/>
-            <circle fill="#0057b7" cx="30" cy="24" r="1.2"/><circle fill="#0057b7" cx="40" cy="24" r="1.2"/>
+            <ellipse fill="#7eb8d4" cx="30" cy="24" rx="2.8" ry="3"/>
+            <ellipse fill="#7eb8d4" cx="40" cy="24" rx="2.8" ry="3"/>
+            <ellipse fill="#1a1a1a" cx="30" cy="24" rx="1" ry="1.9"/>
+            <ellipse fill="#1a1a1a" cx="40" cy="24" rx="1" ry="1.9"/>
+            <circle fill="#fff" cx="29.3" cy="22.9" r="0.6" opacity="0.9"/>
+            <circle fill="#fff" cx="39.3" cy="22.9" r="0.6" opacity="0.9"/>
             <path fill="#2a2a2a" d="M48 36c10 0 16 12 10 18s-14-2-16-8"/>
         </symbol>
     </svg>
@@ -289,12 +248,11 @@
             let my = window.innerHeight / 2;
             const trails = [];
 
-            // Random blotches (клякси) – change on every reload
             function placeBlotches() {
                 const W = window.innerWidth;
                 const H = window.innerHeight;
-                const maxSize = Math.min(W, H) * 0.15; // ≤ 15% of screen
-                const count = 6 + Math.floor(Math.random() * 7); // 6–12
+                const maxSize = Math.min(W, H) * 0.15;
+                const count = 6 + Math.floor(Math.random() * 7);
                 for (let i = 0; i < count; i++) {
                     const el = document.createElement('div');
                     el.className = 'blotch';
@@ -304,7 +262,7 @@
                     el.style.left = (Math.random() * (W - size)) + 'px';
                     el.style.top = (Math.random() * (H - size)) + 'px';
                     el.style.transform = 'rotate(' + (Math.random() * 360) + 'deg) scale(' + (0.7 + Math.random() * 0.6) + ')';
-                    el.style.opacity = (0.32 + Math.random() * 0.16).toFixed(2); // ~0.32–0.48
+                    el.style.opacity = (0.32 + Math.random() * 0.16).toFixed(2);
                     blotchesEl.appendChild(el);
                 }
             }
@@ -345,7 +303,7 @@
             placeEdgeCats();
 
             class Cat {
-                constructor(x, y, src) {
+                constructor(x, y, src, ephemeral) {
                     this.el = makeCatEl(src || pageCat);
                     this.x = x ?? Math.random() * window.innerWidth;
                     this.y = y ?? Math.random() * window.innerHeight;
@@ -353,7 +311,6 @@
                     this.vy = 0;
                     this.ax = 0;
                     this.ay = 0;
-                    // Slightly different physics per cat so they don't clump
                     this.stiffness = 0.06 + Math.random() * 0.09;
                     this.damping = 0.76 + Math.random() * 0.12;
                     this.maxSpeed = 11 + Math.random() * 10;
@@ -362,13 +319,32 @@
                     this.el.style.height = this.size + 'px';
                     this.trailTimer = 0;
                     this.facing = 1;
-                    this.bubbleType = 1 + Math.floor(Math.random() * 3); // 1,2,3
+                    this.bubbleType = 1 + Math.floor(Math.random() * 3);
+                    this.dead = false;
+                    this.ephemeral = !!ephemeral;
                     stage.appendChild(this.el);
                     this.el.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        this.speak();
+                        if (!this.dead) this.speak();
                     });
                     this.render();
+
+                    // Spawned cats disappear after random lifetime
+                    if (this.ephemeral) {
+                        const lifeMs = 4000 + Math.random() * 9000; // 4–13 s
+                        setTimeout(() => this.fadeOut(), lifeMs);
+                    }
+                }
+
+                fadeOut() {
+                    if (this.dead) return;
+                    this.dead = true;
+                    this.el.classList.add('fading');
+                    setTimeout(() => {
+                        this.el.remove();
+                        const idx = cats.indexOf(this);
+                        if (idx !== -1) cats.splice(idx, 1);
+                    }, 950);
                 }
 
                 speak() {
@@ -376,21 +352,10 @@
                     const b = document.createElement('div');
                     b.className = 'bubble b' + this.bubbleType;
                     b.textContent = phrase;
-
-                    // Position above cat, tail points toward cat
                     const left = Math.max(8, Math.min(window.innerWidth - 240, this.x - 50));
                     const top = Math.max(8, this.y - this.size - 55);
                     b.style.left = left + 'px';
                     b.style.top = top + 'px';
-
-                    // Adjust tail horizontal position toward the cat center
-                    const catCenterX = this.x;
-                    const bubbleCenterX = left + 110;
-                    const offset = Math.max(12, Math.min(180, catCenterX - left - 10));
-                    if (this.bubbleType === 1 || this.bubbleType === 3) {
-                        b.style.setProperty('--tail-left', offset + 'px');
-                    }
-
                     document.body.appendChild(b);
                     setTimeout(() => {
                         b.classList.add('out');
@@ -399,6 +364,7 @@
                 }
 
                 update() {
+                    if (this.dead) return;
                     const dx = mx - this.x;
                     const dy = my - this.y;
                     const dist = Math.hypot(dx, dy) || 1;
@@ -452,9 +418,10 @@
                 }
             }
 
+            // Two permanent cats
             const cats = [
-                new Cat(window.innerWidth * 0.3, window.innerHeight * 0.4),
-                new Cat(window.innerWidth * 0.6, window.innerHeight * 0.5)
+                new Cat(window.innerWidth * 0.3, window.innerHeight * 0.4, null, false),
+                new Cat(window.innerWidth * 0.6, window.innerHeight * 0.5, null, false)
             ];
 
             window.addEventListener('mousemove', (e) => {
@@ -467,10 +434,11 @@
             window.addEventListener('click', (e) => {
                 if (e.target.closest('a') || e.target.closest('.cat')) return;
                 const src = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
-                cats.push(new Cat(e.clientX, e.clientY, src));
-                if (cats.length > 12) { // max 12
-                    const old = cats.shift();
-                    old.el.remove();
+                cats.push(new Cat(e.clientX, e.clientY, src, true)); // ephemeral
+                // Soft cap: if too many, fade oldest ephemeral
+                const ephemerals = cats.filter(c => c.ephemeral && !c.dead);
+                if (ephemerals.length > 10) {
+                    ephemerals[0].fadeOut();
                 }
             });
 
