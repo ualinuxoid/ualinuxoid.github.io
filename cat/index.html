@@ -36,7 +36,7 @@
             z-index: 1;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
-        .edge-cat svg { width: 100%; height: 100%; display: block; }
+        .edge-cat img { width: 100%; height: 100%; display: block; object-fit: contain; }
 
         .cat {
             position: absolute;
@@ -52,7 +52,7 @@
         }
         .cat:hover { filter: drop-shadow(0 6px 14px rgba(0,0,0,0.4)) brightness(1.05); }
         .cat.fading { opacity: 0; pointer-events: none; }
-        .cat svg { width: 100%; height: 100%; display: block; pointer-events: none; user-select: none; }
+        .cat img { width: 100%; height: 100%; display: block; pointer-events: none; user-select: none; object-fit: contain; }
 
         .ua-badge {
             position: absolute;
@@ -242,57 +242,6 @@
     <div id="edges"></div>
     <div id="stage"></div>
 
-    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-        <symbol id="cat-a" viewBox="0 0 64 64">
-            <path fill="#1a1a1a" d="M12 28c0-10 8-18 20-18s20 8 20 18c2 2 6 6 6 12 0 10-10 18-26 18S6 50 6 40c0-6 4-10 6-12z"/>
-            <path fill="#1a1a1a" d="M18 12l-4-8 10 6M46 12l4-8-10 6"/>
-            <ellipse fill="#5a9e3a" cx="26" cy="30" rx="3.2" ry="3.5"/>
-            <ellipse fill="#5a9e3a" cx="38" cy="30" rx="3.2" ry="3.5"/>
-            <ellipse fill="#1a1a1a" cx="26" cy="30" rx="1.1" ry="2.2"/>
-            <ellipse fill="#1a1a1a" cx="38" cy="30" rx="1.1" ry="2.2"/>
-            <circle fill="#fff" cx="25.2" cy="28.8" r="0.7" opacity="0.85"/>
-            <circle fill="#fff" cx="37.2" cy="28.8" r="0.7" opacity="0.85"/>
-            <path fill="none" stroke="#c9a227" stroke-width="1.4" d="M30 36c1 2 3 2 4 0"/>
-            <path fill="#1a1a1a" d="M48 36c8 2 12 10 10 16-4 2-10 0-14-4"/>
-        </symbol>
-        <symbol id="cat-b" viewBox="0 0 64 64">
-            <ellipse fill="#222" cx="32" cy="38" rx="22" ry="18"/>
-            <circle fill="#222" cx="32" cy="22" r="14"/>
-            <path fill="#222" d="M20 12l-6-10 12 8M44 12l6-10-12 8"/>
-            <ellipse fill="#c9a227" cx="26" cy="22" rx="2.8" ry="3"/>
-            <ellipse fill="#c9a227" cx="38" cy="22" rx="2.8" ry="3"/>
-            <ellipse fill="#1a1a1a" cx="26" cy="22" rx="1" ry="1.9"/>
-            <ellipse fill="#1a1a1a" cx="38" cy="22" rx="1" ry="1.9"/>
-            <circle fill="#fff" cx="25.3" cy="20.9" r="0.6" opacity="0.9"/>
-            <circle fill="#fff" cx="37.3" cy="20.9" r="0.6" opacity="0.9"/>
-            <ellipse fill="#f4a" cx="32" cy="28" rx="3" ry="2"/>
-            <path fill="#222" d="M50 40c10 4 14 14 8 18-6 0-12-6-14-12"/>
-        </symbol>
-        <symbol id="cat-c" viewBox="0 0 64 64">
-            <path fill="#111" d="M10 36c2-14 12-24 22-24s20 10 22 24c4 4 8 10 4 18-6 8-18 10-26 10s-20-2-26-10c-4-8 0-14 4-18z"/>
-            <path fill="#111" d="M22 14l-8-12 14 8M42 14l8-12-14 8"/>
-            <ellipse fill="#6b8e3a" cx="26" cy="32" rx="3" ry="3.3"/>
-            <ellipse fill="#6b8e3a" cx="38" cy="32" rx="3" ry="3.3"/>
-            <ellipse fill="#111" cx="26" cy="32" rx="1.05" ry="2.1"/>
-            <ellipse fill="#111" cx="38" cy="32" rx="1.05" ry="2.1"/>
-            <circle fill="#fff" cx="25.2" cy="30.7" r="0.65" opacity="0.85"/>
-            <circle fill="#fff" cx="37.2" cy="30.7" r="0.65" opacity="0.85"/>
-            <path stroke="#c9a227" stroke-width="1.2" fill="none" d="M28 38h8M24 40l-8 2M40 40l8 2M24 42l-6 4M40 42l6 4"/>
-        </symbol>
-        <symbol id="cat-d" viewBox="0 0 64 64">
-            <ellipse fill="#2a2a2a" cx="30" cy="40" rx="20" ry="16"/>
-            <circle fill="#2a2a2a" cx="34" cy="24" r="13"/>
-            <path fill="#2a2a2a" d="M24 14l-5-11 11 7M44 14l7-10-12 8"/>
-            <ellipse fill="#7eb8d4" cx="30" cy="24" rx="2.8" ry="3"/>
-            <ellipse fill="#7eb8d4" cx="40" cy="24" rx="2.8" ry="3"/>
-            <ellipse fill="#1a1a1a" cx="30" cy="24" rx="1" ry="1.9"/>
-            <ellipse fill="#1a1a1a" cx="40" cy="24" rx="1" ry="1.9"/>
-            <circle fill="#fff" cx="29.3" cy="22.9" r="0.6" opacity="0.9"/>
-            <circle fill="#fff" cx="39.3" cy="22.9" r="0.6" opacity="0.9"/>
-            <path fill="#2a2a2a" d="M48 36c10 0 16 12 10 18s-14-2-16-8"/>
-        </symbol>
-    </svg>
-
     <script>
         (function () {
             const I18N = {
@@ -335,9 +284,7 @@
             };
 
             let lang = localStorage.getItem('cat_lang') || 'uk';
-            const CAT_SRCS = [
-                { id: 'cat-a' }, { id: 'cat-b' }, { id: 'cat-c' }, { id: 'cat-d' }
-            ];
+            const CAT_IMG = '/assets/cat.png';
 
             const stage = document.getElementById('stage');
             const edges = document.getElementById('edges');
@@ -464,12 +411,10 @@
 
             placeBlotches();
 
-            const pageCat = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
-
-            function makeCatEl(src) {
+            function makeCatEl() {
                 const el = document.createElement('div');
                 el.className = 'cat';
-                el.innerHTML = '<svg viewBox="0 0 64 64"><use href="#' + (src ? src.id : pageCat.id) + '"/></svg>';
+                el.innerHTML = '<img src="' + CAT_IMG + '" alt="cat" draggable="false">';
                 return el;
             }
 
@@ -484,7 +429,7 @@
                     { left: -30, top: H * 0.7, w: 70, rot: 40 },
                     { left: W - 40, top: H * 0.75, w: 75, rot: -20 }
                 ];
-                placements.forEach((p, i) => {
+                placements.forEach((p) => {
                     const wrap = document.createElement('div');
                     wrap.className = 'edge-cat';
                     wrap.style.left = p.left + 'px';
@@ -492,7 +437,7 @@
                     wrap.style.width = p.w + 'px';
                     wrap.style.height = p.w + 'px';
                     wrap.style.transform = 'rotate(' + p.rot + 'deg)';
-                    wrap.innerHTML = '<svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#cat-' + ['a','b','c','d'][i % 4] + '"/></svg>';
+                    wrap.innerHTML = '<img src="' + CAT_IMG + '" alt="" draggable="false">';
                     edges.appendChild(wrap);
                 });
             }
@@ -510,8 +455,8 @@
             }
 
             class Cat {
-                constructor(x, y, src, ephemeral) {
-                    this.el = makeCatEl(src || pageCat);
+                constructor(x, y, ephemeral) {
+                    this.el = makeCatEl();
                     this.x = x ?? Math.random() * window.innerWidth;
                     this.y = y ?? Math.random() * window.innerHeight;
                     this.vx = 0;
@@ -697,8 +642,8 @@
             }
 
             const cats = [
-                new Cat(window.innerWidth * 0.3, window.innerHeight * 0.4, null, false),
-                new Cat(window.innerWidth * 0.6, window.innerHeight * 0.5, null, false)
+                new Cat(window.innerWidth * 0.3, window.innerHeight * 0.4, false),
+                new Cat(window.innerWidth * 0.6, window.innerHeight * 0.5, false)
             ];
 
             window.addEventListener('mousemove', (e) => {
@@ -722,8 +667,7 @@
                     else return; // якщо всі безсмертні — більше не додаємо
                 }
 
-                const src = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
-                cats.push(new Cat(e.clientX, e.clientY, src, true));
+                cats.push(new Cat(e.clientX, e.clientY, true));
             });
 
             window.addEventListener('touchmove', (e) => {
@@ -756,4 +700,4 @@
         })();
     </script>
 </body>
-    </html>
+</html>
