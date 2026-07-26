@@ -2,7 +2,7 @@
 
 Personal site for **[Lintweak](https://codeberg.org/ualinuxoid/lintweak)** — simple Linux tweaks and privacy tools written in pure bash.
 
-**Live:** [https://ualinuxoid.github.io](ualinuxoid.github.io)
+**Live:** [ualinuxoid.github.io](https://ualinuxoid.github.io)
 
 ## What’s here
 
