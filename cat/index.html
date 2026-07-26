@@ -1,1 +1,515 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="robots" content="noindex, follow" />
+    <title>🐱 Слава Україні</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; overflow: hidden; }
+        body {
+            font-family: "Manrope", system-ui, -apple-system, sans-serif;
+            background:
+                repeating-linear-gradient(
+                    -45deg,
+                    #0057b7 0px,
+                    #0057b7 28px,
+                    #ffd700 28px,
+                    #ffd700 56px
+                );
+            cursor: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        #stage { position: relative; width: 100%; height: 100%; }
+
+        .edge-cat {
+            position: fixed;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.18));
+            transition: opacity 0.7s ease;
+        }
+        .edge-cat.visible { opacity: 0.18; }
+        .edge-cat img, .edge-cat svg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .cat {
+            position: absolute;
+            width: 56px;
+            height: 56px;
+            z-index: 5;
+            cursor: pointer;
+            pointer-events: auto;
+            will-change: transform, left, top;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.28));
+            transition: filter 0.15s;
+        }
+        .cat:hover { filter: drop-shadow(0 6px 14px rgba(0,0,0,0.4)) brightness(1.05); }
+        .cat img, .cat svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .trail {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(0, 40, 100, 0.22);
+            pointer-events: none;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+        }
+
+        .bubble {
+            position: absolute;
+            z-index: 20;
+            max-width: min(220px, 80vw);
+            padding: 10px 14px;
+            background: #fff;
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 0.9rem;
+            line-height: 1.35;
+            border-radius: 18px 18px 18px 4px;
+            box-shadow:
+                0 8px 28px rgba(0,0,0,0.22),
+                0 0 0 3px rgba(0, 87, 183, 0.15);
+            pointer-events: none;
+            animation: bubbleIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: normal;
+            text-align: center;
+            font-family: "Manrope", system-ui, sans-serif;
+        }
+        .bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 16px;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            transform: rotate(45deg);
+            border-radius: 2px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
+        @keyframes bubbleIn {
+            from { opacity: 0; transform: scale(0.4) translateY(12px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .bubble.out {
+            animation: bubbleOut 0.35s ease forwards;
+        }
+        @keyframes bubbleOut {
+            to { opacity: 0; transform: scale(0.6) translateY(-20px); }
+        }
+
+        .hint {
+            position: fixed;
+            bottom: max(16px, env(safe-area-inset-bottom));
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.55);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            backdrop-filter: blur(6px);
+            z-index: 30;
+            pointer-events: none;
+            text-align: center;
+            max-width: 92vw;
+            line-height: 1.35;
+        }
+        .back {
+            position: fixed;
+            top: max(12px, env(safe-area-inset-top));
+            left: max(12px, env(safe-area-inset-left));
+            z-index: 30;
+            background: rgba(255,255,255,0.92);
+            color: #1e293b;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 999px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+            font-family: "Manrope", system-ui, sans-serif;
+        }
+        .back:hover { background: #fff; transform: scale(1.04); }
+        .back:active { transform: scale(0.96); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .cursor-dot {
+            position: fixed;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #0057b7;
+            pointer-events: none;
+            z-index: 100;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        @media (max-width: 640px) {
+            .hint { font-size: 0.78rem; padding: 8px 14px; }
+            .back { font-size: 0.82rem; padding: 7px 13px; }
+            .cursor-dot { display: none; }
+            body { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+    <a class="back" href="/">← Home</a>
+    <div class="hint">🐱 Клікай котика — він скаже правду · Рухай мишкою · Click = more cats</div>
+    <div class="cursor-dot" id="dot"></div>
+    <div id="edges"></div>
+    <div id="stage"></div>
+
+    <!-- More realistic local SVG cats -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+        <symbol id="cat-a" viewBox="0 0 64 64">
+            <ellipse fill="#2c2c2c" cx="32" cy="42" rx="18" ry="14"/>
+            <circle fill="#2c2c2c" cx="34" cy="24" r="13"/>
+            <path fill="#2c2c2c" d="M24 14 L18 4 L28 12 Z"/>
+            <path fill="#2c2c2c" d="M42 14 L48 4 L38 12 Z"/>
+            <circle fill="#ffd700" cx="30" cy="23" r="2.2"/>
+            <circle fill="#ffd700" cx="40" cy="23" r="2.2"/>
+            <circle fill="#1a1a1a" cx="30.5" cy="23.3" r="0.9"/>
+            <circle fill="#1a1a1a" cx="40.5" cy="23.3" r="0.9"/>
+            <ellipse fill="#f4a6b5" cx="35" cy="28" rx="2.2" ry="1.5"/>
+            <path fill="none" stroke="#1a1a1a" stroke-width="1.1" stroke-linecap="round" d="M33 30 Q35 32 37 30"/>
+            <path fill="none" stroke="#555" stroke-width="0.9" d="M22 26 H12 M22 29 H11 M44 26 H54 M44 29 H55"/>
+            <path fill="#2c2c2c" d="M48 38 Q58 42 54 52 Q48 48 46 42"/>
+            <ellipse fill="#3a3a3a" cx="24" cy="52" rx="5" ry="3"/>
+            <ellipse fill="#3a3a3a" cx="38" cy="52" rx="5" ry="3"/>
+        </symbol>
+        <symbol id="cat-b" viewBox="0 0 64 64">
+            <ellipse fill="#1f1f1f" cx="32" cy="38" rx="20" ry="16"/>
+            <circle fill="#1f1f1f" cx="32" cy="22" r="14"/>
+            <path fill="#1f1f1f" d="M20 12 L14 2 L26 10 Z"/>
+            <path fill="#1f1f1f" d="M44 12 L50 2 L38 10 Z"/>
+            <circle fill="#0057b7" cx="26" cy="21" r="2.4"/>
+            <circle fill="#0057b7" cx="38" cy="21" r="2.4"/>
+            <circle fill="#fff" cx="25.4" cy="20.4" r="0.7"/>
+            <circle fill="#fff" cx="37.4" cy="20.4" r="0.7"/>
+            <ellipse fill="#e88" cx="32" cy="27" rx="2.8" ry="2"/>
+            <path fill="none" stroke="#111" stroke-width="1.2" stroke-linecap="round" d="M29 31 Q32 34 35 31"/>
+            <path fill="none" stroke="#666" stroke-width="0.9" d="M18 24 H8 M18 28 H7 M46 24 H56 M46 28 H57"/>
+            <path fill="#1f1f1f" d="M50 36 Q60 40 56 50 Q50 46 48 40"/>
+        </symbol>
+        <symbol id="cat-c" viewBox="0 0 64 64">
+            <path fill="#222" d="M12 38 C14 22 24 14 32 14 S50 22 52 38 C56 42 58 48 52 54 C46 58 18 58 12 54 C6 48 8 42 12 38 Z"/>
+            <path fill="#222" d="M22 16 L16 4 L28 12 Z"/>
+            <path fill="#222" d="M42 16 L48 4 L36 12 Z"/>
+            <circle fill="#ffd700" cx="26" cy="30" r="2.3"/>
+            <circle fill="#ffd700" cx="38" cy="30" r="2.3"/>
+            <circle fill="#111" cx="26.5" cy="30.4" r="1"/>
+            <circle fill="#111" cx="38.5" cy="30.4" r="1"/>
+            <ellipse fill="#d66" cx="32" cy="36" rx="2.5" ry="1.8"/>
+            <path fill="none" stroke="#ffd700" stroke-width="1.1" stroke-linecap="round" d="M28 40 H36"/>
+            <path fill="none" stroke="#555" stroke-width="0.85" d="M20 34 H10 M20 37 H9 M44 34 H54 M44 37 H55"/>
+            <path fill="#222" d="M50 40 Q60 44 56 54 Q50 50 48 44"/>
+            <path fill="none" stroke="#444" stroke-width="1.2" d="M22 20 Q26 18 30 20 M34 20 Q38 18 42 20"/>
+        </symbol>
+        <symbol id="cat-d" viewBox="0 0 64 64">
+            <ellipse fill="#2a2a2a" cx="30" cy="40" rx="18" ry="13"/>
+            <circle fill="#2a2a2a" cx="38" cy="24" r="12"/>
+            <path fill="#2a2a2a" d="M30 14 L24 4 L34 12 Z"/>
+            <path fill="#2a2a2a" d="M44 14 L52 5 L40 12 Z"/>
+            <circle fill="#fff" cx="34" cy="23" r="2.3"/>
+            <circle fill="#fff" cx="44" cy="23" r="2.3"/>
+            <circle fill="#0057b7" cx="34.4" cy="23.3" r="1.1"/>
+            <circle fill="#0057b7" cx="44.4" cy="23.3" r="1.1"/>
+            <ellipse fill="#e99" cx="40" cy="29" rx="2.2" ry="1.5"/>
+            <path fill="none" stroke="#111" stroke-width="1" stroke-linecap="round" d="M37 32 Q40 34 43 32"/>
+            <path fill="none" stroke="#666" stroke-width="0.85" d="M28 26 H18 M28 29 H17 M48 26 H58 M48 29 H59"/>
+            <path fill="#2a2a2a" d="M14 38 Q4 42 8 52 Q14 48 16 42"/>
+            <ellipse fill="#3a3a3a" cx="22" cy="50" rx="4.5" ry="2.8"/>
+            <ellipse fill="#3a3a3a" cx="36" cy="50" rx="4.5" ry="2.8"/>
+        </symbol>
+    </svg>
+
+    <script>
+        (function () {
+            const PHRASES = [
+                'Слава Україні!',
+                'Героям слава!',
+                'Слава нації!',
+                'Смерть ворогам!',
+                'Україна понад усе!',
+                'Все буде Україна!',
+                'Герої не вмирають!',
+                'Батько наш — Бандера, Україна — мати.',
+                'Хай живе вільна Україна!',
+                'Воля або смерть.'
+            ];
+
+            const CAT_SRCS = [
+                { type: 'symbol', id: 'cat-a' },
+                { type: 'symbol', id: 'cat-b' },
+                { type: 'symbol', id: 'cat-c' },
+                { type: 'symbol', id: 'cat-d' }
+            ];
+
+            const stage = document.getElementById('stage');
+            const edges = document.getElementById('edges');
+            const dot = document.getElementById('dot');
+
+            let mx = window.innerWidth / 2;
+            let my = window.innerHeight / 2;
+            const trails = [];
+
+            const pageCat = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
+
+            function makeCatEl(src) {
+                const el = document.createElement('div');
+                el.className = 'cat';
+                el.innerHTML = '<svg viewBox="0 0 64 64"><use href="#' + src.id + '"/></svg>';
+                return el;
+            }
+
+            const EDGE_SLOTS = [
+                { side: 'left',   topRatio: 0.12, rot: 18 },
+                { side: 'right',  topRatio: 0.22, rot: -22 },
+                { side: 'top',    leftRatio: 0.25, rot: 8 },
+                { side: 'bottom', leftRatio: 0.6,  rot: -6 },
+                { side: 'left',   topRatio: 0.68, rot: 32 },
+                { side: 'right',  topRatio: 0.72, rot: -15 },
+                { side: 'top',    leftRatio: 0.7,  rot: -12 },
+                { side: 'bottom', leftRatio: 0.2,  rot: 10 }
+            ];
+
+            const activeEdges = [];
+            const EDGE_SIZE = 28;
+
+            function positionEdge(wrap, slot) {
+                const W = window.innerWidth;
+                const H = window.innerHeight;
+                const s = EDGE_SIZE;
+                if (slot.side === 'left') {
+                    wrap.style.left = (-s * 0.35) + 'px';
+                    wrap.style.top = (H * slot.topRatio) + 'px';
+                } else if (slot.side === 'right') {
+                    wrap.style.left = (W - s * 0.65) + 'px';
+                    wrap.style.top = (H * slot.topRatio) + 'px';
+                } else if (slot.side === 'top') {
+                    wrap.style.left = (W * slot.leftRatio) + 'px';
+                    wrap.style.top = (-s * 0.35) + 'px';
+                } else {
+                    wrap.style.left = (W * slot.leftRatio) + 'px';
+                    wrap.style.top = (H - s * 0.65) + 'px';
+                }
+                wrap.style.width = s + 'px';
+                wrap.style.height = s + 'px';
+                wrap.style.transform = 'rotate(' + slot.rot + 'deg)';
+            }
+
+            function spawnEdgeCat() {
+                if (activeEdges.length >= 3) return;
+                const used = new Set(activeEdges.map(e => e.slotIdx));
+                const free = EDGE_SLOTS.map((_, i) => i).filter(i => !used.has(i));
+                if (!free.length) return;
+                const slotIdx = free[Math.floor(Math.random() * free.length)];
+                const slot = EDGE_SLOTS[slotIdx];
+                const wrap = document.createElement('div');
+                wrap.className = 'edge-cat';
+                const src = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
+                wrap.innerHTML = '<svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#' + src.id + '"/></svg>';
+                positionEdge(wrap, slot);
+                edges.appendChild(wrap);
+                requestAnimationFrame(() => wrap.classList.add('visible'));
+                const life = 4000 + Math.random() * 5000;
+                const entry = { el: wrap, slotIdx, timer: setTimeout(() => {
+                    wrap.classList.remove('visible');
+                    setTimeout(() => {
+                        wrap.remove();
+                        const idx = activeEdges.indexOf(entry);
+                        if (idx >= 0) activeEdges.splice(idx, 1);
+                    }, 750);
+                }, life) };
+                activeEdges.push(entry);
+            }
+
+            function edgeLoop() {
+                if (activeEdges.length < 3 && Math.random() < 0.45) spawnEdgeCat();
+                setTimeout(edgeLoop, 1800 + Math.random() * 2200);
+            }
+            setTimeout(edgeLoop, 600);
+            window.addEventListener('resize', () => {
+                activeEdges.forEach(e => positionEdge(e.el, EDGE_SLOTS[e.slotIdx]));
+            });
+
+            class Cat {
+                constructor(x, y, src) {
+                    this.el = makeCatEl(src || pageCat);
+                    this.x = x ?? Math.random() * window.innerWidth;
+                    this.y = y ?? Math.random() * window.innerHeight;
+                    this.vx = 0;
+                    this.vy = 0;
+                    this.ax = 0;
+                    this.ay = 0;
+                    this.stiffness = 0.08 + Math.random() * 0.06;
+                    this.damping = 0.78 + Math.random() * 0.1;
+                    this.maxSpeed = 14 + Math.random() * 8;
+                    this.size = 48 + Math.random() * 20;
+                    this.el.style.width = this.size + 'px';
+                    this.el.style.height = this.size + 'px';
+                    this.trailTimer = 0;
+                    this.facing = 1;
+                    stage.appendChild(this.el);
+                    this.el.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.speak();
+                    });
+                    this.render();
+                }
+
+                speak() {
+                    const phrase = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+                    const b = document.createElement('div');
+                    b.className = 'bubble';
+                    b.textContent = phrase;
+                    const left = Math.max(8, Math.min(window.innerWidth - 230, this.x - 40));
+                    const top = Math.max(8, this.y - this.size - 50);
+                    b.style.left = left + 'px';
+                    b.style.top = top + 'px';
+                    document.body.appendChild(b);
+                    setTimeout(() => {
+                        b.classList.add('out');
+                        setTimeout(() => b.remove(), 360);
+                    }, 2200);
+                }
+
+                update() {
+                    const dx = mx - this.x;
+                    const dy = my - this.y;
+                    const dist = Math.hypot(dx, dy) || 1;
+
+                    const pull = Math.min(dist, 280) / 280;
+                    this.ax = (dx / dist) * this.stiffness * pull * 18;
+                    this.ay = (dy / dist) * this.stiffness * pull * 18;
+
+                    this.vx += this.ax;
+                    this.vy += this.ay;
+                    this.vx *= this.damping;
+                    this.vy *= this.damping;
+
+                    const sp = Math.hypot(this.vx, this.vy);
+                    if (sp > this.maxSpeed) {
+                        this.vx = (this.vx / sp) * this.maxSpeed;
+                        this.vy = (this.vy / sp) * this.maxSpeed;
+                    }
+
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    const m = this.size / 2;
+                    if (this.x < m) { this.x = m; this.vx *= -0.4; }
+                    if (this.x > window.innerWidth - m) { this.x = window.innerWidth - m; this.vx *= -0.4; }
+                    if (this.y < m) { this.y = m; this.vy *= -0.4; }
+                    if (this.y > window.innerHeight - m) { this.y = window.innerHeight - m; this.vy *= -0.4; }
+
+                    if (Math.abs(this.vx) > 0.3) this.facing = this.vx < 0 ? -1 : 1;
+
+                    this.trailTimer++;
+                    if (sp > 3 && this.trailTimer % 4 === 0) {
+                        const t = document.createElement('div');
+                        t.className = 'trail';
+                        t.style.left = this.x + 'px';
+                        t.style.top = (this.y + this.size * 0.3) + 'px';
+                        t.style.opacity = '0.35';
+                        stage.appendChild(t);
+                        trails.push({ el: t, life: 1 });
+                    }
+
+                    this.render();
+                }
+
+                render() {
+                    const angle = Math.atan2(this.vy, this.vx) * (180 / Math.PI) * 0.15;
+                    this.el.style.left = this.x + 'px';
+                    this.el.style.top = this.y + 'px';
+                    this.el.style.transform =
+                        'translate(-50%, -50%) scaleX(' + this.facing + ') rotate(' + angle + 'deg)';
+                }
+            }
+
+            const cats = [
+                new Cat(window.innerWidth * 0.3, window.innerHeight * 0.4),
+                new Cat(window.innerWidth * 0.6, window.innerHeight * 0.5)
+            ];
+
+            window.addEventListener('mousemove', (e) => {
+                mx = e.clientX;
+                my = e.clientY;
+                if (dot) {
+                    dot.style.left = mx + 'px';
+                    dot.style.top = my + 'px';
+                }
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target.closest('a') || e.target.closest('.cat')) return;
+                const src = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
+                cats.push(new Cat(e.clientX, e.clientY, src));
+                if (cats.length > 18) {
+                    const old = cats.shift();
+                    old.el.remove();
+                }
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches[0]) {
+                    mx = e.touches[0].clientX;
+                    my = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            window.addEventListener('touchstart', (e) => {
+                if (e.touches[0] && !e.target.closest('a') && !e.target.closest('.cat')) {
+                    const t = e.touches[0];
+                    mx = t.clientX;
+                    my = t.clientY;
+                    const src = CAT_SRCS[Math.floor(Math.random() * CAT_SRCS.length)];
+                    cats.push(new Cat(t.clientX, t.clientY, src));
+                    if (cats.length > 18) {
+                        const old = cats.shift();
+                        old.el.remove();
+                    }
+                }
+            }, { passive: true });
+
+            function loop() {
+                for (const c of cats) c.update();
+                for (let i = trails.length - 1; i >= 0; i--) {
+                    const t = trails[i];
+                    t.life -= 0.045;
+                    t.el.style.opacity = String(Math.max(0, t.life * 0.32));
+                    t.el.style.transform = 'translate(-50%, -50%) scale(' + t.life + ')';
+                    if (t.life <= 0) {
+                        t.el.remove();
+                        trails.splice(i, 1);
+                    }
+                }
+                requestAnimationFrame(loop);
+            }
+            loop();
+        })();
+    </script>
+</body>
+</html>
