@@ -24,6 +24,8 @@
             --border: #e5e7eb; --accent: #2563eb; --accent-soft: #e0e7ff;
             --code-bg: #1e293b; --code-fg: #a6e22e;
             --shadow: 0 20px 60px rgba(0, 0, 0, 0.08); --radius: 20px;
+            --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
         }
         body.dark {
             --bg: #1a1b26; --card: #24283b; --text: #d4d4d4; --muted: #a9b1d6;
@@ -33,9 +35,12 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-            background: var(--bg); color: var(--text); line-height: 1.6;
+            font-family: var(--font);
+            background: var(--bg); color: var(--text); line-height: 1.65;
             padding: 20px; transition: background 0.25s, color 0.25s;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
         .container {
             max-width: 1000px; margin: 0 auto; background: var(--card);
@@ -47,11 +52,11 @@
         .header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 28px; gap: 14px; }
         .header-left { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
         .header h1 {
-            font-size: 2.1rem; font-weight: 700; letter-spacing: -0.4px; margin: 0;
+            font-size: 2.15rem; font-weight: 750; letter-spacing: -0.6px; margin: 0;
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-        .nav a { font-weight: 600; color: var(--muted); margin-right: 16px; font-size: 0.98rem; }
+        .nav a { font-weight: 600; color: var(--muted); margin-right: 16px; font-size: 0.95rem; letter-spacing: 0.01em; }
         .nav a:last-child { margin-right: 0; }
         .nav a:hover, .nav a.active { color: var(--accent); text-decoration: none; }
         .header-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
@@ -59,6 +64,7 @@
         .lang-btn {
             border: none; background: transparent; padding: 6px 14px; border-radius: 30px;
             font-weight: 600; font-size: 0.88rem; cursor: pointer; color: var(--muted);
+            font-family: var(--font);
         }
         .lang-btn.active { background: var(--card); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .theme-toggle, .cat-btn {
@@ -77,7 +83,8 @@
         .desc p:last-child { margin-bottom: 0; }
         .badge {
             display: inline-block; background: var(--accent-soft); padding: 0.15rem 0.75rem;
-            border-radius: 30px; font-size: 0.75rem; font-weight: 600; color: var(--accent); margin-right: 6px;
+            border-radius: 30px; font-size: 0.75rem; font-weight: 650; color: var(--accent); margin-right: 6px;
+            letter-spacing: 0.02em;
         }
         .scripts-list { display: flex; flex-direction: column; gap: 18px; }
         .script-item { border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 22px; }
@@ -86,7 +93,7 @@
             display: flex; justify-content: space-between; align-items: center;
             flex-wrap: wrap; gap: 10px; cursor: pointer; user-select: none;
         }
-        .script-title { font-size: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .script-title { font-size: 1.22rem; font-weight: 650; display: flex; align-items: center; gap: 10px; letter-spacing: -0.2px; }
         .script-title .icon { font-size: 1.5rem; }
         .script-title .name {
             background: linear-gradient(135deg, #1e293b, #475569);
@@ -99,11 +106,11 @@
         .sp-btn {
             background: var(--accent-soft); border: none; padding: 6px 14px; border-radius: 30px;
             font-size: 0.8rem; font-weight: 600; cursor: pointer; color: var(--text);
-            display: inline-flex; align-items: center; gap: 6px;
+            display: inline-flex; align-items: center; gap: 6px; font-family: var(--font);
         }
         .sp-btn .arrow { display: inline-block; transition: transform 0.3s; }
         .sp-btn.open .arrow { transform: rotate(180deg); }
-        .script-desc { margin: 10px 0 4px; color: var(--muted); font-size: 0.96rem; }
+        .script-desc { margin: 10px 0 4px; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
         .sp-content {
             max-height: 0; overflow: hidden;
             transition: max-height 0.35s ease, padding 0.25s ease, margin 0.25s ease;
@@ -114,30 +121,29 @@
         .sp-content.open { max-height: 520px; padding: 14px 18px; margin-top: 12px; }
         .cmd-block {
             background: var(--code-bg); border-radius: 12px; padding: 11px 15px; margin: 7px 0;
-            overflow-x: auto; font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace; font-size: 0.88rem;
+            overflow-x: auto; font-family: var(--font-mono); font-size: 0.86rem;
         }
         .cmd-block code { color: var(--code-fg); white-space: pre-wrap; word-break: break-all; }
         .cmd-block .cmd-label {
             color: #94a3b8; font-size: 0.68rem; text-transform: uppercase;
-            letter-spacing: 0.5px; display: block; margin-bottom: 3px;
+            letter-spacing: 0.6px; display: block; margin-bottom: 3px; font-weight: 600;
         }
         .note { font-size: 0.88rem; color: var(--muted); margin-top: 6px; font-style: italic; }
         hr { border: none; border-top: 2px dashed var(--border); margin: 28px 0 12px; }
-        .footer { margin-top: 36px; text-align: center; font-size: 0.84rem; color: var(--muted); }
+        .footer { margin-top: 36px; text-align: center; font-size: 0.84rem; color: var(--muted); letter-spacing: 0.01em; }
         .footer a { color: var(--muted); }
         .footer a:hover { color: var(--accent); }
 
-        /* RU block */
         #ru-block {
             display: none; position: fixed; inset: 0; background: #0a0a0a; z-index: 9999;
             align-items: center; justify-content: center; padding: 24px; flex-direction: column; text-align: center;
         }
         #ru-block.ru-visible { display: flex; }
         #main-content.ru-hidden { display: none !important; }
-        #ru-block .panel { max-width: 520px; color: #f1f5f9; }
-        .ru-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; color: #f87171; }
-        .ru-text { font-size: 1.15rem; line-height: 1.55; margin-bottom: 0.8rem; color: #e2e8f0; }
-        .ru-ship { font-size: 1.35rem; font-weight: 700; color: #fbbf24; margin: 1.4rem 0 0.6rem; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        #ru-block .panel { max-width: 520px; color: #f1f5f9; font-family: var(--font); }
+        .ru-title { font-size: 1.85rem; font-weight: 800; margin-bottom: 1rem; color: #f87171; letter-spacing: -0.3px; }
+        .ru-text { font-size: 1.12rem; line-height: 1.55; margin-bottom: 0.8rem; color: #e2e8f0; }
+        .ru-ship { font-size: 1.3rem; font-weight: 700; color: #fbbf24; margin: 1.4rem 0 0.6rem; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .ru-ship img { width: 42px; height: 42px; }
         .ru-arrow { font-size: 2rem; margin: 0.3rem 0 0.8rem; animation: drift 2.2s ease-in-out infinite; }
         @keyframes drift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(18px); } }
@@ -163,6 +169,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            font-family: var(--font);
         }
         .ru-btn:hover { background: linear-gradient(135deg, #475569, #334155); border-color: #64748b; transform: translateY(-1px); }
         .ru-prove { display: none; margin-top: 1.2rem; }
@@ -179,6 +186,7 @@
             font-size: 1rem;
             text-align: center;
             margin-bottom: 10px;
+            font-family: var(--font);
         }
         .ru-input:focus { outline: none; border-color: #7aa2f7; box-shadow: 0 0 0 3px rgba(122,162,247,0.25); }
         .ru-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
@@ -190,6 +198,7 @@
             border-radius: 8px;
             font-size: 0.85rem;
             cursor: pointer;
+            font-family: var(--font);
         }
         .ru-hint-btn:hover { border-color: #94a3b8; color: #e2e8f0; }
         .ru-hint-text {
