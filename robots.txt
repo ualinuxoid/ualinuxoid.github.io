@@ -1,3 +1,34 @@
+# Block Russian search engines and related crawlers
+User-agent: Yandex
+User-agent: YandexBot
+User-agent: YandexImages
+User-agent: YandexVideo
+User-agent: YandexMedia
+User-agent: YandexBlogs
+User-agent: YandexFavicons
+User-agent: YandexWebmaster
+User-agent: YandexPagechecker
+User-agent: YandexImageResizer
+User-agent: YandexAdNet
+User-agent: YandexDirect
+User-agent: YandexMetrika
+User-agent: YandexNews
+User-agent: YandexCatalog
+User-agent: Mail.RU_Bot
+User-agent: Mail.Ru
+User-agent: StackRambler
+User-agent: Rambler
+User-agent: SputnikBot
+User-agent: SputnikFaviconBot
+User-agent: SputnikImageBot
+User-agent: WebartexBot
+User-agent: begin.bot
+User-agent: statdom.ru
+User-agent: Aport
+User-agent: Nigma.ru
+Disallow: /
+
+# Everyone else
 User-agent: *
 Allow: /
 
