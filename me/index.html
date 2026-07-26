@@ -42,6 +42,7 @@
             .avatar { width: 84px; height: 84px; }
             .header { gap: 10px; }
             .nav a { margin-right: 10px; font-size: 0.9rem; }
+            .email-wrap { justify-content: center; }
         }
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
@@ -69,11 +70,19 @@
         .lang-block { display: none; }
         .lang-block.active { display: block; }
         .profile { display: flex; align-items: center; gap: 22px; margin-bottom: 22px; }
+        .avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+        }
+        @media (max-width: 640px) {
+            .avatar-wrap { width: 84px; height: 84px; margin: 0 auto; }
+        }
         .avatar {
-            width: 100px; height: 100px; border-radius: 50%;
+            width: 100%; height: 100%; border-radius: 50%;
             background: #f0f1f3;
             display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
             overflow: hidden;
             cursor: pointer;
             border: none;
@@ -91,6 +100,35 @@
             display: block;
             border-radius: 50%;
         }
+        .avatar-deco {
+            position: absolute;
+            z-index: 2;
+            font-size: 1.35rem;
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18));
+            opacity: 0;
+            transform: scale(0.4);
+            transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.45, 0.64, 1);
+        }
+        .avatar-deco.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .avatar-deco.leaving {
+            opacity: 0;
+            transform: scale(0.5) translateY(-6px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .avatar-deco.pos-top {
+            top: -6px;
+            right: -4px;
+        }
+        .avatar-deco.pos-bottom {
+            bottom: -4px;
+            right: -2px;
+        }
         .profile h1 { font-size: 2rem; font-weight: 700; margin: 0; letter-spacing: -0.3px; }
         .tagline { font-size: 1.05rem; color: var(--muted); margin-top: 2px; }
         .badge {
@@ -100,10 +138,58 @@
         }
         .section { margin: 22px 0 8px; }
         .section p { margin-bottom: 0.5rem; }
+        .email-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            vertical-align: middle;
+        }
         .email {
             background: color-mix(in srgb, var(--accent-soft) 60%, transparent);
             padding: 6px 14px; border-radius: 40px;
             font-family: var(--font-mono); font-size: 0.92rem;
+            cursor: pointer;
+            user-select: none;
+            transition: filter 0.5s ease, background 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+        }
+        .email.blurred {
+            filter: blur(5.5px);
+            background: color-mix(in srgb, var(--accent-soft) 80%, var(--muted) 20%);
+        }
+        .email:not(.blurred) {
+            filter: blur(0);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+        }
+        .email-copy {
+            border: none;
+            background: var(--accent-soft);
+            color: var(--accent);
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s, background 0.15s, opacity 0.25s;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .email-copy.visible {
+            display: inline-flex;
+            animation: copyIn 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+        }
+        .email-copy:hover { transform: scale(1.1); background: var(--accent); color: #fff; }
+        .email-copy:active { transform: scale(0.92); }
+        .email-copy.copied {
+            background: #22c55e;
+            color: #fff;
+        }
+        @keyframes copyIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
         }
         .donate-box {
             background: var(--warn-bg); border-left: 5px solid var(--warn-border);
@@ -223,9 +309,12 @@
 
             <div class="lang-block active" data-lang="uk">
                 <div class="profile">
-                    <button type="button" class="avatar" id="avatarBtn" aria-label="Відкрити фото">
-                        <img src="/assets/avatar.png" alt="ualinuxoid" width="100" height="100" />
-                    </button>
+                    <div class="avatar-wrap">
+                        <button type="button" class="avatar" id="avatarBtn" aria-label="Відкрити фото">
+                            <img src="/assets/avatar.png" alt="ualinuxoid" width="100" height="100" />
+                        </button>
+                        <span class="avatar-deco" aria-hidden="true"></span>
+                    </div>
                     <div>
                         <h1>ualinuxoid</h1>
                         <div class="tagline">🇺🇦 з України</div>
@@ -243,7 +332,7 @@
                     <p><strong>Я НЕ програміст</strong>, але я добре знаю bash.</p>
                 </div>
                 <div class="section">
-                    <p>Для зв’язку використовуйте <span class="email">omit-divided-puppy@duck.com</span> — я не кусаюся 😁</p>
+                    <p>Для зв’язку використовуйте <span class="email-wrap"><span class="email blurred" data-email="omit-divided-puppy@duck.com" title="Клікніть, щоб показати">omit-divided-puppy@duck.com</span><button type="button" class="email-copy" aria-label="Копіювати email" title="Копіювати">📋</button></span> — я не кусаюся 😁</p>
                 </div>
                 <div class="donate-box">💙💛 <strong>Дякую, що завітали!</strong> Якщо маєте змогу, буду радий, якщо ви переглянете мої скрипти.</div>
                 <div class="links">
@@ -255,9 +344,12 @@
 
             <div class="lang-block" data-lang="en">
                 <div class="profile">
-                    <button type="button" class="avatar" id="avatarBtnEn" aria-label="Open photo">
-                        <img src="/assets/avatar.png" alt="ualinuxoid" width="100" height="100" />
-                    </button>
+                    <div class="avatar-wrap">
+                        <button type="button" class="avatar" id="avatarBtnEn" aria-label="Open photo">
+                            <img src="/assets/avatar.png" alt="ualinuxoid" width="100" height="100" />
+                        </button>
+                        <span class="avatar-deco" aria-hidden="true"></span>
+                    </div>
                     <div>
                         <h1>ualinuxoid</h1>
                         <div class="tagline">🇺🇦 from Ukraine</div>
@@ -275,7 +367,7 @@
                     <p><strong>I am NOT a programmer</strong>, but I know bash well.</p>
                 </div>
                 <div class="section">
-                    <p>To contact me, use <span class="email">omit-divided-puppy@duck.com</span> — I don’t bite 😁</p>
+                    <p>To contact me, use <span class="email-wrap"><span class="email blurred" data-email="omit-divided-puppy@duck.com" title="Click to reveal">omit-divided-puppy@duck.com</span><button type="button" class="email-copy" aria-label="Copy email" title="Copy">📋</button></span> — I don’t bite 😁</p>
                 </div>
                 <div class="donate-box">💙💛 <strong>Thanks for coming here!</strong> If you can, I’d be glad if you check out my scripts.</div>
                 <div class="links">
@@ -373,6 +465,110 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
             });
+
+            /* ========== Email blur + copy ========== */
+            const EMAIL = 'omit-divided-puppy@duck.com';
+            let revealTimer = null;
+
+            function revealEmail(emailEl, copyBtn) {
+                emailEl.classList.remove('blurred');
+                copyBtn.classList.add('visible');
+                if (revealTimer) clearTimeout(revealTimer);
+                revealTimer = setTimeout(() => {
+                    emailEl.classList.add('blurred');
+                    copyBtn.classList.remove('visible');
+                    copyBtn.classList.remove('copied');
+                    copyBtn.textContent = '📋';
+                }, 6000);
+            }
+
+            document.querySelectorAll('.email-wrap').forEach(wrap => {
+                const emailEl = wrap.querySelector('.email');
+                const copyBtn = wrap.querySelector('.email-copy');
+                if (!emailEl || !copyBtn) return;
+
+                emailEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    revealEmail(emailEl, copyBtn);
+                });
+
+                copyBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    try {
+                        await navigator.clipboard.writeText(EMAIL);
+                        copyBtn.textContent = '✓';
+                        copyBtn.classList.add('copied');
+                        setTimeout(() => {
+                            if (copyBtn.classList.contains('visible')) {
+                                copyBtn.textContent = '📋';
+                                copyBtn.classList.remove('copied');
+                            }
+                        }, 1500);
+                    } catch (_) {
+                        // fallback
+                        const ta = document.createElement('textarea');
+                        ta.value = EMAIL;
+                        ta.style.position = 'fixed';
+                        ta.style.opacity = '0';
+                        document.body.appendChild(ta);
+                        ta.select();
+                        try { document.execCommand('copy'); } catch (__) {}
+                        document.body.removeChild(ta);
+                        copyBtn.textContent = '✓';
+                        copyBtn.classList.add('copied');
+                        setTimeout(() => {
+                            if (copyBtn.classList.contains('visible')) {
+                                copyBtn.textContent = '📋';
+                                copyBtn.classList.remove('copied');
+                            }
+                        }, 1500);
+                    }
+                    // keep revealed while interacting
+                    revealEmail(emailEl, copyBtn);
+                });
+            });
+
+            /* ========== Avatar decorations (Discord-style) ========== */
+            const DECO_TOP = ['✨️','⭐️','🌟','❄️','⚡️','🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘','🌙','🏔','⛰️','🌋','🗻','🌐','♨️','⏳️','🎊','🎀','🪄'];
+            const DECO_BOTTOM = ['🧳','🍔','🍟','🍕','🌭','🥪','🌮','🌯','🥙','🥘','🥗','🍿','🍧','🍬','🧃','🧋','🥤','☕️','🥇','🏅','🐈','⬛‍⬛','🔍','🔎','🛡','📡','🔭','🔬'];
+
+            const decoEls = document.querySelectorAll('.avatar-deco');
+
+            function pick(arr) {
+                return arr[Math.floor(Math.random() * arr.length)];
+            }
+
+            function showDeco() {
+                const useTop = Math.random() < 0.55;
+                const symbol = useTop ? pick(DECO_TOP) : pick(DECO_BOTTOM);
+                const posClass = useTop ? 'pos-top' : 'pos-bottom';
+
+                decoEls.forEach(el => {
+                    el.classList.remove('visible', 'leaving', 'pos-top', 'pos-bottom');
+                    // force reflow so transition restarts
+                    void el.offsetWidth;
+                    el.textContent = symbol;
+                    el.classList.add(posClass);
+                    requestAnimationFrame(() => {
+                        el.classList.add('visible');
+                    });
+                });
+
+                const visibleMs = 2800 + Math.random() * 2200; // how long it stays
+                setTimeout(() => {
+                    decoEls.forEach(el => {
+                        el.classList.add('leaving');
+                        el.classList.remove('visible');
+                    });
+                    const gap = 3000 + Math.random() * 4000; // 3–7 s until next
+                    setTimeout(showDeco, gap + 350);
+                }, visibleMs);
+            }
+
+            // first appearance after short delay
+            setTimeout(showDeco, 800 + Math.random() * 1200);
         })();
     </script>
 </body>
