@@ -11,6 +11,8 @@
             --border: #e5e7eb; --accent: #2563eb; --accent-soft: #e0e7ff;
             --warn-bg: #fef9e7; --warn-border: #f59e0b;
             --shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
         }
         body.dark {
             --bg: #1a1b26; --card: #24283b; --text: #d4d4d4; --muted: #a9b1d6;
@@ -20,9 +22,12 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            font-family: var(--font);
             background: var(--bg); color: var(--text); line-height: 1.7;
             padding: 20px; transition: background 0.25s, color 0.25s;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
         .container {
             max-width: 800px; margin: 0 auto; background: var(--card);
@@ -32,11 +37,11 @@
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
         .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
-        .nav a { font-weight: 600; color: var(--muted); margin-right: 16px; }
+        .nav a { font-weight: 600; color: var(--muted); margin-right: 16px; letter-spacing: 0.01em; }
         .nav a:hover, .nav a.active { color: var(--accent); text-decoration: none; }
         .header-controls { display: flex; gap: 10px; align-items: center; }
         .lang-switch { display: flex; gap: 4px; background: var(--accent-soft); border-radius: 40px; padding: 4px; }
-        .lang-btn { border: none; background: transparent; padding: 5px 13px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer; color: var(--muted); }
+        .lang-btn { border: none; background: transparent; padding: 5px 13px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer; color: var(--muted); font-family: var(--font); }
         .lang-btn.active { background: var(--card); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .theme-toggle, .cat-btn {
             background: none; border: none; font-size: 1.35rem; cursor: pointer;
@@ -53,40 +58,30 @@
             border: 3px solid var(--border);
         }
         .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .profile h1 { font-size: 2rem; font-weight: 700; margin: 0; }
+        .profile h1 { font-size: 2rem; font-weight: 750; margin: 0; letter-spacing: -0.4px; }
         .tagline { font-size: 1.05rem; color: var(--muted); margin-top: 2px; }
         .badge {
             display: inline-block; background: var(--accent-soft);
             padding: 0.15rem 0.85rem; border-radius: 30px;
-            font-size: 0.75rem; font-weight: 600; color: var(--accent);
+            font-size: 0.75rem; font-weight: 650; color: var(--accent); letter-spacing: 0.02em;
         }
         .section { margin: 22px 0 8px; }
         .section p { margin-bottom: 0.5rem; }
-        .email-spoiler details {
-            display: inline-block;
-        }
+        .email-spoiler details { display: inline-block; }
         .email-spoiler summary {
-            cursor: pointer;
-            list-style: none;
+            cursor: pointer; list-style: none;
             background: color-mix(in srgb, var(--accent-soft) 60%, transparent);
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--accent);
-            user-select: none;
+            padding: 6px 14px; border-radius: 40px;
+            font-size: 0.9rem; font-weight: 600; color: var(--accent); user-select: none;
         }
         .email-spoiler summary::-webkit-details-marker { display: none; }
         .email-spoiler summary::before { content: '▸ '; }
         .email-spoiler details[open] summary::before { content: '▾ '; }
         .email-spoiler .email {
-            display: inline-block;
-            margin-left: 8px;
+            display: inline-block; margin-left: 8px;
             background: color-mix(in srgb, var(--accent-soft) 60%, transparent);
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-family: ui-monospace, monospace;
-            font-size: 0.92rem;
+            padding: 6px 14px; border-radius: 40px;
+            font-family: var(--font-mono); font-size: 0.92rem;
         }
         .donate-box {
             background: var(--warn-bg); border-left: 5px solid var(--warn-border);
@@ -99,81 +94,47 @@
         .footer a { color: var(--muted); }
         .footer a:hover { color: var(--accent); }
 
-        /* RU block */
         #ru-block {
             display: none; position: fixed; inset: 0; background: #0a0a0a; z-index: 9999;
             align-items: center; justify-content: center; padding: 24px; flex-direction: column; text-align: center;
         }
         #ru-block.ru-visible { display: flex; }
         #main-content.ru-hidden { display: none !important; }
-        #ru-block .panel { max-width: 520px; color: #f1f5f9; }
-        .ru-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; color: #f87171; }
-        .ru-text { font-size: 1.15rem; line-height: 1.55; margin-bottom: 0.8rem; color: #e2e8f0; }
-        .ru-ship { font-size: 1.35rem; font-weight: 700; color: #fbbf24; margin: 1.4rem 0 0.6rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .ru-ship img { width: 42px; height: 42px; vertical-align: middle; }
+        #ru-block .panel { max-width: 520px; color: #f1f5f9; font-family: var(--font); }
+        .ru-title { font-size: 1.85rem; font-weight: 800; margin-bottom: 1rem; color: #f87171; letter-spacing: -0.3px; }
+        .ru-text { font-size: 1.12rem; line-height: 1.55; margin-bottom: 0.8rem; color: #e2e8f0; }
+        .ru-ship { font-size: 1.3rem; font-weight: 700; color: #fbbf24; margin: 1.4rem 0 0.6rem; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .ru-ship img { width: 42px; height: 42px; }
         .ru-arrow { font-size: 2rem; margin: 0.3rem 0 0.8rem; animation: drift 2.2s ease-in-out infinite; }
         @keyframes drift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(18px); } }
-        .ru-phrase {
-            font-size: 0.78rem;
-            color: #94a3b8;
-            opacity: 0.45;
-            margin: 0.8rem auto 1rem;
-            max-width: 90%;
-            line-height: 1.4;
-            font-weight: 500;
-        }
+        .ru-phrase { font-size: 0.78rem; color: #94a3b8; opacity: 0.45; margin: 0.8rem auto 1rem; max-width: 90%; line-height: 1.4; font-weight: 500; }
         .ru-sub { font-size: 0.9rem; color: #94a3b8; margin-top: 1rem; }
 
-        /* Unlock UI */
         .ru-unlock { margin-top: 1.6rem; }
         .ru-btn {
             background: linear-gradient(135deg, #334155, #1e293b);
-            color: #e2e8f0;
-            border: 1px solid #475569;
-            padding: 12px 22px;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            color: #e2e8f0; border: 1px solid #475569;
+            padding: 12px 22px; border-radius: 12px;
+            font-size: 0.95rem; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; font-family: var(--font);
         }
         .ru-btn:hover { background: linear-gradient(135deg, #475569, #334155); border-color: #64748b; transform: translateY(-1px); }
         .ru-prove { display: none; margin-top: 1.2rem; }
         .ru-prove.visible { display: block; }
         .ru-prove-title { font-size: 1.25rem; font-weight: 700; color: #fbbf24; margin-bottom: 0.8rem; }
         .ru-input {
-            width: 100%;
-            max-width: 280px;
-            padding: 12px 16px;
-            border-radius: 10px;
-            border: 1px solid #475569;
-            background: #1e293b;
-            color: #f1f5f9;
-            font-size: 1rem;
-            text-align: center;
-            margin-bottom: 10px;
+            width: 100%; max-width: 280px; padding: 12px 16px; border-radius: 10px;
+            border: 1px solid #475569; background: #1e293b; color: #f1f5f9;
+            font-size: 1rem; text-align: center; margin-bottom: 10px; font-family: var(--font);
         }
         .ru-input:focus { outline: none; border-color: #7aa2f7; box-shadow: 0 0 0 3px rgba(122,162,247,0.25); }
         .ru-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
         .ru-hint-btn {
-            background: transparent;
-            border: 1px dashed #64748b;
-            color: #94a3b8;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            cursor: pointer;
+            background: transparent; border: 1px dashed #64748b; color: #94a3b8;
+            padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-family: var(--font);
         }
         .ru-hint-btn:hover { border-color: #94a3b8; color: #e2e8f0; }
-        .ru-hint-text {
-            display: none;
-            margin-top: 10px;
-            font-size: 0.85rem;
-            color: #94a3b8;
-            background: #1e293b;
-            padding: 10px 14px;
-            border-radius: 8px;
-        }
+        .ru-hint-text { display: none; margin-top: 10px; font-size: 0.85rem; color: #94a3b8; background: #1e293b; padding: 10px 14px; border-radius: 8px; }
         .ru-hint-text.visible { display: block; }
         .ru-error { color: #f87171; font-size: 0.9rem; margin-top: 8px; display: none; }
         .ru-error.visible { display: block; }
@@ -299,19 +260,8 @@
                 'What are you doing here? All vodka jars are empty?',
                 'You should get a new "skrepi". Wait a second... Wildberries on fire!'
             ];
-
-            const RU_TZ = new Set([
-                'Europe/Kaliningrad','Europe/Moscow','Europe/Samara',
-                'Asia/Yekaterinburg','Asia/Omsk','Asia/Krasnoyarsk',
-                'Asia/Novosibirsk','Asia/Barnaul','Asia/Tomsk','Asia/Novokuznetsk',
-                'Asia/Irkutsk','Asia/Chita','Asia/Yakutsk','Asia/Khandyga',
-                'Asia/Vladivostok','Asia/Ust-Nera','Asia/Magadan',
-                'Asia/Sakhalin','Asia/Srednekolymsk','Asia/Kamchatka','Asia/Anadyr'
-            ]);
-            function isRuLanguageTag(tag) {
-                if (!tag || typeof tag !== 'string') return false;
-                return /^ru([-_]|$)/i.test(tag.trim());
-            }
+            const RU_TZ = new Set(['Europe/Kaliningrad','Europe/Moscow','Europe/Samara','Asia/Yekaterinburg','Asia/Omsk','Asia/Krasnoyarsk','Asia/Novosibirsk','Asia/Barnaul','Asia/Tomsk','Asia/Novokuznetsk','Asia/Irkutsk','Asia/Chita','Asia/Yakutsk','Asia/Khandyga','Asia/Vladivostok','Asia/Ust-Nera','Asia/Magadan','Asia/Sakhalin','Asia/Srednekolymsk','Asia/Kamchatka','Asia/Anadyr']);
+            function isRuLanguageTag(tag) { if (!tag || typeof tag !== 'string') return false; return /^ru([-_]|$)/i.test(tag.trim()); }
             function signalsSuggestRussian() {
                 try {
                     const langs = Array.isArray(navigator.languages) && navigator.languages.length ? navigator.languages : [navigator.language || ''];
@@ -330,15 +280,9 @@
             const ruBlock = document.getElementById('ru-block');
             const mainContent = document.getElementById('main-content');
             const phraseEl = document.getElementById('ru-phrase');
+            if (phraseEl) phraseEl.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
 
-            // Random phrase on load
-            if (phraseEl) {
-                phraseEl.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
-            }
-
-            // Remember unlock
             const unlocked = localStorage.getItem('ua_unlocked') === '1';
-
             if (signalsSuggestRussian() && !unlocked) {
                 ruBlock.classList.add('ru-visible');
                 ruBlock.setAttribute('aria-hidden', 'false');
@@ -346,7 +290,6 @@
                 document.body.style.overflow = 'hidden';
             }
 
-            // Unlock UI
             const notRuBtn = document.getElementById('not-ru-btn');
             const proveBox = document.getElementById('ru-prove');
             const input = document.getElementById('ru-input');
@@ -362,7 +305,6 @@
                 mainContent.classList.remove('ru-hidden');
                 document.body.style.overflow = '';
             }
-
             if (notRuBtn) {
                 notRuBtn.addEventListener('click', () => {
                     notRuBtn.style.display = 'none';
@@ -371,16 +313,13 @@
                 });
             }
             if (hintBtn) {
-                hintBtn.addEventListener('click', () => {
-                    hintText.classList.toggle('visible');
-                });
+                hintBtn.addEventListener('click', () => hintText.classList.toggle('visible'));
             }
             function checkAnswer() {
                 const val = (input.value || '').trim().toLowerCase();
                 const ok = val === 'слава україні' || val === 'glory to ukraine';
-                if (ok) {
-                    unlock();
-                } else {
+                if (ok) unlock();
+                else {
                     errorEl.classList.add('visible');
                     input.value = '';
                     input.focus();
@@ -388,9 +327,8 @@
                 }
             }
             if (submit) submit.addEventListener('click', checkAnswer);
-            if (input) input.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkAnswer(); });
+            if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') checkAnswer(); });
 
-            // Lang & theme
             const langBtns = document.querySelectorAll('.lang-btn');
             const langBlocks = document.querySelectorAll('.lang-block');
             function setLang(lang) {
