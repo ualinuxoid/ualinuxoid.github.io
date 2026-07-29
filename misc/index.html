@@ -41,22 +41,21 @@
             .container { padding: 18px 16px; border-radius: 18px; }
             body { padding: 10px; }
             .header h1 { font-size: 1.55rem; }
-            .header-bar { gap: 10px; }
             .nav a { font-size: 0.88rem; }
             .tool-card { padding: 14px 16px; }
         }
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
-        .header { display: flex; flex-direction: column; align-items: center; margin-bottom: 28px; gap: 16px; }
+        .header { display: flex; flex-direction: column; align-items: center; margin-bottom: 28px; gap: 14px; }
         .header h1 { font-size: 1.9rem; font-weight: 750; letter-spacing: -0.3px; margin: 0; text-align: center; }
         .header-bar {
-            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            display: flex; flex-direction: column; align-items: center;
             width: 100%; gap: 12px;
         }
-        .nav { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+        .nav { display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: center; width: 100%; }
         .nav a { font-weight: 600; color: var(--muted); font-size: 0.95rem; }
         .nav a:hover, .nav a.active { color: var(--accent); text-decoration: none; }
-        .header-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .header-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; width: 100%; justify-content: flex-end; }
         .lang-switch { display: flex; gap: 4px; background: var(--accent-soft); border-radius: 40px; padding: 4px; }
         .lang-btn {
             border: none; background: transparent; padding: 5px 13px; border-radius: 30px;
@@ -175,12 +174,6 @@
 <div class="header">
     <h1 data-i18n="page-title">👀 Misc</h1>
     <div class="header-bar">
-        <div class="nav">
-            <a href="/" data-i18n="nav-home">🏠 Home</a>
-            <a href="/experimental" data-i18n="nav-exp">🧪 Experimental</a>
-            <a href="/misc" class="active" data-i18n="nav-misc">👀 Misc</a>
-            <a href="/me" data-i18n="nav-about">👤 About</a>
-        </div>
         <div class="header-controls">
             <div class="lang-switch" role="group" aria-label="Language">
                 <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
@@ -188,6 +181,12 @@
             </div>
             <a class="icon-btn" href="/cat/" title="🐱" aria-label="Cat easter egg">🐱</a>
             <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
+        </div>
+        <div class="nav">
+            <a href="/" data-i18n="nav-home">🏠 Home</a>
+            <a href="/experimental" data-i18n="nav-exp">🧪 Experimental</a>
+            <a href="/misc" class="active" data-i18n="nav-misc">👀 Misc</a>
+            <a href="/me" data-i18n="nav-about">👤 About</a>
         </div>
     </div>
 </div>
