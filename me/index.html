@@ -38,7 +38,7 @@
             .container { padding: 20px 18px; border-radius: 18px; }
             body { padding: 10px; }
             .profile { flex-direction: column; text-align: center; gap: 14px; }
-            .profile h1 { font-size: 1.65rem; }
+            .profile h1 { font-size: 1.75rem; }
             .avatar { width: 84px; height: 84px; }
             .header { gap: 10px; }
             .nav a { font-size: 0.9rem; }
@@ -139,8 +139,23 @@
             bottom: -4px;
             right: -2px;
         }
-        .profile h1 { font-size: 2rem; font-weight: 700; margin: 0; letter-spacing: -0.3px; }
-        .tagline { font-size: 1.05rem; color: var(--muted); margin-top: 2px; }
+        .profile h1 {
+            font-size: 2.15rem;
+            font-weight: 750;
+            margin: 0;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        body.dark .profile h1 {
+            background: linear-gradient(135deg, #7aa2f7, #bb9af7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .tagline { font-size: 1.05rem; color: var(--muted); margin-top: 4px; font-weight: 500; }
         .badge {
             display: inline-block; background: var(--accent-soft);
             padding: 0.15rem 0.85rem; border-radius: 30px;
