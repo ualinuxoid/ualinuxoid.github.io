@@ -41,15 +41,25 @@
             .profile h1 { font-size: 1.65rem; }
             .avatar { width: 84px; height: 84px; }
             .header { gap: 10px; }
-            .nav a { margin-right: 10px; font-size: 0.9rem; }
+            .nav a { font-size: 0.9rem; }
             .email-wrap { justify-content: center; }
         }
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
-        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
-        .nav a { font-weight: 600; color: var(--muted); margin-right: 16px; transition: color 0.15s; }
+        .header {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 12px; margin-bottom: 28px;
+        }
+        .header-controls {
+            display: flex; gap: 8px; align-items: center;
+            width: 100%; justify-content: flex-end; flex-wrap: wrap;
+        }
+        .nav {
+            display: flex; flex-wrap: wrap; gap: 4px 14px;
+            justify-content: center; width: 100%;
+        }
+        .nav a { font-weight: 600; color: var(--muted); transition: color 0.15s; }
         .nav a:hover, .nav a.active { color: var(--accent); text-decoration: none; }
-        .header-controls { display: flex; gap: 8px; align-items: center; }
         .lang-switch { display: flex; gap: 4px; background: var(--accent-soft); border-radius: 40px; padding: 4px; }
         .lang-btn {
             border: none; background: transparent; padding: 5px 13px; border-radius: 30px;
@@ -292,12 +302,6 @@
 
         <div id="main-content">
             <div class="header">
-                <div class="nav">
-                    <a href="/">🏠 Home</a>
-                    <a href="/experimental">🧪 Experimental</a>
-                    <a href="/misc">👀 Misc</a>
-                    <a href="/me" class="active">👤 About</a>
-                </div>
                 <div class="header-controls">
                     <div class="lang-switch" role="group" aria-label="Language">
                         <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
@@ -305,6 +309,12 @@
                     </div>
                     <a class="cat-btn" href="/cat/" title="🐱" aria-label="Cat easter egg">🐱</a>
                     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
+                </div>
+                <div class="nav">
+                    <a href="/">🏠 Home</a>
+                    <a href="/experimental">🧪 Experimental</a>
+                    <a href="/misc">👀 Misc</a>
+                    <a href="/me" class="active">👤 About</a>
                 </div>
             </div>
 
