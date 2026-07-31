@@ -121,6 +121,11 @@
         }
         .cmd-block code { color: var(--code-fg); white-space: pre-wrap; word-break: break-all; }
         .cmd-block .cmd-label { color: #94a3b8; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 3px; font-weight: 600; }
+        .tool-note {
+            margin-top: 10px; font-size: 0.88rem; color: var(--muted);
+            background: color-mix(in srgb, var(--accent-soft) 40%, transparent);
+            padding: 10px 14px; border-radius: 10px; border-left: 3px solid var(--accent);
+        }
         .donate-box { background: var(--warn-bg); border-left: 5px solid var(--warn-border); padding: 14px 18px; border-radius: 12px; margin: 24px 0 10px; }
         hr { border: none; border-top: 2px dashed var(--border); margin: 24px 0 16px; }
         .footer { text-align: center; font-size: 0.85rem; color: var(--muted); }
@@ -339,6 +344,30 @@
 </div>
 </div>
 </div>
+
+<div class="tool-card">
+<div class="tool-name">🔌 wg-rnd (WireGuard switcher) <span class="tool-badge">wg-rnd.sh</span></div>
+<div class="tool-desc">Швидке перемикання між WireGuard-профілями гарячою клавішею (нативний wg-quick, без важких клієнтів).</div>
+<div class="tool-note"><strong>Обовʼязково:</strong> спочатку відредагуй <code>CONFIG_DIR</code> у скрипті і вистав права на .conf, щоб ключі не світилися. <strong>Не запускай через | bash.</strong></div>
+<div class="tool-links">
+<a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/wg-rnd.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+<a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/wg-rnd.sh" target="_blank" rel="noopener">🐙 GitHub</a>
+</div>
+<div class="bash-wrap" data-script="wg-rnd.sh">
+<button type="button" class="bash-confirm-btn" data-bash-open>⚠️ Показати команди завантаження</button>
+<div class="bash-panel">
+<div class="bash-warn">Завантаж файл і відредагуй його <strong>перед</strong> запуском. Не використовуй <code>| bash</code>.</div>
+<div class="bash-actions">
+<button type="button" class="bash-yes" data-bash-yes>Так, покажи</button>
+<button type="button" class="bash-no" data-bash-no>Ні, скасувати</button>
+</div>
+<div class="bash-cmds">
+<div class="cmd-block"><span class="cmd-label">Codeberg</span><code>curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/wg-rnd.sh -o wg-rnd.sh && nano wg-rnd.sh</code></div>
+<div class="cmd-block"><span class="cmd-label">GitHub</span><code>curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/wg-rnd.sh -o wg-rnd.sh && nano wg-rnd.sh</code></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="donate-box">💙💛 <strong>Створено з гордістю в Україні 🇺🇦</strong><br />Якщо маєте змогу, задонатьте на <a href="https://war.ukraine.ua" target="_blank" rel="noopener">українських захисників</a>.</div>
@@ -461,6 +490,30 @@
 <div class="bash-cmds">
 <div class="cmd-block"><span class="cmd-label">Codeberg</span><code>curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/reed-solomon.sh | bash</code></div>
 <div class="cmd-block"><span class="cmd-label">GitHub</span><code>curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/reed-solomon.sh | bash</code></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="tool-card">
+<div class="tool-name">🔌 wg-rnd (WireGuard switcher) <span class="tool-badge">wg-rnd.sh</span></div>
+<div class="tool-desc">Hotkey switcher between WireGuard profiles (native wg-quick, no bloated clients).</div>
+<div class="tool-note"><strong>Required:</strong> edit <code>CONFIG_DIR</code> in the script first and lock down .conf permissions so keys stay private. <strong>Do not pipe to bash.</strong></div>
+<div class="tool-links">
+<a href="https://codeberg.org/ualinuxoid/lintweak/src/branch/main/scripts/wg-rnd.sh" target="_blank" rel="noopener">🦊 Codeberg</a>
+<a href="https://github.com/ualinuxoid/lintweak/blob/main/scripts/wg-rnd.sh" target="_blank" rel="noopener">🐙 GitHub</a>
+</div>
+<div class="bash-wrap" data-script="wg-rnd.sh">
+<button type="button" class="bash-confirm-btn" data-bash-open>⚠️ Show download commands</button>
+<div class="bash-panel">
+<div class="bash-warn">Download and edit the file <strong>before</strong> running. Do not use <code>| bash</code>.</div>
+<div class="bash-actions">
+<button type="button" class="bash-yes" data-bash-yes>Yes, show</button>
+<button type="button" class="bash-no" data-bash-no>No, cancel</button>
+</div>
+<div class="bash-cmds">
+<div class="cmd-block"><span class="cmd-label">Codeberg</span><code>curl -s https://codeberg.org/ualinuxoid/lintweak/raw/branch/main/scripts/wg-rnd.sh -o wg-rnd.sh && nano wg-rnd.sh</code></div>
+<div class="cmd-block"><span class="cmd-label">GitHub</span><code>curl -s https://github.com/ualinuxoid/lintweak/raw/refs/heads/main/scripts/wg-rnd.sh -o wg-rnd.sh && nano wg-rnd.sh</code></div>
 </div>
 </div>
 </div>
