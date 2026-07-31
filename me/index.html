@@ -52,7 +52,7 @@
         }
         .header-controls {
             display: flex; gap: 8px; align-items: center;
-            width: 100%; justify-content: flex-end; flex-wrap: wrap;
+            width: 100%; justify-content: space-between; flex-wrap: wrap;
         }
         .nav {
             display: flex; flex-wrap: wrap; gap: 4px 14px;
@@ -319,11 +319,11 @@
         <div id="main-content">
             <div class="header">
                 <div class="header-controls">
+                    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
                     <div class="lang-switch" role="group" aria-label="Language">
                         <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
                         <button class="lang-btn" data-lang="en" type="button">🇬🇧 Eng</button>
                     </div>
-                    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
                 </div>
                 <div class="nav">
                     <a href="/" data-i18n="nav-home">🏠 Головна</a>
