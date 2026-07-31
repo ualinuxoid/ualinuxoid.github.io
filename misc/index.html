@@ -55,7 +55,7 @@
         .nav { display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: center; width: 100%; }
         .nav a { font-weight: 600; color: var(--muted); font-size: 0.95rem; }
         .nav a:hover, .nav a.active { color: var(--accent); text-decoration: none; }
-        .header-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; width: 100%; justify-content: flex-end; }
+        .header-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; width: 100%; justify-content: space-between; }
         .lang-switch { display: flex; gap: 4px; background: var(--accent-soft); border-radius: 40px; padding: 4px; }
         .lang-btn {
             border: none; background: transparent; padding: 5px 13px; border-radius: 30px;
@@ -176,11 +176,11 @@
     <h1 data-i18n="page-title">👀 Різне</h1>
     <div class="header-bar">
         <div class="header-controls">
+            <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
             <div class="lang-switch" role="group" aria-label="Language">
                 <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
                 <button class="lang-btn" data-lang="en" type="button">🇬🇧 Eng</button>
             </div>
-            <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
         </div>
         <div class="nav">
             <a href="/" data-i18n="nav-home">🏠 Головна</a>
