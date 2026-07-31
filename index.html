@@ -17,7 +17,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .header{display:flex;flex-direction:column;align-items:center;margin-bottom:28px;gap:14px}
 .header h1{font-size:2.2rem;font-weight:750;letter-spacing:-.6px;margin:0;text-align:center;background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;width:100%;justify-content:flex-end}
+.header-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;width:100%;justify-content:space-between}
 .nav{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center;width:100%}
 .nav a{font-weight:600;color:var(--muted);font-size:.95rem}.nav a:hover,.nav a.active{color:var(--accent);text-decoration:none}
 .lang-switch{display:flex;gap:4px;background:var(--accent-soft);border-radius:40px;padding:4px}
@@ -110,11 +110,11 @@ hr{border:none;border-top:2px dashed var(--border);margin:28px 0 16px}
 <div id="main-content">
 <div class="header">
     <div class="header-controls">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
         <div class="lang-switch" role="group" aria-label="Language">
             <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
             <button class="lang-btn" data-lang="en" type="button">🇬🇧 Eng</button>
         </div>
-        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
     </div>
     <h1>⚡ Lintweak</h1>
     <div class="nav">
