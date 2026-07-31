@@ -225,8 +225,9 @@
         .links a:active { opacity: 0.7; }
         hr { border: none; border-top: 2px dashed var(--border); margin: 24px 0 12px; }
         .footer { text-align: center; font-size: 0.85rem; color: var(--muted); }
-        .footer a { color: var(--muted); }
-        .footer a:hover { color: var(--accent); }
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; }
+        .footer-links a { color: var(--muted); font-weight: 500; }
+        .footer-links a:hover { color: var(--accent); }
 
         .avatar-modal {
             position: fixed; inset: 0; z-index: 10000;
@@ -326,10 +327,10 @@
                     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
                 </div>
                 <div class="nav">
-                    <a href="/">🏠 Home</a>
-                    <a href="/experimental">🧪 Experimental</a>
-                    <a href="/misc">👀 Misc</a>
-                    <a href="/me" class="active">👤 About</a>
+                    <a href="/" data-i18n="nav-home">🏠 Головна</a>
+                    <a href="/experimental" data-i18n="nav-exp">🧪 Експерименти</a>
+                    <a href="/misc" data-i18n="nav-misc">👀 Різне</a>
+                    <a href="/me" class="active" data-i18n="nav-about">👤 Про автора</a>
                 </div>
             </div>
 
@@ -404,7 +405,16 @@
             </div>
 
             <hr />
-            <div class="footer"><a href="/" data-i18n="foot-home">← На головну</a> · <a href="/cat/">🐱</a></div>
+            <div class="footer">
+                <div class="footer-links">
+                    <a href="/" data-i18n="nav-home">🏠 Головна</a>
+                    <a href="/experimental" data-i18n="nav-exp">🧪 Експерименти</a>
+                    <a href="/misc" data-i18n="nav-misc">👀 Різне</a>
+                    <a href="/me" data-i18n="nav-about">👤 Про автора</a>
+                    <a href="/cat/">🐱</a>
+                    <a href="/pipes/">📺</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -417,8 +427,18 @@
 
     <script>
     window.PAGE_I18N = {
-      uk: { 'foot-home': '← На головну' },
-      en: { 'foot-home': '← Back to home' }
+      uk: {
+        'nav-home': '🏠 Головна',
+        'nav-exp': '🧪 Експерименти',
+        'nav-misc': '👀 Різне',
+        'nav-about': '👤 Про автора'
+      },
+      en: {
+        'nav-home': '🏠 Home',
+        'nav-exp': '🧪 Experimental',
+        'nav-misc': '👀 Misc',
+        'nav-about': '👤 About'
+      }
     };
     </script>
     <script src="/assets/js/common.js"></script>
