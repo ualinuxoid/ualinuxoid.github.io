@@ -205,7 +205,7 @@
 
 <div id="main-content">
 <div class="header">
-    <h1 data-i18n="page-title">🧪 Experimental</h1>
+    <h1 data-i18n="page-title">🧪 Експерименти</h1>
     <div class="header-bar">
         <div class="header-controls">
             <div class="lang-switch" role="group" aria-label="Language">
@@ -217,10 +217,10 @@
             <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
         </div>
         <div class="nav">
-            <a href="/" data-i18n="nav-home">🏠 Home</a>
-            <a href="/experimental" class="active" data-i18n="nav-exp">🧪 Experimental</a>
-            <a href="/misc" data-i18n="nav-misc">👀 Misc</a>
-            <a href="/me" data-i18n="nav-about">👤 About</a>
+            <a href="/" data-i18n="nav-home">🏠 Головна</a>
+            <a href="/experimental" class="active" data-i18n="nav-exp">🧪 Експерименти</a>
+            <a href="/misc" data-i18n="nav-misc">👀 Різне</a>
+            <a href="/me" data-i18n="nav-about">👤 Про автора</a>
         </div>
     </div>
 </div>
@@ -372,7 +372,14 @@
 
 <div class="donate-box">💙💛 <strong>Створено з гордістю в Україні 🇺🇦</strong><br />Якщо маєте змогу, задонатьте на <a href="https://war.ukraine.ua" target="_blank" rel="noopener">українських захисників</a>.</div>
 <hr>
-<div class="footer"><div class="footer-links"><a href="/" data-i18n="foot-home">← На головну</a><a href="/cat/">🐱</a></div></div>
+<div class="footer"><div class="footer-links">
+<a href="/" data-i18n="nav-home">🏠 Головна</a>
+<a href="/experimental" data-i18n="nav-exp">🧪 Експерименти</a>
+<a href="/misc" data-i18n="nav-misc">👀 Різне</a>
+<a href="/me" data-i18n="nav-about">👤 Про автора</a>
+<a href="/cat/">🐱</a>
+<a href="/pipes/">📺</a>
+</div></div>
 </div>
 
 <div class="lang-block" data-lang="en">
@@ -522,15 +529,34 @@
 
 <div class="donate-box">💙💛 <strong>Proudly created in Ukraine 🇺🇦</strong><br />If you can, please donate to <a href="https://war.ukraine.ua" target="_blank" rel="noopener">Ukrainian defenders</a>.</div>
 <hr>
-<div class="footer"><div class="footer-links"><a href="/" data-i18n="foot-home">← Home</a><a href="/cat/">🐱</a></div></div>
+<div class="footer"><div class="footer-links">
+<a href="/" data-i18n="nav-home">🏠 Home</a>
+<a href="/experimental" data-i18n="nav-exp">🧪 Experimental</a>
+<a href="/misc" data-i18n="nav-misc">👀 Misc</a>
+<a href="/me" data-i18n="nav-about">👤 About</a>
+<a href="/cat/">🐱</a>
+<a href="/pipes/">📺</a>
+</div></div>
 </div>
 </div>
 </div>
 
 <script>
 window.PAGE_I18N = {
-  uk: { 'nav-home':'🏠 Home','nav-exp':'🧪 Experimental','nav-misc':'👀 Misc','nav-about':'👤 About','page-title':'🧪 Experimental','foot-home':'← На головну' },
-  en: { 'nav-home':'🏠 Home','nav-exp':'🧪 Experimental','nav-misc':'👀 Misc','nav-about':'👤 About','page-title':'🧪 Experimental','foot-home':'← Home' }
+  uk: {
+    'nav-home': '🏠 Головна',
+    'nav-exp': '🧪 Експерименти',
+    'nav-misc': '👀 Різне',
+    'nav-about': '👤 Про автора',
+    'page-title': '🧪 Експерименти'
+  },
+  en: {
+    'nav-home': '🏠 Home',
+    'nav-exp': '🧪 Experimental',
+    'nav-misc': '👀 Misc',
+    'nav-about': '👤 About',
+    'page-title': '🧪 Experimental'
+  }
 };
 </script>
 <script src="/assets/js/common.js"></script>
