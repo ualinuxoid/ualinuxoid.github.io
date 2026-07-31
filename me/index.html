@@ -68,15 +68,15 @@
         }
         .lang-btn:active { transform: scale(0.94); }
         .lang-btn.active { background: var(--card); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .theme-toggle, .cat-btn {
+        .theme-toggle {
             background: none; border: none; font-size: 1.3rem; cursor: pointer;
             padding: 4px 8px; border-radius: 30px; text-decoration: none;
             display: inline-flex; align-items: center; justify-content: center;
             transition: transform 0.12s, background 0.15s;
         }
-        .theme-toggle:hover, .cat-btn:hover { background: rgba(0,0,0,0.06); transform: scale(1.08); }
-        .theme-toggle:active, .cat-btn:active { transform: scale(0.9); }
-        body.dark .theme-toggle:hover, body.dark .cat-btn:hover { background: rgba(255,255,255,0.08); }
+        .theme-toggle:hover { background: rgba(0,0,0,0.06); transform: scale(1.08); }
+        .theme-toggle:active { transform: scale(0.9); }
+        body.dark .theme-toggle:hover { background: rgba(255,255,255,0.08); }
         .lang-block { display: none; }
         .lang-block.active { display: block; }
         .profile { display: flex; align-items: center; gap: 22px; margin-bottom: 22px; }
@@ -323,8 +323,6 @@
                         <button class="lang-btn active" data-lang="uk" type="button">🇺🇦 Укр</button>
                         <button class="lang-btn" data-lang="en" type="button">🇬🇧 Eng</button>
                     </div>
-                    <a class="cat-btn" href="/cat/" title="🐱" aria-label="Cat easter egg">🐱</a>
-                    <a class="cat-btn" href="/pipes/" title="📺" aria-label="Pipes screensaver">📺</a>
                     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
                 </div>
                 <div class="nav">
@@ -332,6 +330,8 @@
                     <a href="/experimental" data-i18n="nav-exp">🧪 Експерименти</a>
                     <a href="/misc" data-i18n="nav-misc">👀 Різне</a>
                     <a href="/me" class="active" data-i18n="nav-about">👤 Про автора</a>
+                    <a href="/cat/" title="🐱" aria-label="Cat easter egg">🐱</a>
+                    <a href="/pipes/" title="📺" aria-label="Pipes screensaver">📺</a>
                 </div>
             </div>
 
