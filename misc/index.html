@@ -253,61 +253,11 @@
 </div>
 
 <script>
-(function(){
-const I18N = {
+window.PAGE_I18N = {
   uk: { 'nav-home':'🏠 Home','nav-exp':'🧪 Experimental','nav-misc':'👀 Misc','nav-about':'👤 About','page-title':'👀 Misc','foot-home':'← На головну' },
   en: { 'nav-home':'🏠 Home','nav-exp':'🧪 Experimental','nav-misc':'👀 Misc','nav-about':'👤 About','page-title':'👀 Misc','foot-home':'← Home' }
 };
-const PHRASES = [
-  'I lost count how many times your oil infrastructure was on fire',
-  'Your warship drowned, so be you',
-  'Who gave you access to VPN?',
-  'Did you know, that internet was invented in USA? Why are you using western technology?!',
-  'What are you doing here? All vodka jars are empty?',
-  'You should get a new "skrepi". Wait a second... Wildberries on fire!'
-];
-const RU_TZ = new Set(['Europe/Kaliningrad','Europe/Moscow','Europe/Samara','Asia/Yekaterinburg','Asia/Omsk','Asia/Krasnoyarsk','Asia/Novosibirsk','Asia/Barnaul','Asia/Tomsk','Asia/Novokuznetsk','Asia/Irkutsk','Asia/Chita','Asia/Yakutsk','Asia/Khandyga','Asia/Vladivostok','Asia/Ust-Nera','Asia/Magadan','Asia/Sakhalin','Asia/Srednekolymsk','Asia/Kamchatka','Asia/Anadyr']);
-function isRuLanguageTag(tag){if(!tag||typeof tag!=='string')return false;return /^ru([-_]|$)/i.test(tag.trim());}
-function signalsSuggestRussian(){try{const langs=Array.isArray(navigator.languages)&&navigator.languages.length?navigator.languages:[navigator.language||''];const primary=(langs[0]||'').trim();const hasRuPrimary=isRuLanguageTag(primary);const ruCount=langs.filter(isRuLanguageTag).length;const strongLang=hasRuPrimary||ruCount>=2;let tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';}catch(_){}const hasRuTz=RU_TZ.has(tz);let intlLoc='';try{intlLoc=Intl.DateTimeFormat().resolvedOptions().locale||'';}catch(_){}const hasRuIntl=isRuLanguageTag(intlLoc);return hasRuPrimary||(hasRuTz&&(ruCount>0||hasRuIntl))||(strongLang&&hasRuIntl);}catch(_){return false;}}
-
-const ruBlock=document.getElementById('ru-block');
-const mainContent=document.getElementById('main-content');
-const phraseEl=document.getElementById('ru-phrase');
-if(phraseEl) phraseEl.textContent = PHRASES[Math.floor(Math.random()*PHRASES.length)];
-const unlocked = localStorage.getItem('ua_unlocked') === '1';
-if(signalsSuggestRussian() && !unlocked){
-  ruBlock.classList.add('ru-visible'); ruBlock.setAttribute('aria-hidden','false');
-  mainContent.classList.add('ru-hidden'); document.body.style.overflow='hidden';
-}
-const notRuBtn=document.getElementById('not-ru-btn'), proveBox=document.getElementById('ru-prove');
-const input=document.getElementById('ru-input'), submit=document.getElementById('ru-submit');
-const hintBtn=document.getElementById('ru-hint-btn'), hintText=document.getElementById('ru-hint-text');
-const errorEl=document.getElementById('ru-error');
-function unlock(){ localStorage.setItem('ua_unlocked','1'); ruBlock.classList.remove('ru-visible'); ruBlock.setAttribute('aria-hidden','true'); mainContent.classList.remove('ru-hidden'); document.body.style.overflow=''; }
-if(notRuBtn) notRuBtn.addEventListener('click',()=>{ notRuBtn.style.display='none'; proveBox.classList.add('visible'); input.focus(); });
-if(hintBtn) hintBtn.addEventListener('click',()=> hintText.classList.toggle('visible'));
-function checkAnswer(){ const val=(input.value||'').trim().toLowerCase(); if(val==='слава україні'||val==='glory to ukraine') unlock(); else { errorEl.classList.add('visible'); input.value=''; input.focus(); setTimeout(()=>errorEl.classList.remove('visible'),2000); } }
-if(submit) submit.addEventListener('click', checkAnswer);
-if(input) input.addEventListener('keydown', e=>{ if(e.key==='Enter') checkAnswer(); });
-
-const langBtns=document.querySelectorAll('.lang-btn');
-const langBlocks=document.querySelectorAll('.lang-block');
-function applyI18n(lang){
-  const t=I18N[lang]||I18N.uk;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(t[k]) el.textContent=t[k]; });
-}
-function setLang(lang){
-  langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
-  langBlocks.forEach(block=>block.classList.toggle('active',block.dataset.lang===lang));
-  document.documentElement.lang=lang==='uk'?'uk':'en';
-  applyI18n(lang);
-}
-langBtns.forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.lang)));
-const themeToggle=document.getElementById('themeToggle');
-if(localStorage.getItem('theme')==='dark') document.body.classList.add('dark');
-themeToggle.addEventListener('click',()=>{ document.body.classList.toggle('dark'); localStorage.setItem('theme', document.body.classList.contains('dark')?'dark':'light'); });
-applyI18n('uk');
-})();
 </script>
+<script src="/assets/js/common.js"></script>
 </body>
 </html>
