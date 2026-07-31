@@ -8,3 +8,8 @@ Personal site for **[Lintweak](https://codeberg.org/ualinuxoid/lintweak)** — s
 
 Donate to Ukrainian defenders:
 [war.ukraine.ua](https://war.ukraine.ua) · [savelife.in.ua](https://savelife.in.ua)
+
+## License
+
+This project is licensed under the **GNU Affero General Public License v3.0** (AGPL-3.0).
+See [LICENSE](LICENSE) for the full text.
