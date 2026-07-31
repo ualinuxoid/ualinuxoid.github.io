@@ -225,9 +225,10 @@
         .links a:active { opacity: 0.7; }
         hr { border: none; border-top: 2px dashed var(--border); margin: 24px 0 12px; }
         .footer { text-align: center; font-size: 0.85rem; color: var(--muted); }
-        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; }
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin-bottom: 10px; }
         .footer-links a { color: var(--muted); font-weight: 500; }
         .footer-links a:hover { color: var(--accent); }
+        .footer-tagline { font-size: 0.82rem; color: var(--muted); opacity: 0.85; }
 
         .avatar-modal {
             position: fixed; inset: 0; z-index: 10000;
@@ -414,6 +415,7 @@
                     <a href="/cat/">🐱</a>
                     <a href="/pipes/">📺</a>
                 </div>
+                <div class="footer-tagline" data-i18n="foot-tag">Lintweak — простота та приватність у Linux</div>
             </div>
         </div>
     </div>
@@ -431,13 +433,15 @@
         'nav-home': '🏠 Головна',
         'nav-exp': '🧪 Експерименти',
         'nav-misc': '👀 Різне',
-        'nav-about': '👤 Про автора'
+        'nav-about': '👤 Про автора',
+        'foot-tag': 'Lintweak — простота та приватність у Linux'
       },
       en: {
         'nav-home': '🏠 Home',
         'nav-exp': '🧪 Experimental',
         'nav-misc': '👀 Misc',
-        'nav-about': '👤 About'
+        'nav-about': '👤 About',
+        'foot-tag': 'Lintweak — simplicity and privacy on Linux'
       }
     };
     </script>
