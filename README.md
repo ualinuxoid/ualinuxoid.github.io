@@ -4,17 +4,6 @@ Personal site for **[Lintweak](https://codeberg.org/ualinuxoid/lintweak)** — s
 
 *Live:* [ualinuxoid.github.io](https://ualinuxoid.github.io)
 
-**What’s here**
-
-- Website containing one-liner installers for my scripts
-- Experimental tools
-- [🐱](https://ualinuxoid.github.io/cat/)
-
-**Source of scripts**
-
-Original scripts live on **Codeberg**: [codeberg.org/ualinuxoid/lintweak](https://codeberg.org/ualinuxoid/lintweak)  
-GitHub is a mirror only: [github.com/ualinuxoid/lintweak](https://github.com/ualinuxoid/lintweak)
-
 **Proudly created in Ukraine 🇺🇦**
 
 Donate to Ukrainian defenders:
