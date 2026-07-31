@@ -96,9 +96,10 @@
         .donate-box { background: var(--warn-bg); border-left: 5px solid var(--warn-border); padding: 14px 18px; border-radius: 12px; margin: 24px 0 10px; }
         hr { border: none; border-top: 2px dashed var(--border); margin: 24px 0 16px; }
         .footer { text-align: center; font-size: 0.85rem; color: var(--muted); }
-        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; }
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin-bottom: 10px; }
         .footer-links a { color: var(--muted); font-weight: 500; }
         .footer-links a:hover { color: var(--accent); }
+        .footer-tagline { font-size: 0.82rem; color: var(--muted); opacity: 0.85; }
         #ru-block {
             display: none; position: fixed; inset: 0; background: #0a0a0a; z-index: 9999;
             align-items: center; justify-content: center; padding: 24px; flex-direction: column; text-align: center;
@@ -217,15 +218,6 @@
 </div>
 
 <div class="donate-box">💙💛 <strong>Створено з гордістю в Україні 🇺🇦</strong><br />Якщо маєте змогу, задонатьте на <a href="https://war.ukraine.ua" target="_blank" rel="noopener">українських захисників</a>.</div>
-<hr>
-<div class="footer"><div class="footer-links">
-<a href="/" data-i18n="nav-home">🏠 Головна</a>
-<a href="/experimental" data-i18n="nav-exp">🧪 Експерименти</a>
-<a href="/misc" data-i18n="nav-misc">👀 Різне</a>
-<a href="/me" data-i18n="nav-about">👤 Про автора</a>
-<a href="/cat/">🐱</a>
-<a href="/pipes/">📺</a>
-</div></div>
 </div>
 
 <div class="lang-block" data-lang="en">
@@ -253,15 +245,19 @@
 </div>
 
 <div class="donate-box">💙💛 <strong>Proudly created in Ukraine 🇺🇦</strong><br />If you can, please donate to <a href="https://war.ukraine.ua" target="_blank" rel="noopener">Ukrainian defenders</a>.</div>
+</div>
+
 <hr>
-<div class="footer"><div class="footer-links">
-<a href="/" data-i18n="nav-home">🏠 Home</a>
-<a href="/experimental" data-i18n="nav-exp">🧪 Experimental</a>
-<a href="/misc" data-i18n="nav-misc">👀 Misc</a>
-<a href="/me" data-i18n="nav-about">👤 About</a>
-<a href="/cat/">🐱</a>
-<a href="/pipes/">📺</a>
-</div></div>
+<div class="footer">
+    <div class="footer-links">
+        <a href="/" data-i18n="nav-home">🏠 Головна</a>
+        <a href="/experimental" data-i18n="nav-exp">🧪 Експерименти</a>
+        <a href="/misc" data-i18n="nav-misc">👀 Різне</a>
+        <a href="/me" data-i18n="nav-about">👤 Про автора</a>
+        <a href="/cat/">🐱</a>
+        <a href="/pipes/">📺</a>
+    </div>
+    <div class="footer-tagline" data-i18n="foot-tag">Lintweak — простота та приватність у Linux</div>
 </div>
 </div>
 </div>
@@ -273,14 +269,16 @@ window.PAGE_I18N = {
     'nav-exp': '🧪 Експерименти',
     'nav-misc': '👀 Різне',
     'nav-about': '👤 Про автора',
-    'page-title': '👀 Різне'
+    'page-title': '👀 Різне',
+    'foot-tag': 'Lintweak — простота та приватність у Linux'
   },
   en: {
     'nav-home': '🏠 Home',
     'nav-exp': '🧪 Experimental',
     'nav-misc': '👀 Misc',
     'nav-about': '👤 About',
-    'page-title': '👀 Misc'
+    'page-title': '👀 Misc',
+    'foot-tag': 'Lintweak — simplicity and privacy on Linux'
   }
 };
 </script>
